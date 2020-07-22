@@ -1,5 +1,4 @@
 # models.node.py
-# cspell:ignore snmpinterfaces, ipinterfaces
 
 class assetRecord:
     def __init__(self, data):
