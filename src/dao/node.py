@@ -34,11 +34,6 @@ async def getNodes(api, id=None, limit=100) -> dict:
                 service = {}
                 for sr in sRecords['service']:
                     service[sr['id']] = models.node.service(sr)
-                ip[i['ipAddress']].service = service
-
-
-    #        if i.get('snmpInterface'):
-    #            ip[i['ipAddress']].snmpInterface = models.node.snmpInterface(i['snmpInterface'])
-                
+                ip[i['ipAddress']].service = service                
         devices[d['id']].ipInterface = ip
     return devices
