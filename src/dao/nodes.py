@@ -8,7 +8,7 @@ class Nodes():
     def __init__(self, api):
         self.api = api
     
-    async def getNodes(self, id=None, limit=100) -> dict:
+    async def getNodes(self, id=None, limit=10) -> dict:
         url = self.api.base_url + 'nodes'
         if id == None:
             records = await utils.http.getHttp(uri=f'{url}?limit={limit}', API=self.api)
@@ -21,23 +21,25 @@ class Nodes():
             devices[d['id']] = models.node.Node(d)
 
             sUrl= f"{url}/{d['id']}/snmpinterfaces"
-            records = await utils.http.getHttp(uri=sUrl, API=self.api)
+            snmpRecords = await utils.http.getHttp(uri=sUrl, API=self.api)
             snmp = {}
-            for s in records['snmpInterface']:
-                snmp[s['ifName']] = models.node.snmpInterface(s)
-            devices[d['id']].snmpInterface = snmp
+            if snmpRecords:
+                for s in snmpRecords['snmpInterface']:
+                    snmp[s['ifName']] = models.node.snmpInterface(s)
+                devices[d['id']].snmpInterface = snmp
 
             iUrl = f"{url}/{d['id']}/ipinterfaces"
-            records = await utils.http.getHttp(uri=iUrl, API=self.api)
+            ipRecords = await utils.http.getHttp(uri=iUrl, API=self.api)
             ip = {}
-            for i in records['ipInterface']:
-                ip[i['ipAddress']] = models.node.ipInterface(i)
-                srUrl = url + f"/{i['ipAddress']}/services"
-                sRecords = await utils.http.getHttp(uri=srUrl, API=self.api)
-                if sRecords:
-                    service = {}
-                    for sr in sRecords['service']:
-                        service[sr['id']] = models.node.service(sr)
-                    ip[i['ipAddress']].service = service                
-            devices[d['id']].ipInterface = ip
+            if ipRecords:
+                for i in ipRecords['ipInterface']:
+                    ip[i['ipAddress']] = models.node.ipInterface(i)
+                    srUrl = url + f"/{i['ipAddress']}/services"
+                    sRecords = await utils.http.getHttp(uri=srUrl, API=self.api)
+                    if sRecords:
+                        service = {}
+                        for sr in sRecords['service']:
+                            service[sr['id']] = models.node.service(sr)
+                        ip[i['ipAddress']].service = service                
+                devices[d['id']].ipInterface = ip
         return devices
