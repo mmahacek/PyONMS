@@ -1,4 +1,4 @@
-# local.py
+# config.py
 
 hostname='onms.server.hostname'
 username='onms_username'
