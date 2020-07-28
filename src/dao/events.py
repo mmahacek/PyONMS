@@ -8,8 +8,8 @@ class Events():
     def __init__(self, api):
         self.api = api
 
-    async def getEvents(self, id=None, limit=10) -> dict:
-        url = self.api.base_url + 'events'
+    async def get_events(self, id=None, limit=10) -> dict:
+        url = self.api.base_v2 + 'events'
         if id is None:
             records = await utils.http.get_http(uri=f'{url}?limit={limit}', API=self.api)
         else:

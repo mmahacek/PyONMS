@@ -15,7 +15,7 @@ async def get_http(uri, API):
             return json.loads(response)
 
 
-async def post_http(uri, API, headers, data=None, token=None, json=None):
+async def post_http(uri, API, headers, data=None, json=None):
     async with aiohttp.ClientSession(auth=API.auth) as session:
         if json:
             async with session.post(uri, headers=headers, json=json) as resp:

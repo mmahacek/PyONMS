@@ -9,7 +9,7 @@ class Alarms():
         self.api = api
 
     async def get_alarms(self, id=None, limit=10) -> dict:
-        url = self.api.base_url + 'alarms'
+        url = self.api.base_v2 + 'alarms'
         if id is None:
             records = await utils.http.get_http(uri=f'{url}?limit={limit}', API=self.api)
         else:

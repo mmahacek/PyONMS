@@ -11,7 +11,7 @@ import utils.http
 class Nodes():
     def __init__(self, api):
         self.api = api
-        self.url = self.api.base_url + 'nodes'
+        self.url = self.api.base_v2 + 'nodes'
 
     async def get_nodes(self, id=None, limit=10, batchSize=10) -> dict:
         """Get nodes from OpenNMS API
@@ -51,10 +51,10 @@ class Nodes():
                 if records['node'] == [None]:
                     break
         else:
-            records = await utils.http.get_http(uri=f'{self.url}/{id}', API=self.api)
+            record = await utils.http.get_http(uri=f'{self.url}/{id}', API=self.api)
             actualCount = 1
-            if records is not None:
-                newNode = await self.process_node(records)
+            if record is not None:
+                newNode = await self.process_node(record)
                 devices[newNode.id] = newNode
         return devices
 
