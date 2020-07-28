@@ -13,7 +13,7 @@ class Nodes():
         self.api = api
         self.url = self.api.base_url + 'nodes'
 
-    async def getNodes(self, id=None, limit=10, batchSize=10) -> dict:
+    async def get_nodes(self, id=None, limit=10, batchSize=10) -> dict:
         """Get nodes from OpenNMS API
 
         Args:
@@ -30,7 +30,7 @@ class Nodes():
         devices = {}
         offset = 0
         if id is None:
-            records = await utils.http.getHttp(uri=f'{self.url}?limit={batchSize}&offset={offset}', API=self.api)
+            records = await utils.http.get_http(uri=f'{self.url}?limit={batchSize}&offset={offset}', API=self.api)
             if records['node'] == [None]:
                 return None
             actualCount = records['totalCount']
@@ -42,27 +42,27 @@ class Nodes():
                 for node in records['node']:
                     if processed >= limit:
                         break
-                    newNode = await self.processNode(node)
+                    newNode = await self.process_node(node)
                     devices[int(newNode.id)] = newNode
                     processed += 1
                 if processed >= limit:
                     break
-                records = await utils.http.getHttp(uri=f'{self.url}?limit={batchSize}&offset={processed}', API=self.api)
+                records = await utils.http.get_http(uri=f'{self.url}?limit={batchSize}&offset={processed}', API=self.api)
                 if records['node'] == [None]:
                     break
         else:
-            records = await utils.http.getHttp(uri=f'{self.url}/{id}', API=self.api)
+            records = await utils.http.get_http(uri=f'{self.url}/{id}', API=self.api)
             actualCount = 1
             if records is not None:
-                newNode = await self.processNode(records)
+                newNode = await self.process_node(records)
                 devices[newNode.id] = newNode
         return devices
 
-    async def processNode(self, node):
+    async def process_node(self, node):
         newNode = models.node.Node(node)
 
         sUrl = f"{self.url}/{newNode.id}/snmpinterfaces"
-        snmpRecords = await utils.http.getHttp(uri=sUrl, API=self.api)
+        snmpRecords = await utils.http.get_http(uri=sUrl, API=self.api)
         snmp = {}
         if snmpRecords:
             for s in snmpRecords['snmpInterface']:
@@ -70,13 +70,13 @@ class Nodes():
             newNode.snmpInterface = snmp
 
         iUrl = f"{self.url}/{newNode.id}/ipinterfaces"
-        ipRecords = await utils.http.getHttp(uri=iUrl, API=self.api)
+        ipRecords = await utils.http.get_http(uri=iUrl, API=self.api)
         ip = {}
         if ipRecords:
             for i in ipRecords['ipInterface']:
                 ip[i['ipAddress']] = models.node.ipInterface(i)
                 srUrl = self.url + f"/{i['ipAddress']}/services"
-                sRecords = await utils.http.getHttp(uri=srUrl, API=self.api)
+                sRecords = await utils.http.get_http(uri=srUrl, API=self.api)
                 if sRecords:
                     service = {}
                     for sr in sRecords['service']:

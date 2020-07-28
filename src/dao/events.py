@@ -11,9 +11,9 @@ class Events():
     async def getEvents(self, id=None, limit=10) -> dict:
         url = self.api.base_url + 'events'
         if id is None:
-            records = await utils.http.getHttp(uri=f'{url}?limit={limit}', API=self.api)
+            records = await utils.http.get_http(uri=f'{url}?limit={limit}', API=self.api)
         else:
-            records = {'event': [await utils.http.getHttp(uri=f'{url}/{id}?limit={limit}', API=self.api)]}
+            records = {'event': [await utils.http.get_http(uri=f'{url}/{id}?limit={limit}', API=self.api)]}
         if records['event'] == [None]:
             return None
         events = {}

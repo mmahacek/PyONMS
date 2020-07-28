@@ -23,5 +23,5 @@ class Alarm:
     def __repr__(self):
         return self.uei
 
-    async def getNode(self, API):
-        return await nodes.getNodes(API, self.nodeId)
+    async def get_node(self, API):
+        return await nodes.get_nodes(API, self.nodeId)
