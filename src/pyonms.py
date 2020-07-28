@@ -1,7 +1,7 @@
 # pyonms.py
 
 from dao import api, alarms, events, nodes
-from aiohttp import BasicAuth
+
 
 class pyonms():
     def __init__(self, hostname, username, password):
