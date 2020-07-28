@@ -132,3 +132,5 @@ dmypy.json
 config.py
 test.py
 */test.py
+
+.vscode/
