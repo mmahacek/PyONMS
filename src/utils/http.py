@@ -4,7 +4,7 @@ import json
 import aiohttp
 
 
-async def getHttp(uri, API):
+async def get_http(uri, API):
     async with aiohttp.ClientSession(auth=API.auth) as session:
         async with session.get(uri, headers=API.headers) as resp:
             response = await resp.text()
@@ -15,7 +15,7 @@ async def getHttp(uri, API):
             return json.loads(response)
 
 
-async def postHttp(uri, API, headers, data=None, token=None, json=None):
+async def post_http(uri, API, headers, data=None, json=None):
     async with aiohttp.ClientSession(auth=API.auth) as session:
         if json:
             async with session.post(uri, headers=headers, json=json) as resp:

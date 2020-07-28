@@ -1,7 +1,7 @@
 # models.events.py
 
 
-class Parameter:
+class Parameter():
     def __init__(self, data):
         for key in data.keys():
             setattr(self, key, data[key])
@@ -10,7 +10,7 @@ class Parameter:
         return f'{self.value}'
 
 
-class Event:
+class Event():
     def __init__(self, data):
         for key in data.keys():
             setattr(self, key, data[key])

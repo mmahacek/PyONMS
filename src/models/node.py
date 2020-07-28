@@ -7,7 +7,7 @@
 """
 
 
-class assetRecord:
+class assetRecord():
     def __init__(self, data):
         for key in data.keys():
             setattr(self, key, data[key])
@@ -16,7 +16,7 @@ class assetRecord:
 #        return self.label
 
 
-class snmpInterface:
+class snmpInterface():
     def __init__(self, data):
         for key in data.keys():
             setattr(self, key, data[key])
@@ -25,7 +25,7 @@ class snmpInterface:
         return self.ifAlias
 
 
-class ipInterface:
+class ipInterface():
     def __init__(self, data):
         for key in data.keys():
             setattr(self, key, data[key])
@@ -36,7 +36,7 @@ class ipInterface:
         return self.ipAddress
 
 
-class serviceType:
+class serviceType():
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']
@@ -45,7 +45,7 @@ class serviceType:
         return self.name
 
 
-class service:
+class service():
     def __init__(self, data):
         for key in data.keys():
             setattr(self, key, data[key])
@@ -55,7 +55,7 @@ class service:
         return self.serviceType.name
 
 
-class Node:
+class Node():
     def __init__(self, data):
         for key in data.keys():
             setattr(self, key, data[key])
