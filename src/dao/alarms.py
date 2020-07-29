@@ -22,7 +22,7 @@ class Alarms(Endpoint):
         else:
             record = await utils.http.get_http(uri=f'{self.url}/{id}', API=self.api)
             if record is not None:
-                newEvent = await self.process_event(record)
+                newEvent = await self.process_alarm(record)
                 alarms[newEvent.id] = newEvent
         return alarms
 

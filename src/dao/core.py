@@ -30,4 +30,5 @@ class Endpoint():
             records = await utils.http.get_http(uri=f'{url}?limit={batchSize}&offset={processed}', API=api)
             if records[endpoint] == [None]:
                 break
+        print(processed)
         return result

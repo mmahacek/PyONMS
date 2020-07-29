@@ -21,10 +21,10 @@ if __name__ == "__main__":
     print(f'\nDevices found: {len(devices)}')
     print(devices)
 
-    events = asyncio.run(myServer.events.get_events())
+    events = asyncio.run(myServer.events.get_events(limit=50, batchSize=25))
     print(f'\nEvents found: {len(events)}')
     print(events)
 
-    alarms = asyncio.run(myServer.alarms.get_alarms())
+    alarms = asyncio.run(myServer.alarms.get_alarms(limit=50, batchSize=25))
     print(f'\nAlarms found: {len(alarms)}')
     print(alarms)
