@@ -3,12 +3,12 @@
 
 """Data Access Object for dealing with Node objects
 """
-
+from dao.core import Endpoint
 import models.node
 import utils.http
 
 
-class Nodes():
+class Nodes(Endpoint):
     def __init__(self, api):
         self.api = api
         self.url = self.api.base_v2 + 'nodes'
@@ -28,31 +28,15 @@ class Nodes():
             dict: Dictionary of Node objects
         """
         devices = {}
-        offset = 0
         if id is None:
-            records = await utils.http.get_http(uri=f'{self.url}?limit={batchSize}&offset={offset}', API=self.api)
-            if records['node'] == [None]:
+            records = await self.get_data(api=self.api, url=self.url, endpoint='node', limit=limit, batchSize=batchSize)
+            if records == [None]:
                 return None
-            actualCount = records['totalCount']
-            if limit == 0 or limit is None:
-                limit = actualCount
-            processed = 0
-            while (actualCount - processed) > 0:
-                print(processed)
-                for node in records['node']:
-                    if processed >= limit:
-                        break
-                    newNode = await self.process_node(node)
-                    devices[int(newNode.id)] = newNode
-                    processed += 1
-                if processed >= limit:
-                    break
-                records = await utils.http.get_http(uri=f'{self.url}?limit={batchSize}&offset={processed}', API=self.api)
-                if records['node'] == [None]:
-                    break
+            for record in records:
+                newNode = await self.process_node(record)
+                devices[int(newNode.id)] = newNode
         else:
             record = await utils.http.get_http(uri=f'{self.url}/{id}', API=self.api)
-            actualCount = 1
             if record is not None:
                 newNode = await self.process_node(record)
                 devices[newNode.id] = newNode
