@@ -6,7 +6,6 @@
 """
 
 from pyonms import pyonms
-import asyncio
 import config
 
 myServer = pyonms(
@@ -17,14 +16,16 @@ myServer = pyonms(
 
 
 if __name__ == "__main__":
-    devices = asyncio.run(myServer.nodes.get_nodes(limit=50, batchSize=25))
+    devices = myServer.nodes.get_nodes(limit=10, batchSize=2)
     print(f'\nDevices found: {len(devices)}')
     print(devices)
 
-    events = asyncio.run(myServer.events.get_events(limit=50, batchSize=25))
-    print(f'\nEvents found: {len(events)}')
-    print(events)
+    # events = myServer.events.get_events(limit=50, batchSize=25)
+    # print(f'\nEvents found: {len(events)}')
+    # print(events)
 
-    alarms = asyncio.run(myServer.alarms.get_alarms(limit=50, batchSize=25))
-    print(f'\nAlarms found: {len(alarms)}')
-    print(alarms)
+    #alarms = myServer.alarms.get_alarms(limit=50, batchSize=25)
+    #print(f'\nAlarms found: {len(alarms)}')
+    #for alarm in alarms:
+    #    print(alarm)
+    print('done')
