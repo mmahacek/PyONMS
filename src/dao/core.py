@@ -14,7 +14,7 @@ class Endpoint():
         if records[endpoint] == [None]:
             return None
         actualCount = records['totalCount']
-        if limit == 0 or limit is None:
+        if limit in [0, None, False]:
             limit = actualCount
         processed = 0
         print(processed)
