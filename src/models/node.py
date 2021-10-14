@@ -65,4 +65,4 @@ class Node():
             setattr(self, 'categories', [id['name'] for id in data['categories']])
 
     def __repr__(self):
-        return self.label
+        return str(self.label)

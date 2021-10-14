@@ -21,7 +21,7 @@ class Alarm():
             self.isAcknowledged = False
 
     def __repr__(self):
-        return self.uei
+        return self.reductionKey
 
-    async def get_node(self, API):
-        return await nodes.get_nodes(API, self.nodeId)
+    def get_node(self, API):
+        return nodes.get_nodes(API, self.nodeId)

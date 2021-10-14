@@ -7,14 +7,14 @@ class Endpoint():
     def __init__(self) -> None:
         pass
 
-    async def get_data(self, api, url, endpoint, limit, batchSize) -> list:
+    def get_data(self, api, url, endpoint, limit, batchSize) -> list:
         offset = 0
         result = []
-        records = await utils.http.get_http(uri=f'{url}?limit={batchSize}&offset={offset}', API=api)
+        records = utils.http.get_http(uri=f'{url}?limit={batchSize}&offset={offset}', API=api)
         if records[endpoint] == [None]:
             return None
         actualCount = records['totalCount']
-        if limit == 0 or limit is None:
+        if limit in [0, None, False]:
             limit = actualCount
         processed = 0
         print(processed)
@@ -27,8 +27,8 @@ class Endpoint():
             print(processed)
             if processed >= limit:
                 break
-            records = await utils.http.get_http(uri=f'{url}?limit={batchSize}&offset={processed}', API=api)
-            if records[endpoint] == [None]:
-                break
+            records = utils.http.get_http(uri=f'{url}?limit={batchSize}&offset={processed}', API=api)
+#            if records[endpoint] == [None]:
+#                break
         print(processed)
         return result
