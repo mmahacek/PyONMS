@@ -59,7 +59,7 @@ class Nodes(Endpoint):
         if ipRecords:
             for i in ipRecords['ipInterface']:
                 ip[i['ipAddress']] = models.node.ipInterface(i)
-                srUrl = self.url + f"/{i['ipAddress']}/services"
+                srUrl = f"{self.url}/{newNode.id}/ipinterfaces/{i['ipAddress']}/services"
                 sRecords = utils.http.get_http(uri=srUrl, API=self.api)
                 if sRecords:
                     service = {}
