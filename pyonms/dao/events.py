@@ -2,6 +2,7 @@
 
 from pyonms.dao.api import Endpoint
 import pyonms.models.event
+import pyonms.models.node
 
 
 class EventAPI(Endpoint):

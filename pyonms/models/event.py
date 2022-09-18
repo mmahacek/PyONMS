@@ -1,5 +1,7 @@
 # models.event.py
 
+import pyonms.dao.nodes
+
 
 class Event_Parameter:
     def __init__(self, data):
@@ -7,7 +9,7 @@ class Event_Parameter:
             setattr(self, key, value)
 
     def __repr__(self):
-        return f"{self.value}"
+        return f"< EventParameter: {self.value} >"
 
 
 class Event:
@@ -20,4 +22,4 @@ class Event:
             ]
 
     def __repr__(self):
-        return self.uei
+        return f"< Event {self.id}: {self.uei} >"

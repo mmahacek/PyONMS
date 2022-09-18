@@ -23,7 +23,4 @@ class Alarm:
             self.isAcknowledged = False
 
     def __repr__(self):
-        return self.reductionKey
-
-    def get_node(self):
-        return pyonms.dao.nodes.get_node(self.nodeId)
+        return f"< Alarm {self.id}: {self.reductionKey} >"

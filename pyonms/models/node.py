@@ -6,9 +6,8 @@ class assetRecord:
         for key, value in data.items():
             setattr(self, key, value)
 
-
-#    def __repr__(self):
-#        return self.label
+    # def __repr__(self):
+    #    return self.label
 
 
 class snmpInterface:
@@ -17,7 +16,7 @@ class snmpInterface:
             setattr(self, key, value)
 
     def __repr__(self):
-        return self.ifAlias
+        return f"< SnmpInterface {self.id}: {self.ifAlias} >"
 
 
 class ipInterface:
@@ -30,7 +29,7 @@ class ipInterface:
             self.snmpInterface = snmpInterface(data["snmpInterface"])
 
     def __repr__(self):
-        return self.ipAddress
+        return f"< IP {self.id}: {self.ipAddress} >"
 
 
 class serviceType:
@@ -39,7 +38,7 @@ class serviceType:
         self.name = data["name"]
 
     def __repr__(self):
-        return self.name
+        return f"< ServiceType {self.id}: {self.name} >"
 
 
 class service:
@@ -49,7 +48,7 @@ class service:
         self.serviceType = serviceType(data["serviceType"])
 
     def __repr__(self):
-        return self.serviceType.name
+        return f"< Service {self.id}: {self.name} >"
 
 
 class metadata:
@@ -59,7 +58,7 @@ class metadata:
         self.value = value
 
     def __repr__(self):
-        return f"{self.context}:{self.key}:{self.value}"
+        return f"< Metadata: {self.context}:{self.key}:{self.value} >"
 
 
 class Node:
@@ -74,4 +73,4 @@ class Node:
             self.categories = [id["name"] for id in data["categories"]]
 
     def __repr__(self):
-        return str(self.label)
+        return f"< Node {self.id}: {self.label} >"
