@@ -1,3 +1,4 @@
-aiohttp
-pip
-wheel
+requests
+python-dotenv
+pytest
+pytest-vcr
