@@ -3,8 +3,7 @@
 # cspell:ignore snmpinterfaces, ipinterfaces
 
 
-import ipaddress
-from pyonms.dao.api import Endpoint
+from pyonms.dao import Endpoint
 import pyonms.models.node
 
 

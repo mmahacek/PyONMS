@@ -1,6 +1,6 @@
 # dao.alarms.py
 
-from pyonms.dao.api import Endpoint
+from pyonms.dao import Endpoint
 import pyonms.models.alarm
 
 

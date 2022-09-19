@@ -1,6 +1,6 @@
 # dao.events.py
 
-from pyonms.dao.api import Endpoint
+from pyonms.dao import Endpoint
 import pyonms.models.event
 import pyonms.models.node
 
