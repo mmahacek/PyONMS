@@ -28,20 +28,15 @@ class Endpoint:
         if limit in [0, None, False]:
             limit = actualCount
         processed = 0
-        print(processed)
         while (actualCount - processed) > 0:
             for record in records[endpoint]:
                 if processed >= limit:
                     break
                 result.append(record)
                 processed += 1
-            print(processed)
             if processed >= limit:
                 break
             records = self._get(uri=f"{url}?limit={batchSize}&offset={processed}")
-        #            if records[endpoint] == [None]:
-        #                break
-        print(processed)
         return result
 
     def _get(self, uri: str) -> dict:
