@@ -31,4 +31,4 @@ class AlarmAPI(Endpoint):
         return alarms
 
     def process_alarm(self, alarm):
-        return pyonms.models.alarm.Alarm(alarm)
+        return pyonms.models.alarm.Alarm(**alarm)

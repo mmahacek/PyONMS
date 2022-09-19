@@ -2,6 +2,8 @@
 
 # cspell:ignore snmpinterfaces, ipinterfaces
 
+
+import ipaddress
 from pyonms.dao.api import Endpoint
 import pyonms.models.node
 
@@ -32,37 +34,45 @@ class NodeAPI(Endpoint):
             devices.append(self.process_node(record))
         return devices
 
-    def process_node(self, node):
-        newNode = pyonms.models.node.Node(node)
-
-        sUrl = f"{self.url}/{newNode.id}/snmpinterfaces"
-        snmpRecords = self._get(uri=sUrl)
-        snmp = {}
+    def get_node_snmpinterfaces(self, node_id: int) -> list:
+        interfaces = []
+        snmpRecords = self._get(uri=f"{self.url}/{node_id}/snmpinterfaces")
         if snmpRecords:
             for s in snmpRecords["snmpInterface"]:
-                snmp[s["ifName"]] = pyonms.models.node.snmpInterface(s)
-            newNode.snmpInterface = snmp
+                interfaces.append(pyonms.models.node.SnmpInterface(**s))
+        return interfaces
 
-        iUrl = f"{self.url}/{newNode.id}/ipinterfaces"
-        ipRecords = self._get(uri=iUrl)
-        ip = {}
+    def get_node_ip_addresses(self, node_id: int) -> list:
+        ip_addresses = []
+        ipRecords = self._get(uri=f"{self.url}/{node_id}/ipinterfaces")
         if ipRecords:
             for i in ipRecords["ipInterface"]:
-                ip[i["ipAddress"]] = pyonms.models.node.ipInterface(i)
-                srUrl = (
-                    f"{self.url}/{newNode.id}/ipinterfaces/{i['ipAddress']}/services"
-                )
-                sRecords = self._get(uri=srUrl)
-                if sRecords:
-                    service = {}
-                    for sr in sRecords["service"]:
-                        service[sr["id"]] = pyonms.models.node.service(sr)
-                    ip[i["ipAddress"]].service = service
-            newNode.ipInterface = ip
-        metadata = {}
-        mUrl = f"{self.url}/{newNode.id}/metadata"
-        mRecords = self._get(uri=mUrl)
-        newNode.metadata = []
+                ip = pyonms.models.node.IPInterface(**i)
+                ip.services = self.get_node_ip_services(node_id, ip.ipAddress)
+                ip_addresses.append(ip)
+        return ip_addresses
+
+    def get_node_ip_services(self, node_id: int, ip_address: str) -> list:
+        services = []
+        sRecords = self._get(
+            uri=f"{self.url}/{node_id}/ipinterfaces/{ip_address}/services"
+        )
+        if sRecords:
+            for sr in sRecords["service"]:
+                services.append(pyonms.models.node.Service(**sr))
+        return services
+
+    def get_node_metadata(self, node_id: int) -> list:
+        metadata = []
+        mRecords = self._get(uri=f"{self.url}/{node_id}/metadata")
         for record in mRecords["metaData"]:
-            newNode.metadata.append(pyonms.models.node.metadata(**record))
-        return newNode
+            metadata.append(pyonms.models.node.Metadata(**record))
+        return metadata
+
+    def process_node(self, data):
+        node = pyonms.models.node.Node(**data)
+        node.snmpInterfaces = self.get_node_snmpinterfaces(node.id)
+        node.ipInterfaces = self.get_node_ip_addresses(node.id)
+        node.metadata = self.get_node_metadata(node.id)
+
+        return node

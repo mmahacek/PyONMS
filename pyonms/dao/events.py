@@ -32,4 +32,4 @@ class EventAPI(Endpoint):
         return events
 
     def process_event(self, event):
-        return pyonms.models.event.Event(event)
+        return pyonms.models.event.Event(**event)
