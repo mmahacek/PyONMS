@@ -1,9 +1,10 @@
 # models.event.py
 
 
-from enum import Enum
-from typing import Union
 from dataclasses import dataclass, field
+from datetime import datetime
+from enum import Enum
+from typing import List, Union
 
 from pyonms.models.node import ServiceType
 from pyonms.utils import convert_time
@@ -31,14 +32,14 @@ class Event:
     id: int
     uei: str
     label: str
-    time: int
+    time: datetime
     source: str
-    createTime: int
+    createTime: datetime
     description: str
     logMessage: str
-    severity: str
-    log: str
-    display: str
+    severity: Severity
+    log: bool
+    display: bool
     location: str
     nodeId: int = None
     nodeLabel: str = None
@@ -48,8 +49,8 @@ class Event:
     snmp: str = None
     snmpHost: str = None
     ifIndex: int = None
-    parameters: dict = field(default_factory=dict)
-    serviceType: dict = field(default_factory=dict)
+    parameters: List[Union[EventParameter, None]] = field(default_factory=dict)
+    serviceType: ServiceType = field(default_factory=dict)
 
     def __post_init__(self):
         self.time = convert_time(self.time)

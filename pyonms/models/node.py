@@ -1,7 +1,10 @@
 # models.node.py
 
 from dataclasses import dataclass, field
+from datetime import datetime
 from enum import Enum
+from typing import List, Union
+
 from pyonms.utils import convert_time
 
 
@@ -100,16 +103,42 @@ class AssetRecord:
         return f"AssetRecord(id={self.id})"
 
 
+@dataclass
+class ServiceType:
+    id: int
+    name: str
+
+
+@dataclass
+class Service:
+    id: int
+    notify: str
+    status: str
+    qualifier: str
+    down: bool
+    source: str
+    serviceType: ServiceType
+    ipInterfaceId: int
+    statusLong: str
+    lastFail: datetime
+    lastGood: datetime
+
+    def __post_init__(self):
+        self.serviceType = ServiceType(**self.serviceType)
+        self.lastFail = convert_time(self.lastFail)
+        self.lastGood = convert_time(self.lastGood)
+
+
 @dataclass(repr=False)
 class SnmpInterface:
     id: int
     hasFlows: bool
     hasIngressFlows: bool
     hasEgressFlows: bool
-    lastIngressFlow: int
-    lastEgressFlow: int
+    lastIngressFlow: datetime
+    lastEgressFlow: datetime
     ifType: int
-    lastCapsdPoll: int
+    lastCapsdPoll: datetime
     ifAlias: str
     ifIndex: int
     ifDescr: str
@@ -118,7 +147,7 @@ class SnmpInterface:
     ifSpeed: int
     ifAdminStatus: int
     ifOperStatus: int
-    lastSnmpPoll: int
+    lastSnmpPoll: datetime
     collectionUserSpecified: bool
     collectFlag: str
     pollFlag: str
@@ -142,15 +171,15 @@ class IPInterface:
     isDown: bool
     nodeId: int
     ifIndex: int
-    lastEgressFlow: int
-    lastIngressFlow: int
+    lastEgressFlow: datetime
+    lastIngressFlow: datetime
     monitoredServiceCount: int
     ipAddress: str
     snmpPrimary: str
     isManaged: str
-    lastCapsdPoll: int = None
-    snmpInterface: dict = field(default_factory=dict)
-    services: list = field(default_factory=list)
+    lastCapsdPoll: int = datetime
+    snmpInterface: SnmpInterface = field(default_factory=dict)
+    services: List[Union[Service, None]] = field(default_factory=list)
 
     def __post_init__(self):
         self.id = int(self.id)
@@ -167,32 +196,6 @@ class IPInterface:
 
 
 @dataclass
-class ServiceType:
-    id: int
-    name: str
-
-
-@dataclass
-class Service:
-    id: int
-    notify: str
-    status: str
-    qualifier: str
-    down: bool
-    source: str
-    serviceType: dict
-    ipInterfaceId: int
-    statusLong: str
-    lastFail: int
-    lastGood: int
-
-    def __post_init__(self):
-        self.serviceType = ServiceType(**self.serviceType)
-        self.lastFail = convert_time(self.lastFail)
-        self.lastGood = convert_time(self.lastGood)
-
-
-@dataclass
 class Metadata:
     context: str
     key: str
@@ -202,26 +205,26 @@ class Metadata:
 @dataclass(repr=False)
 class Node:
     id: int
-    type: str = None
+    type: NodeType = None
     label: str = None
     location: str = None
-    createTime: int = None
-    labelSource: str = None
+    createTime: datetime = None
+    labelSource: LabelSource = None
     foreignId: str = None
     foreignSource: str = None
-    lastIngressFlow: int = None
-    lastEgressFlow: int = None
-    lastCapsdPoll: int = None
+    lastIngressFlow: datetime = None
+    lastEgressFlow: datetime = None
+    lastCapsdPoll: datetime = None
     sysObjectId: str = None
     sysName: str = None
     sysLocation: str = None
     sysContact: str = None
     sysDescription: str = None
-    assetRecord: dict = field(default_factory=dict)
-    categories: list = field(default_factory=list)
-    snmpInterfaces: list = field(default_factory=list)
-    ipInterfaces: list = field(default_factory=list)
-    metadata: list = field(default_factory=list)
+    assetRecord: List[Union[AssetRecord, None]] = field(default_factory=dict)
+    categories: List[Union[str, None]] = field(default_factory=list)
+    snmpInterfaces: List[Union[SnmpInterface, None]] = field(default_factory=list)
+    ipInterfaces: List[Union[IPInterface, None]] = field(default_factory=list)
+    metadata: List[Union[Metadata, None]] = field(default_factory=list)
 
     def __post_init__(self):
         self.id = int(self.id)

@@ -1,9 +1,9 @@
 # models.requisition.py
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass  # , field
 from typing import Union
 
-from pyonms.utils import convert_time
+# from pyonms.utils import convert_time
 
 
 @dataclass
