@@ -17,9 +17,10 @@ More details will be added as I figure out what they are.
 
 Currently there are three endpoints supported:
 
-* Nodes
-* Events
 * Alarms
+* Events
+* Nodes
+* Requisitions
 
 The actions supported on each are to get one object or get all objects.
 

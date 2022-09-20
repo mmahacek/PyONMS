@@ -43,7 +43,11 @@ class Event:
     nodeId: int = None
     nodeLabel: str = None
     ipAddress: str = None
+    operatorInstructions: str = None
     host: str = None
+    snmp: str = None
+    snmpHost: str = None
+    ifIndex: int = None
     parameters: dict = field(default_factory=dict)
     serviceType: dict = field(default_factory=dict)
 
