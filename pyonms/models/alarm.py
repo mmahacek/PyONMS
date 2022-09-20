@@ -1,6 +1,9 @@
 # models.alarm.py
 
 from dataclasses import dataclass, field
+from datetime import datetime
+from typing import List, Union
+
 from pyonms.models.event import Event, EventParameter, Severity
 from pyonms.models.node import ServiceType
 from pyonms.utils import convert_time
@@ -12,25 +15,26 @@ class Alarm:
     uei: str
     location: str
     type: int
-    severity: str
+    severity: Severity
     description: str
     logMessage: str
-    suppressedUntil: int
-    suppressedTime: int
+    suppressedUntil: datetime
+    suppressedTime: datetime
     x733ProbableCause: int
     affectedNodeCount: int
     reductionKey: str
     count: int
-    firstEventTime: int
-    lastEventTime: int = None
+    firstEventTime: datetime
+    lastEventTime: datetime = None
     nodeId: int = None
     nodeLabel: str = None
     ipAddress: str = None
     ifIndex: int = None
     clearKey: str = None
-    lastEvent: dict = field(default_factory=dict)
-    parameters: dict = field(default_factory=dict)
-    serviceType: dict = field(default_factory=dict)
+    firstEvent: Union[Event, None] = field(default_factory=dict)
+    lastEvent: Union[Event, None] = field(default_factory=dict)
+    parameters: List[Union[EventParameter, None]] = field(default_factory=list)
+    serviceType: ServiceType = field(default_factory=dict)
 
     def __post_init__(self):
         self.suppressedUntil = convert_time(self.suppressedUntil)

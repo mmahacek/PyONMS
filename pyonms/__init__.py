@@ -3,6 +3,7 @@
 import pyonms.dao.alarms
 import pyonms.dao.events
 import pyonms.dao.nodes
+import pyonms.dao.requisitions
 
 
 class PyONMS:
@@ -13,11 +14,10 @@ class PyONMS:
             "username": username,
             "password": password,
         }
-        if hasattr(self, "resolver"):
-            args["resolver"] = self.resolver
-        self.nodes = pyonms.dao.nodes.NodeAPI(args)
-        self.events = pyonms.dao.events.EventAPI(args)
         self.alarms = pyonms.dao.alarms.AlarmAPI(args)
+        self.events = pyonms.dao.events.EventAPI(args)
+        self.nodes = pyonms.dao.nodes.NodeAPI(args)
+        self.requisitions = pyonms.dao.requisitions.RequisitionsAPI(args)
 
     def __repr__(self):
         return self.hostname
