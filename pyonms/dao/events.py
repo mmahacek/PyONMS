@@ -35,5 +35,5 @@ class EventAPI(Endpoint):
             events.append(self.process_event(record))
         return events
 
-    def process_event(self, event) -> pyonms.models.event.Event:
-        return pyonms.models.event.Event(**event)
+    def process_event(self, data: dict) -> pyonms.models.event.Event:
+        return pyonms.models.event.Event(**data)

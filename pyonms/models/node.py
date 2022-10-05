@@ -95,6 +95,11 @@ class AssetRecord:
     username: str = None
     serialNumber: str = None
     city: str = None
+    state: str = None
+    zip: str = None
+    country: str = None
+    latitude: int = None
+    longitude: int = None
 
     def __post_init__(self):
         self.lastModifiedDate = convert_time(self.lastModifiedDate)
@@ -202,6 +207,34 @@ class Metadata:
     value: str
 
 
+@dataclass
+class HardwareInventory:
+    nodeId: int
+    entPhysicalIndex: int
+    entPhysicalName: str
+    entPhysicalDescr: str
+    entPhysicalVendorType: str
+    entPhysicalHardwareRev: str
+    entPhysicalFirmwareRev: str
+    entPhysicalSoftwareRev: str
+    entPhysicalSerialNum: str
+    entPhysicalMfgName: str
+    entPhysicalModelName: str
+    entPhysicalAlias: str
+    entPhysicalAssetID: str
+    entPhysicalIsFRU: str
+    entPhysicalUris: str
+    entityId: int
+    parentPhysicalIndex: str = None
+    hwEntityAliases: list = field(default_factory=list)
+    children: list = field(default_factory=list)
+    vendorAttributes: list = field(default_factory=list)
+
+    def __post_init__(self):
+        if self.entityId:
+            self.entityId = int(self.entityId)
+
+
 @dataclass(repr=False)
 class Node:
     id: int
@@ -225,6 +258,9 @@ class Node:
     snmpInterfaces: List[Union[SnmpInterface, None]] = field(default_factory=list)
     ipInterfaces: List[Union[IPInterface, None]] = field(default_factory=list)
     metadata: List[Union[Metadata, None]] = field(default_factory=list)
+    hardwareInventory: List[Union[HardwareInventory, None]] = field(
+        default_factory=list
+    )
 
     def __post_init__(self):
         self.id = int(self.id)

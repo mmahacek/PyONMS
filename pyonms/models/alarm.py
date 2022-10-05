@@ -31,6 +31,13 @@ class Alarm:
     ipAddress: str = None
     ifIndex: int = None
     clearKey: str = None
+    ackUser: str = None
+    ackTime: int = None
+    stickyMemo: str = None
+    reductionKeyMemo: str = None
+    troubleTicket: str = None
+    troubleTicketLink: str = None
+    troubleTicketState: int = None
     firstEvent: Union[Event, None] = field(default_factory=dict)
     lastEvent: Union[Event, None] = field(default_factory=dict)
     parameters: List[Union[EventParameter, None]] = field(default_factory=list)
@@ -41,6 +48,7 @@ class Alarm:
         self.suppressedTime = convert_time(self.suppressedTime)
         self.firstEventTime = convert_time(self.firstEventTime)
         self.lastEventTime = convert_time(self.lastEventTime)
+        self.ackTime = convert_time(self.ackTime)
         self.severity = Severity[self.severity]
         if self.lastEvent:
             self.lastEvent = Event(**self.lastEvent)

@@ -34,5 +34,5 @@ class AlarmAPI(Endpoint):
             alarms.append(self.process_alarm(record))
         return alarms
 
-    def process_alarm(self, alarm) -> pyonms.models.alarm.Alarm:
-        return pyonms.models.alarm.Alarm(**alarm)
+    def process_alarm(self, data: dict) -> pyonms.models.alarm.Alarm:
+        return pyonms.models.alarm.Alarm(**data)
