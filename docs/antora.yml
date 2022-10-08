@@ -1,4 +1,4 @@
-name: OpenNMS.py
+name: opennms.py
 version: '0.0.1-SNAPSHOT'
 title: OpenNMS.py
 asciidoc:
