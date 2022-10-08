@@ -1,0 +1,17 @@
+
+= Basics
+
+{page-component-title} is still in an early alpha phase.
+It is not currently packaged for deployment via `pip`.
+You can fork the link:{repo-url}[repo] to contribute to the project or try it in your environment.
+
+== Getting Started
+
+A `test_example.py` file is provided as an example of interacting with the library.
+
+You can create an `.env` file to provide credentials for accessing a Meridian/Horizon server.
+Set the following values in the file:
+
+* `hostname` (Example: `\http://localhost:8980`)
+* `username`
+* `password`
