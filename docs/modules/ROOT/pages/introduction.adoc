@@ -1,0 +1,6 @@
+
+[[introduction]]
+= What is {page-component-title}?
+
+{page-component-title} is a Python library for accessing the https://docs.opennms.com/horizon/30/development/rest/rest-api.html[OpenNMS REST API].
+The goal of this project is to provide a way to interact with entities an OpenNMS server as native Python objects.
