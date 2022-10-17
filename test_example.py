@@ -19,11 +19,11 @@ if __name__ == "__main__":
     print(f"\nDevices found: {len(nodes)}")
     print(nodes)
 
-    events = my_server.events.get_events(limit=50, batchSize=25)
+    events = my_server.events.get_events(limit=50, batch_size=25)
     print(f"\nEvents found: {len(events)}")
     print(events)
 
-    alarms = my_server.alarms.get_alarms(limit=50, batchSize=25)
+    alarms = my_server.alarms.get_alarms(limit=50, batch_size=25)
     print(f"\nAlarms found: {len(alarms)}")
     for alarm in alarms:
         print([alarm, my_server.nodes.get_node(alarm.nodeId)])
