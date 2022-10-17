@@ -117,7 +117,7 @@ class ServiceType:
     name: str
 
 
-@dataclass
+@dataclass(repr=False)
 class Service:
     id: int
     notify: str
@@ -135,6 +135,9 @@ class Service:
         self.serviceType = ServiceType(**self.serviceType)
         self.lastFail = convert_time(self.lastFail)
         self.lastGood = convert_time(self.lastGood)
+
+    def __repr__(self):
+        return f"Service(id={self.id}, serviceType={self.serviceType.name}, down={self.down})"
 
 
 @dataclass(repr=False)

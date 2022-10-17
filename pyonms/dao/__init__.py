@@ -12,10 +12,10 @@ import pyonms.utils
 
 class Endpoint:
     def __init__(self, hostname: str, username: str, password: str, **kwargs):
-        if hostname[-1:] != "/":
-            hostname += "/"
-        self.base_v1 = f"{hostname}opennms/rest/"
-        self.base_v2 = f"{hostname}opennms/api/v2/"
+        if hostname[-1:] == "/":
+            hostname = hostname[:-1]
+        self.base_v1 = f"{hostname}/rest/"
+        self.base_v2 = f"{hostname}/api/v2/"
         self.hostname = hostname
         self.username = username
         self.password = password
@@ -32,7 +32,7 @@ class Endpoint:
         batch_size: int = 100,
         params: dict = {},
     ) -> List[dict]:
-        with tqdm(total=limit, unit="record") as pbar:
+        with tqdm(total=limit, unit="record", desc=f"Pulling {endpoint} data") as pbar:
             result = []
             params["offset"] = 0
             if limit > batch_size:
@@ -102,12 +102,27 @@ class Endpoint:
             )
         else:
             response = requests.post(uri, auth=self.auth, headers=headers)
-        return response.json()
+        return response.text
 
-    def _put(self, uri: str, data: dict, headers: dict = {}, params: dict = {}) -> dict:
-        return requests.put(
-            uri, auth=self.auth, headers=headers, data=data, params=params
-        ).status_code
+    def _put(
+        self,
+        uri: str,
+        data: dict = None,
+        json: dict = None,
+        headers: dict = {},
+        params: dict = {},
+    ) -> dict:
+        if json:
+            response = requests.put(
+                uri, auth=self.auth, headers=headers, json=json, params=params
+            )
+        elif data:
+            response = requests.put(
+                uri, auth=self.auth, headers=headers, data=data, params=params
+            )
+        else:
+            return None
+        return response.text
 
     def _convert_v1_to_v2(self, endpoint: str, data: dict) -> dict:
         v2_data = {}
@@ -125,3 +140,10 @@ class Endpoint:
                 elif isinstance(value["model_import"], dict):
                     v2_data[key] = [value["model_import"]]
         return v2_data
+
+    def _delete(
+        self, uri: str, headers: dict = {}, params: dict = {}, endpoint: str = None
+    ) -> dict:
+        headers["Accept"] = "application/json"
+        requests.delete(uri, auth=self.auth, headers=headers)
+        return {}

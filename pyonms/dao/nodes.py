@@ -2,6 +2,7 @@
 
 # cspell:ignore snmpinterfaces, ipinterfaces
 
+import concurrent.futures
 from enum import Enum
 from typing import List, Union
 
@@ -32,7 +33,7 @@ class NodeAPI(Endpoint):
             return None
 
     def get_nodes(
-        self, limit=100, batch_size=100, components: list = []
+        self, limit=100, batch_size=100, components: list = [], threads: int = 10
     ) -> List[Union[pyonms.models.node.Node, None]]:
         devices = []
         params = {}
@@ -45,8 +46,22 @@ class NodeAPI(Endpoint):
         )
         if records == [None]:
             return [None]
-        for record in tqdm(records, unit="node"):
-            devices.append(self.process_node(record, components=components))
+        if threads > len(records):
+            threads = len(records)
+        with concurrent.futures.ProcessPoolExecutor(max_workers=threads) as pool:
+            with tqdm(
+                total=len(records), unit="node", desc="Hydrating Node objects"
+            ) as progress:
+                futures = []
+                for record in records:
+                    future = pool.submit(
+                        self.process_node, data=record, components=components
+                    )
+                    future.add_done_callback(lambda p: progress.update())
+                    futures.append(future)
+                for future in futures:
+                    result = future.result()
+                    devices.append(result)
         return devices
 
     def get_node_snmpinterfaces(
@@ -99,12 +114,12 @@ class NodeAPI(Endpoint):
     def process_node(self, data: dict, components: list) -> pyonms.models.node.Node:
         node = pyonms.models.node.Node(**data)
         for component in components:
-            if NodeComponents.ALL == component or NodeComponents.SNMP == component:
+            if component in [NodeComponents.SNMP, NodeComponents.ALL]:
                 node.snmpInterfaces = self.get_node_snmpinterfaces(node.id)
-            if NodeComponents.ALL == component or NodeComponents.IP == component:
+            if component in [NodeComponents.IP, NodeComponents.ALL]:
                 node.ipInterfaces = self.get_node_ip_addresses(node.id)
-            if NodeComponents.ALL == component or NodeComponents.METADATA == component:
+            if component in [NodeComponents.METADATA, NodeComponents.ALL]:
                 node.metadata = self.get_node_metadata(node.id)
-            if NodeComponents.ALL == component or NodeComponents.HARDWARE == component:
+            if component in [NodeComponents.HARDWARE, NodeComponents.ALL]:
                 node.hardwareInventory = self.get_node_hardware(node.id)
         return node
