@@ -1,0 +1,1013 @@
+openapi: 3.0.1
+info:
+  title: Appliance Service APIs
+  description: |
+      Use the ReST APIs in cases requiring automation or when performing operations on a large number of entities (where repeated use of the portal becomes cumbersome)
+  version: '1.0'
+servers:
+    - url: 'https://portal.opennms.com/api/v1/external/'
+paths:
+  '/appliance':
+    get:
+      tags:
+      - 'Appliance'
+      summary: Retrieve all appliances (paginated).
+      description: getAppliances
+      operationId: get-getappliances
+      parameters:
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ['ASC', 'DESC']
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRecords:
+                    type: number
+                  pagedRecords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/appliance'
+  '/appliance/{id}':
+    get:
+      tags:
+      - 'Appliance'
+      summary: Retrieve appliance via ID.
+      description: getAppliance
+      operationId: get-getappliance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/appliance'
+    put:
+      tags:
+      - 'Appliance'
+      summary: Update appliance via ID.
+      description: updateAppliance
+      operationId: put-updateappliance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/appliance'
+      responses:
+        '204':
+          description: 'Successfully updated the appliance.'
+  '/appliance/{id}/status':
+    get:
+      tags:
+      - 'Appliance Status'
+      summary: Retrieve appliance statuses via ID.
+      description: |
+        getApplianceStatus
+        - *connectivityState* - Indicates connection to cloud.
+        - *minionStatus* - Indicates state of the Minion.
+        - *onmsStatus* - Indicates Minions view of the openNMS instance.
+      operationId: get-getappliancestatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/status'
+  '/appliance-profile':
+    get:
+      tags:
+      - 'Appliance Profile'
+      summary: Retrieve all appliance profiles (paginated).
+      description: getApplianceProfiles
+      operationId: get-getapplianceprofiles
+      parameters:
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ['ASC', 'DESC']
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRecords:
+                    type: number
+                  pagedRecords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/applianceProfile'
+  '/appliance-profile/{id}':
+      get:
+        tags:
+        - 'Appliance Profile'
+        summary: Retrieve appliance profile via ID.
+        description: getApplianceProfile
+        operationId: get-getapplianceprofile
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: 'string'
+        responses:
+          '200':
+            description: ''
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/applianceProfile'
+  '/appliance/{id}/configuration':
+    get:
+      tags:
+      - 'Appliance Configuration'
+      summary: Retrieve and download appliance's configuration via ID.
+      description: getApplianceConfiguration
+      operationId: get-getapplianceconfiguration
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+  '/appliance/{id}/info':
+    get:
+      tags:
+      - 'Appliance Info'
+      summary: Retrieve appliance platform information (IP addresses, hostname) via ID.
+      description: getAppliancePlatformInfoExternal
+      operationId: get-getapplianceplatforminfoexternal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/appliancePlatformInfo'
+  '/instance':
+    post:
+      tags:
+      - 'Instance'
+      summary: Create instance.
+      description: createInstance
+      operationId: post-createinstance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/instanceCreate'
+      responses:
+        '201':
+          description: 'Successfully created an instance'
+          content:
+            text/plain:
+              schema:
+                type: string
+    get:
+      tags:
+      - 'Instance'
+      summary: Retrieve all instances (paginated).
+      description: getInstances
+      operationId: get-getinstances
+      parameters:
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ['ASC', 'DESC']
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRecords:
+                    type: number
+                  pagedRecords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/instance'
+  '/instance/{id}':
+    get:
+      tags:
+      - 'Instance'
+      summary: Retrieve instance via ID.
+      description: getInstance
+      operationId: get-getinstance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/instance'
+    delete:
+      tags:
+      - 'Instance'
+      summary: Delete instance via ID.
+      description: deleteInstance
+      operationId: delete-deleteinstance
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: ''
+  '/subscription':
+    get:
+      tags:
+        - 'Subscription'
+      summary: Retrieve all subscriptions (paginated).
+      description: getSubscriptions
+      operationId: get-getSubscriptions
+      parameters:
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [ 'ASC', 'DESC' ]
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRecords:
+                    type: number
+                  pagedRecords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/subscription'
+  '/subscription/{id}':
+    get:
+      tags:
+        - 'Subscription'
+      summary: Retrieve subscription via ID.
+      description: getSubscription
+      operationId: get-getsubscription
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/subscription'
+  '/minion-profile':
+    get:
+      tags:
+      - 'Minion Profile'
+      summary: Retrieve all profiles (paginated).
+      description: getMinionProfiles
+      operationId: get-getminionprofiles
+      parameters:
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ['ASC', 'DESC']
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRecords:
+                    type: number
+                  pagedRecords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/minionProfile'
+  '/minion-profile/{id}':
+    get:
+      tags:
+      - 'Minion Profile'
+      summary: Retrieve Minion profile via ID.
+      description: getMinionProfile
+      operationId: get-getminionprofile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/minionProfile'
+  '/connectivity-profile':
+    get:
+      tags:
+      - 'Connectivity Profile'
+      summary: Retrieve all connectivity profiles (paginated).
+      description: getConnectivityProfiles
+      operationId: get-getconnectivityprofiles
+      parameters:
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ['ASC', 'DESC']
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRecords:
+                    type: number
+                  pagedRecords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/connectivityProfile'
+    post:
+      tags:
+      - 'Connectivity Profile'
+      summary: Create a connectivity profile.
+      description: createConnectivityProfile
+      operationId: post-createconnectivityprofile
+      requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connectivityProfileCreate'
+      responses:
+        '201':
+          description: 'Successfully created a connectivity profile.'
+          content:
+            text/plain:
+              schema:
+                type: string
+  '/connectivity-profile/{id}':
+    get:
+      tags:
+      - 'Connectivity Profile'
+      summary: Retrieve connectivity profile via ID.
+      description: getConnectivityProfile
+      operationId: get-getconnectivityprofile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/connectivityProfile'
+    delete:
+      tags:
+      - 'Connectivity Profile'
+      summary: Remove connectivity profile via ID.
+      description: deleteConnectivityProfile
+      operationId: delete-deleteconnectivityprofile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Successfully deleted the connectivity profile.'
+  '/feature-profile':
+    get:
+      tags:
+      - 'Feature Profile'
+      summary: Retrieve all feature profiles (paginated).
+      description: getFeatureProfiles
+      operationId: get-getfeatureprofiles
+      parameters:
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ['ASC', 'DESC']
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRecords:
+                    type: number
+                  pagedRecords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/featureProfile'
+  '/feature-profile/{id}':
+    get:
+      tags:
+      - 'Feature Profile'
+      summary: Retrieve feature profile via ID.
+      description: getFeatureProfile
+      operationId: get-getfeatureprofile
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/featureProfile'
+  '/location':
+    get:
+      tags:
+      - 'Location'
+      summary: Retrieve all locations (paginated).
+      description: getLocations
+      operationId: get-getlocations
+      parameters:
+        - name: orderBy
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: ['ASC', 'DESC']
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalRecords:
+                    type: number
+                  pagedRecords:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/location'
+    post:
+      tags:
+      - 'Location'
+      summary: Create a location.
+      description: createLocation
+      operationId: post-createlocation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/locationCreate'
+      responses:
+        '201':
+          description: 'Successfully created a location.'
+          content:
+            text/plain:
+              schema:
+                type: string
+  '/location/{id}':
+    get:
+      tags:
+      - 'Location'
+      summary: Retrieve location via ID.
+      description: getLocation
+      operationId: get-getlocation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/location'
+    put:
+      tags:
+      - 'Location'
+      summary: Update location via ID.
+      description: updateLocation
+      operationId: put-updatelocation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/location'
+      responses:
+        '204':
+          description: 'Successfully updated the location.'
+    delete:
+      tags:
+      - 'Location'
+      summary: Remove location via ID.
+      description: deleteLocation
+      operationId: delete-deletelocation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: 'Successfully deleted the location.'
+components:
+  schemas:
+    appliance:
+      required:
+        - label
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          readOnly: true
+        label:
+          type: string
+        type:
+          type: string
+          enum: ['HARDWARE' , 'VIRTUAL']
+          readOnly: true
+        geoLocationLabel:
+          type: string
+        latitude:
+          type: number
+        longitude:
+          type: number
+        applianceProfileId:
+          type: string
+          format: UUID
+        minion:
+          $ref: '#/components/schemas/minion'
+        subscriptionId:
+          type: string
+          format: UUID
+    applianceProfile:
+      required:
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          readOnly: true
+          description: Automatically generated backend value.
+          example: 08a4abca-ac1b-4424-8881-9ffde851e308
+        name:
+          type: string
+    subscription:
+      required:
+        - count
+        - expiry
+        - state
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          readOnly: true
+          example: 08a4abca-ac1b-4424-8881-9ffde851e308
+        count:
+          type: number
+        expiry:
+          type: string
+        state:
+          type: string
+    location:
+      required:
+        - name
+        - onmsInstanceId
+        - connectivityProfileId
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          readOnly: true
+          description: Automatically generated backend value.
+          example: 08a4abca-ac1b-4424-8881-9ffde851e308
+        name:
+          type: string
+        onmsInstanceId:
+          type: string
+          format: UUID
+          example: 9d6d1226-35f7-43a1-b2b7-852b78dbc220
+        minionFeatureProfileId:
+          type: string
+          format: UUID
+          example: 7f01217c-d7eb-4e55-b7b6-7e151abe9764
+        connectivityProfileId:
+          type: string
+          format: UUID
+          example: edb60e4c-eead-477a-ad9a-6f04e113c80c
+    locationCreate:
+      required:
+        - name
+        - onmsInstanceId
+        - connectivityProfileId
+      type: object
+      properties:
+        name:
+          type: string
+        onmsInstanceId:
+          type: string
+          format: UUID
+          example: 9d6d1226-35f7-43a1-b2b7-852b78dbc220
+        minionFeatureProfileId:
+          type: string
+          format: UUID
+          example: 7f01217c-d7eb-4e55-b7b6-7e151abe9764
+        connectivityProfileId:
+          type: string
+          format: UUID
+          example: edb60e4c-eead-477a-ad9a-6f04e113c80c
+    minion:
+      type: object
+      properties:
+        locationId:
+          type: string
+          format: UUID
+          example: 6a75a1ef-b5ff-4733-a9d1-81c82b951865
+        minionProfileId:
+          type: string
+          format: UUID
+          example: b426d422-6a51-4e79-8d9c-43810f83c1cb
+    status:
+      type: object
+      properties:
+        status:
+          type: object
+          properties:
+            connectivityState:
+              type: string
+              description: Indicates connection to cloud.
+            minionStatus:
+              type: string
+              description: Indicates state of the Minion.
+              enum: ['UP' , 'DOWN' , 'GRACE_PERIOD' , 'UNKNOWN']
+            onmsStatus:
+              type: string
+              description: Indicates Minion's view of the openNMS instance.
+              enum: ['UP' , 'DOWN' , 'GRACE_PERIOD' , 'UNKNOWN']
+    connectivityProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          readOnly: true
+          example: 08a4abca-ac1b-4424-8881-9ffde851e308
+        onmsInstance:
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/instance'
+        name:
+          type: string
+    connectivityProfileCreate:
+      required:
+        - name
+        - onmsInstanceId
+        - httpConfig
+        - brokerConfig
+      type: object
+      properties:
+        name:
+          type: string
+        onmsInstanceId:
+          type: string
+          format: UUID
+          example: 9d6d1226-35f7-43a1-b2b7-852b78dbc220
+        httpConfig:
+          allOf:
+            - $ref: '#/components/schemas/httpConfig'
+        brokerConfig:
+          oneOf:
+            - $ref: '#/components/schemas/brokerJms'
+            - $ref: '#/components/schemas/brokerKafka'
+    httpConfig:
+      required:
+        - url
+        - user
+        - password
+      type: object
+      properties:
+        url:
+          type: string
+        user:
+          type: string
+        password:
+          type: string
+    brokerJms:
+      allOf:
+        - $ref: '#/components/schemas/brokerConfig'
+        - type: object
+          required:
+            - url
+            - user
+            - password
+          properties:
+            url:
+              type: string
+            user:
+              type: string
+            password:
+              type: string
+    brokerKafka:
+      allOf:
+        - $ref: '#/components/schemas/brokerConfig'
+        - type: object
+          required:
+            - bootstrapServers
+          properties:
+            bootstrapServers:
+              type: string
+    brokerConfig:
+      required:
+        - type
+      type: object
+      properties:
+        type:
+          type: string
+          description: Indicates type of the broker.
+          enum: [ 'JMS' , 'KAFKA' ]
+    featureProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          readOnly: true
+          example: 08a4abca-ac1b-4424-8881-9ffde851e308
+        name:
+          type: string
+        onmsInstance:
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/instance'
+    instance:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          example: 08a4abca-ac1b-4424-8881-9ffde851e308
+        name:
+          type: string
+          readOnly: true
+    instanceCreate:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          readOnly: true
+    minionProfile:
+      required:
+        - processEnvConfigId
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+          readOnly: true
+          example: 08a4abca-ac1b-4424-8881-9ffde851e308
+        name:
+          type: string
+        processEnvConfigId:
+          type: string
+          format: UUID
+          example: 08a4abca-ac1b-4424-8881-9ffde851e308
+    appliancePlatformInfo:
+      type: object
+      properties:
+        hostname:
+          type: string
+          readOnly: true
+        ipInfo:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              ipAddresses:
+                type: array
+                items:
+                  type: string
+              interfaceName:
+                type: string
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      name: X-API-Key
+      in: header
+security:
+  - apiKeyHeader: []
