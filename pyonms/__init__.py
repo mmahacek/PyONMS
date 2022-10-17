@@ -1,6 +1,7 @@
 # __init__.py
 
 import pyonms.dao.alarms
+import pyonms.dao.business_services
 import pyonms.dao.events
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
@@ -15,6 +16,7 @@ class PyONMS:
             "password": password,
         }
         self.alarms = pyonms.dao.alarms.AlarmAPI(args)
+        self.bsm = pyonms.dao.business_services.BSMAPI(args)
         self.events = pyonms.dao.events.EventAPI(args)
         self.nodes = pyonms.dao.nodes.NodeAPI(args)
         self.requisitions = pyonms.dao.requisitions.RequisitionsAPI(args)
