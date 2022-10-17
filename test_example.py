@@ -13,7 +13,6 @@ my_server = PyONMS(
     password=os.getenv("password"),
 )
 
-
 if __name__ == "__main__":
     nodes = my_server.nodes.get_nodes()
     print(f"\nDevices found: {len(nodes)}")
