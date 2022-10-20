@@ -2,8 +2,10 @@
 
 import os
 
-from pyonms import PyONMS
 from dotenv import load_dotenv
+
+from pyonms import PyONMS
+from pyonms.dao.nodes import NodeComponents
 
 load_dotenv()
 
@@ -14,9 +16,11 @@ my_server = PyONMS(
 )
 
 if __name__ == "__main__":
-    nodes = my_server.nodes.get_nodes()
-    print(f"\nDevices found: {len(nodes)}")
-    print(nodes)
+    nodes = my_server.nodes.get_nodes(
+        limit=500, batch_size=100, components=[NodeComponents.ALL]
+    )
+    print(f"Devices found: {len(nodes)}")
+    # print(nodes)
 
     events = my_server.events.get_events(limit=50, batch_size=25)
     print(f"\nEvents found: {len(events)}")
