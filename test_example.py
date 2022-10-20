@@ -24,7 +24,9 @@ if __name__ == "__main__":
 
     alarms = my_server.alarms.get_alarms(limit=50, batch_size=25)
     print(f"\nAlarms found: {len(alarms)}")
-    for alarm in alarms:
-        print([alarm, my_server.nodes.get_node(alarm.nodeId)])
+    # for alarm in alarms:
+    #    print([alarm, my_server.nodes.get_node(alarm.nodeId)])
 
-pass
+    main = my_server.fs.get_foreign_sources()
+    print(main)
+    pass
