@@ -3,3 +3,12 @@
 
 .Using
 * xref:using/introduction.adoc[]
+* Endpoints
+** Alarms
+** Events
+** Foreign Sources
+** Nodes
+** Requisitions
+
+.Portal
+* xref:portal/introduction.adoc[]

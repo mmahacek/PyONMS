@@ -15,14 +15,12 @@ More details will be added as I figure out what they are.
 
 ## Endpoints Supported
 
-Currently there are three endpoints supported:
+Currently the endpoints (partially) supported are:
 
-* Alarms
-* Events
-* Nodes
-* Requisitions
-
-The actions supported on each are to get one object or get all objects.
+* Alarms (read-only)
+* Events (read-only)
+* Nodes (read-only)
+* Requisitions (read-write)
 
 ## Getting Started
 

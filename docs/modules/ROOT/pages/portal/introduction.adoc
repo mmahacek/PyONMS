@@ -1,0 +1,13 @@
+
+= OpenNMS Cloud Portal
+
+The OpenNMS Cloud Portal provides management capabilities for hosted services.
+A library for accessing the Cloud Portal API is included along site the {page-component-title} library.
+
+== Getting Started
+
+A `test_portal.py` file is provided as an example of interacting with the library.
+
+Define the following environment variable to store your API key for connecting to the cloud API.
+
+* `portal_secret`
