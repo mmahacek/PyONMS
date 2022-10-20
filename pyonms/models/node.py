@@ -3,7 +3,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Union
+from typing import List, Optional, Union
 
 from pyonms.utils import convert_time
 
@@ -37,75 +37,75 @@ class PrimaryType(Enum):
 @dataclass(repr=False)
 class AssetRecord:
     id: int
-    slot: str = None
-    port: str = None
-    region: str = None
-    comment: str = None
-    password: str = None
-    category: str = None
-    displayCategory: str = None
-    manufacturer: str = None
-    vendor: str = None
-    modelNumber: str = None
-    circuitId: str = None
-    assetNumber: str = None
-    operatingSystem: str = None
-    rack: str = None
-    division: str = None
-    department: str = None
-    building: str = None
-    floor: str = None
-    room: str = None
-    vendorPhone: str = None
-    vendorFax: str = None
-    vendorAssetNumber: str = None
-    lastModifiedBy: str = None
-    lastModifiedDate: int = None
-    dateInstalled: str = None
-    lease: str = None
-    leaseExpires: str = None
-    supportPhone: str = None
-    maintcontract: str = None
-    maintContractNumber: str = None
-    maintContractExpiration: str = None
-    displayCategory: str = None
-    notifyCategory: str = None
-    pollerCategory: str = None
-    thresholdCategory: str = None
-    managedObjectType: str = None
-    managedObjectInstance: str = None
-    enable: str = None
-    connection: str = None
-    autoenable: str = None
-    cpu: str = None
-    ram: str = None
-    snmpcommunity: str = None
-    rackunitheight: str = None
-    admin: str = None
-    additionalhardware: str = None
-    inputpower: str = None
-    numpowersupplies: str = None
-    hdd6: str = None
-    hdd5: str = None
-    hdd4: str = None
-    hdd3: str = None
-    hdd2: str = None
-    hdd1: str = None
-    storagectrl: str = None
-    description: str = None
-    username: str = None
-    serialNumber: str = None
-    address1: str = None
-    address2: str = None
-    city: str = None
-    state: str = None
-    zip: str = None
-    country: str = None
-    latitude: int = None
-    longitude: int = None
+    slot: Optional[str] = None
+    port: Optional[str] = None
+    region: Optional[str] = None
+    comment: Optional[str] = None
+    password: Optional[str] = None
+    category: Optional[str] = None
+    manufacturer: Optional[str] = None
+    vendor: Optional[str] = None
+    modelNumber: Optional[str] = None
+    circuitId: Optional[str] = None
+    assetNumber: Optional[str] = None
+    operatingSystem: Optional[str] = None
+    rack: Optional[str] = None
+    division: Optional[str] = None
+    department: Optional[str] = None
+    building: Optional[str] = None
+    floor: Optional[str] = None
+    room: Optional[str] = None
+    vendorPhone: Optional[str] = None
+    vendorFax: Optional[str] = None
+    vendorAssetNumber: Optional[str] = None
+    lastModifiedBy: Optional[str] = None
+    lastModifiedDate: Optional[Union[datetime, int]] = None
+    dateInstalled: Optional[str] = None
+    lease: Optional[str] = None
+    leaseExpires: Optional[str] = None
+    supportPhone: Optional[str] = None
+    maintcontract: Optional[str] = None
+    maintContractNumber: Optional[str] = None
+    maintContractExpiration: Optional[str] = None
+    displayCategory: Optional[str] = None
+    notifyCategory: Optional[str] = None
+    pollerCategory: Optional[str] = None
+    thresholdCategory: Optional[str] = None
+    managedObjectType: Optional[str] = None
+    managedObjectInstance: Optional[str] = None
+    enable: Optional[str] = None
+    connection: Optional[str] = None
+    autoenable: Optional[str] = None
+    cpu: Optional[str] = None
+    ram: Optional[str] = None
+    snmpcommunity: Optional[str] = None
+    rackunitheight: Optional[str] = None
+    admin: Optional[str] = None
+    additionalhardware: Optional[str] = None
+    inputpower: Optional[str] = None
+    numpowersupplies: Optional[str] = None
+    hdd6: Optional[str] = None
+    hdd5: Optional[str] = None
+    hdd4: Optional[str] = None
+    hdd3: Optional[str] = None
+    hdd2: Optional[str] = None
+    hdd1: Optional[str] = None
+    storagectrl: Optional[str] = None
+    description: Optional[str] = None
+    username: Optional[str] = None
+    serialNumber: Optional[str] = None
+    address1: Optional[str] = None
+    address2: Optional[str] = None
+    city: Optional[str] = None
+    state: Optional[str] = None
+    zip: Optional[str] = None
+    country: Optional[str] = None
+    latitude: Optional[int] = None
+    longitude: Optional[int] = None
 
     def __post_init__(self):
-        self.lastModifiedDate = convert_time(self.lastModifiedDate)
+        if isinstance(self.lastModifiedDate, int):
+            self.lastModifiedDate = convert_time(self.lastModifiedDate)
 
     def __repr__(self):
         return f"AssetRecord(id={self.id})"
@@ -132,9 +132,12 @@ class Service:
     lastGood: datetime
 
     def __post_init__(self):
-        self.serviceType = ServiceType(**self.serviceType)
-        self.lastFail = convert_time(self.lastFail)
-        self.lastGood = convert_time(self.lastGood)
+        if isinstance(self.serviceType, dict):
+            self.serviceType = ServiceType(**self.serviceType)
+        if isinstance(self.lastFail, int):
+            self.lastFail = convert_time(self.lastFail)
+        if isinstance(self.lastGood, int):
+            self.lastGood = convert_time(self.lastGood)
 
     def __repr__(self):
         return f"Service(id={self.id}, serviceType={self.serviceType.name}, down={self.down})"
@@ -166,10 +169,14 @@ class SnmpInterface:
     poll: bool
 
     def __post_init__(self):
-        self.lastIngressFlow = convert_time(self.lastIngressFlow)
-        self.lastEgressFlow = convert_time(self.lastEgressFlow)
-        self.lastCapsdPoll = convert_time(self.lastCapsdPoll)
-        self.lastSnmpPoll = convert_time(self.lastSnmpPoll)
+        if isinstance(self.lastIngressFlow, int):
+            self.lastIngressFlow = convert_time(self.lastIngressFlow)
+        if isinstance(self.lastEgressFlow, int):
+            self.lastEgressFlow = convert_time(self.lastEgressFlow)
+        if isinstance(self.lastCapsdPoll, int):
+            self.lastCapsdPoll = convert_time(self.lastCapsdPoll)
+        if isinstance(self.lastSnmpPoll, int):
+            self.lastSnmpPoll = convert_time(self.lastSnmpPoll)
 
     def __repr__(self):
         return f"SnmpInterface(id={self.id}, ifAlias={self.ifAlias})"
@@ -177,29 +184,35 @@ class SnmpInterface:
 
 @dataclass(repr=False)
 class IPInterface:
-    id: int
-    hostName: str
+    id: Union[int, str]
+    hostName: Optional[str]
     isDown: bool
     nodeId: int
     ifIndex: int
-    lastEgressFlow: datetime
-    lastIngressFlow: datetime
-    monitoredServiceCount: int
+    lastEgressFlow: Union[datetime, int]
+    lastIngressFlow: Union[datetime, int]
+    monitoredServiceCount: Optional[int]
     ipAddress: str
-    snmpPrimary: str
-    isManaged: str
-    lastCapsdPoll: int = datetime
-    snmpInterface: SnmpInterface = field(default_factory=dict)
-    services: List[Union[Service, None]] = field(default_factory=list)
+    snmpPrimary: Union[PrimaryType, str]
+    isManaged: Union[Managed, str]
+    lastCapsdPoll: Union[datetime, int]
+    snmpInterface: Optional[Union[SnmpInterface, dict]] = field(default_factory=dict)
+    services: List[Optional[Service]] = field(default_factory=list)
 
     def __post_init__(self):
-        self.id = int(self.id)
-        self.lastCapsdPoll = convert_time(self.lastCapsdPoll)
-        self.lastEgressFlow = convert_time(self.lastEgressFlow)
-        self.lastIngressFlow = convert_time(self.lastIngressFlow)
-        self.isManaged = Managed(self.isManaged)
-        self.snmpPrimary = PrimaryType(self.snmpPrimary)
-        if self.snmpInterface:
+        if isinstance(self.id, str):
+            self.id = int(self.id)
+        if isinstance(self.lastCapsdPoll, int):
+            self.lastCapsdPoll = convert_time(self.lastCapsdPoll)
+        if isinstance(self.lastEgressFlow, int):
+            self.lastEgressFlow = convert_time(self.lastEgressFlow)
+        if isinstance(self.lastIngressFlow, int):
+            self.lastIngressFlow = convert_time(self.lastIngressFlow)
+        if isinstance(self.isManaged, str):
+            self.isManaged = Managed(self.isManaged)
+        if isinstance(self.snmpPrimary, str):
+            self.snmpPrimary = PrimaryType(self.snmpPrimary)
+        if isinstance(self.snmpInterface, dict):
             self.snmpInterface = SnmpInterface(**self.snmpInterface)
 
     def __repr__(self):
@@ -215,23 +228,23 @@ class Metadata:
 
 @dataclass
 class HardwareInventory:
-    nodeId: int
-    entPhysicalIndex: int
-    entPhysicalName: str
-    entPhysicalDescr: str
-    entPhysicalVendorType: str
-    entPhysicalHardwareRev: str
-    entPhysicalFirmwareRev: str
-    entPhysicalSoftwareRev: str
-    entPhysicalSerialNum: str
-    entPhysicalMfgName: str
-    entPhysicalModelName: str
-    entPhysicalAlias: str
-    entPhysicalAssetID: str
-    entPhysicalIsFRU: str
-    entPhysicalUris: str
-    entityId: int
-    parentPhysicalIndex: str = None
+    nodeId: Optional[int] = None
+    entPhysicalIndex: Optional[int] = None
+    entPhysicalName: Optional[str] = None
+    entPhysicalDescr: Optional[str] = None
+    entPhysicalVendorType: Optional[str] = None
+    entPhysicalHardwareRev: Optional[str] = None
+    entPhysicalFirmwareRev: Optional[str] = None
+    entPhysicalSoftwareRev: Optional[str] = None
+    entPhysicalSerialNum: Optional[str] = None
+    entPhysicalMfgName: Optional[str] = None
+    entPhysicalModelName: Optional[str] = None
+    entPhysicalAlias: Optional[str] = None
+    entPhysicalAssetID: Optional[str] = None
+    entPhysicalIsFRU: Optional[str] = None
+    entPhysicalUris: Optional[str] = None
+    entityId: Optional[int] = None
+    parentPhysicalIndex: Optional[str] = None
     hwEntityAliases: list = field(default_factory=list)
     children: list = field(default_factory=list)
     vendorAttributes: list = field(default_factory=list)
@@ -244,39 +257,46 @@ class HardwareInventory:
 @dataclass(repr=False)
 class Node:
     id: int
-    type: NodeType = None
-    label: str = None
-    location: str = None
-    createTime: datetime = None
-    labelSource: LabelSource = None
-    foreignId: str = None
-    foreignSource: str = None
-    lastIngressFlow: datetime = None
-    lastEgressFlow: datetime = None
-    lastCapsdPoll: datetime = None
-    sysObjectId: str = None
-    sysName: str = None
-    sysLocation: str = None
-    sysContact: str = None
-    sysDescription: str = None
-    assetRecord: List[Union[AssetRecord, None]] = field(default_factory=dict)
-    categories: List[Union[str, None]] = field(default_factory=list)
-    snmpInterfaces: List[Union[SnmpInterface, None]] = field(default_factory=list)
-    ipInterfaces: List[Union[IPInterface, None]] = field(default_factory=list)
-    metadata: List[Union[Metadata, None]] = field(default_factory=list)
-    hardwareInventory: List[Union[HardwareInventory, None]] = field(
-        default_factory=list
+    type: Optional[Union[NodeType, str]] = None
+    label: Optional[str] = None
+    location: Optional[str] = None
+    createTime: Optional[Union[datetime, int]] = None
+    labelSource: Optional[Union[LabelSource, str]] = None
+    foreignId: Optional[str] = None
+    foreignSource: Optional[str] = None
+    lastIngressFlow: Optional[Union[datetime, int]] = None
+    lastEgressFlow: Optional[Union[datetime, int]] = None
+    lastCapsdPoll: Optional[Union[datetime, int]] = None
+    sysObjectId: Optional[str] = None
+    sysName: Optional[str] = None
+    sysLocation: Optional[str] = None
+    sysContact: Optional[str] = None
+    sysDescription: Optional[str] = None
+    assetRecord: Optional[Union[AssetRecord, dict]] = field(default_factory=dict)
+    categories: List[Optional[Union[str, dict]]] = field(default_factory=list)
+    snmpInterfaces: List[Optional[SnmpInterface]] = field(default_factory=list)
+    ipInterfaces: List[Optional[IPInterface]] = field(default_factory=list)
+    metadata: List[Optional[Metadata]] = field(default_factory=list)
+    hardwareInventory: Optional[Union[HardwareInventory, dict]] = field(
+        default_factory=dict
     )
 
     def __post_init__(self):
-        self.id = int(self.id)
-        self.createTime = convert_time(self.createTime)
-        self.lastIngressFlow = convert_time(self.lastIngressFlow)
-        self.lastEgressFlow = convert_time(self.lastEgressFlow)
-        self.lastCapsdPoll = convert_time(self.lastCapsdPoll)
-        self.labelSource = LabelSource(self.labelSource)
-        self.type = NodeType(self.type)
-        if self.assetRecord:
+        if isinstance(self.id, str):
+            self.id = int(self.id)
+        if isinstance(self.createTime, int):
+            self.createTime = convert_time(self.createTime)
+        if isinstance(self.lastIngressFlow, int):
+            self.lastIngressFlow = convert_time(self.lastIngressFlow)
+        if isinstance(self.lastEgressFlow, int):
+            self.lastEgressFlow = convert_time(self.lastEgressFlow)
+        if isinstance(self.lastCapsdPoll, int):
+            self.lastCapsdPoll = convert_time(self.lastCapsdPoll)
+        if isinstance(self.labelSource, str):
+            self.labelSource = LabelSource(self.labelSource)
+        if isinstance(self.type, str):
+            self.type = NodeType(self.type)
+        if isinstance(self.assetRecord, dict):
             self.assetRecord = AssetRecord(**self.assetRecord)
         if self.categories:
             self.categories = [id["name"] for id in self.categories]

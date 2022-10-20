@@ -4,7 +4,7 @@
 
 import concurrent.futures
 from enum import Enum
-from typing import List, Union
+from typing import List, Optional
 
 from tqdm import tqdm
 
@@ -25,7 +25,7 @@ class NodeAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v2 + "nodes"
 
-    def get_node(self, id: int) -> Union[pyonms.models.node.Node, None]:
+    def get_node(self, id: int) -> Optional[pyonms.models.node.Node]:
         record = self._get(uri=f"{self.url}/{id}")
         if record is not None:
             return self.process_node(record, components=[NodeComponents.ALL])
@@ -34,7 +34,7 @@ class NodeAPI(Endpoint):
 
     def get_nodes(
         self, limit=100, batch_size=100, components: list = [], threads: int = 10
-    ) -> List[Union[pyonms.models.node.Node, None]]:
+    ) -> List[Optional[pyonms.models.node.Node]]:
         devices = []
         params = {}
         records = self.get_batch(
@@ -66,7 +66,7 @@ class NodeAPI(Endpoint):
 
     def get_node_snmpinterfaces(
         self, node_id: int
-    ) -> List[pyonms.models.node.SnmpInterface]:
+    ) -> List[Optional[pyonms.models.node.SnmpInterface]]:
         interfaces = []
         records = self._get(uri=f"{self.url}/{node_id}/snmpinterfaces")
         if records:
@@ -76,7 +76,7 @@ class NodeAPI(Endpoint):
 
     def get_node_ip_addresses(
         self, node_id: int
-    ) -> List[pyonms.models.node.IPInterface]:
+    ) -> List[Optional[pyonms.models.node.IPInterface]]:
         ip_addresses = []
         records = self._get(uri=f"{self.url}/{node_id}/ipinterfaces")
         if records:
@@ -88,7 +88,7 @@ class NodeAPI(Endpoint):
 
     def get_node_ip_services(
         self, node_id: int, ip_address: str
-    ) -> List[pyonms.models.node.Service]:
+    ) -> List[Optional[pyonms.models.node.Service]]:
         services = []
         records = self._get(
             uri=f"{self.url}/{node_id}/ipinterfaces/{ip_address}/services"
@@ -98,7 +98,9 @@ class NodeAPI(Endpoint):
                 services.append(pyonms.models.node.Service(**service))
         return services
 
-    def get_node_metadata(self, node_id: int) -> List[pyonms.models.node.Metadata]:
+    def get_node_metadata(
+        self, node_id: int
+    ) -> List[Optional[pyonms.models.node.Metadata]]:
         metadata = []
         records = self._get(uri=f"{self.url}/{node_id}/metadata")
         for record in records["metaData"]:
@@ -107,7 +109,7 @@ class NodeAPI(Endpoint):
 
     def get_node_hardware(
         self, node_id: int
-    ) -> List[pyonms.models.node.HardwareInventory]:
+    ) -> Optional[pyonms.models.node.HardwareInventory]:
         record = self._get(uri=f"{self.url}/{node_id}/hardwareInventory")
         return pyonms.models.node.HardwareInventory(**record)
 
