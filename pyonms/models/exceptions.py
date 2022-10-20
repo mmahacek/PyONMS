@@ -17,7 +17,11 @@ class DuplicateEntityError(Exception):
     def __init__(self, name: str, model):
         self.name = name
         self.model = model
-        self.message = f"A {type(self.model)} object named {self.name} already exists."
+        if isinstance(self.model, str):
+            model_type = self.model
+        else:
+            model_type = type(self.model)
+        self.message = f"A {model_type} object named {self.name} already exists."
         super().__init__(self.message)
 
 

@@ -1,6 +1,6 @@
 # portal.__init__.py
 
-from typing import List
+from typing import List, Optional
 
 import requests
 from tqdm import tqdm
@@ -16,6 +16,10 @@ from pyonms.portal.models import (
     PortalConnectivityProfile,
     PortalFeatureProfile,
     PortalLocation,
+    PortalInstanceCreate,
+    PortalConnectivityProfileCreate,
+    PortalLocationCreate,
+    PortalMinion,
 )
 
 
@@ -82,10 +86,12 @@ class Portal:
         else:
             response = requests.post(uri, headers=headers)
         if response.status_code in [409]:
-            raise DuplicateEntityError(name=json["name"], model="Instance")
+            raise DuplicateEntityError(name=json["name"], model="PortalInstance")
         return response.text
 
-    def _put(self, uri: str, json: dict, headers: dict = {}, params: dict = {}) -> dict:
+    def _put(
+        self, uri: str, json: dict, headers: dict = {}, params: dict = {}
+    ) -> requests.Response:
         if not headers:
             headers = self.headers
         return requests.put(uri, headers=headers, json=json, params=params)
@@ -96,6 +102,21 @@ class Portal:
             return PortalAppliance(**data)
         else:
             return None
+
+    def update_appliance(self, appliance: PortalAppliance) -> PortalAppliance:
+        response = self._put(
+            uri=f"{self.base_v1}appliance/{appliance.id}", json=appliance.to_dict()
+        )
+        if response.status_code in [204]:
+            new_instance = self.get_appliance(id=appliance.id)
+            return new_instance
+
+    def get_all_appliances(self) -> List[Optional[PortalAppliance]]:
+        appliances = []
+        data = self._get(uri=f"{self.base_v1}appliance")
+        for appliance in data["pagedRecords"]:
+            appliances.append(PortalAppliance(**appliance))
+        return appliances
 
     def get_appliance_status(self, appliance: PortalAppliance) -> PortalApplianceStatus:
         data = self._get(uri=f"{self.base_v1}appliance/{appliance.id}/status")
@@ -115,6 +136,11 @@ class Portal:
         else:
             return None
 
+    def create_instance(self, instance: PortalInstanceCreate) -> PortalInstance:
+        instance_id = self._post(uri=f"{self.base_v1}instance", json=instance.to_dict())
+        new_instance = self.get_instance(id=instance_id)
+        return new_instance
+
     def get_subscription(self, id: str) -> PortalSubscription:
         data = self._get(uri=f"{self.base_v1}subscription/{id}")
         if data:
@@ -128,6 +154,16 @@ class Portal:
             return PortalConnectivityProfile(**data)
         else:
             return None
+
+    def create_connectivity_profile(
+        self, connectivity_profile: PortalConnectivityProfileCreate
+    ) -> PortalConnectivityProfile:
+        instance_id = self._post(
+            uri=f"{self.base_v1}connectivity-profile",
+            json=connectivity_profile.to_dict(),
+        )
+        new_instance = self.get_connectivity_profile(id=instance_id)
+        return new_instance
 
     def get_feature_profile(self, id: str) -> PortalFeatureProfile:
         data = self._get(uri=f"{self.base_v1}feature-profile/{id}")
@@ -153,3 +189,8 @@ class Portal:
             return location
         else:
             return None
+
+    def create_location(self, location: PortalLocationCreate) -> PortalLocation:
+        instance_id = self._post(uri=f"{self.base_v1}location", json=location.to_dict())
+        new_instance = self.get_location(id=instance_id)
+        return new_instance

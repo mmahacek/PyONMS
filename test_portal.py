@@ -22,14 +22,12 @@ new_broker = pyonms.portal.models.PortalBrokerJms(
     password=minion_pass,
 )
 
-new_instance = pyonms.portal.models.PortalInstanceCreate(name="TestDocker")
+new_instance = pyonms.portal.models.PortalInstanceCreate(name="TestDocker2")
 
 core = pyonms.portal.models.PortalHttpConfig(
     url=broker_host, user=minion_user, password=minion_pass
 )
-created_instance = my_portal._post(
-    uri=f"{my_portal.base_v1}instance", json=new_instance.to_dict()
-)
+created_instance = my_portal.create_instance(new_instance)
 
 new_con_profile = pyonms.portal.models.PortalConnectivityProfileCreate(
     name="ConProfile",
@@ -38,28 +36,22 @@ new_con_profile = pyonms.portal.models.PortalConnectivityProfileCreate(
     brokerConfig=new_broker,
 )
 
-con_profile = my_portal._post(
-    uri=f"{my_portal.base_v1}connectivity-profile", json=new_con_profile.to_dict()
-)
-# ----
+con_profile = my_portal.create_connectivity_profile(new_con_profile)
 
 new_location = pyonms.portal.models.PortalLocationCreate(
-    name="Location Name",
+    name="LocationName",
     onmsInstance=created_instance,
     connectivityProfile=con_profile,
 )
-location = my_portal._post(
-    uri=f"{my_portal.base_v1}location", json=new_location.to_dict()
-)
+location = my_portal.create_location(new_location)
+
 minion = pyonms.portal.models.PortalMinion(locationId=location)
 
-appliance_list = my_portal._get(
-    uri=f"{my_portal.base_v1}appliance",
-)
-appliance = pyonms.portal.models.PortalAppliance(**appliance_list["pagedRecords"][0])
+appliance_list = my_portal.get_all_appliances()
+
+appliance = appliance_list[0]
+
 appliance.minion = minion
 
-updated_appliance = my_portal._put(
-    uri=f"{my_portal.base_v1}appliance/{appliance.id}", json=appliance.to_dict()
-)
+updated_appliance = my_portal.update_appliance(appliance)
 pass
