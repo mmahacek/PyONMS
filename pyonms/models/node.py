@@ -191,11 +191,11 @@ class IPInterface:
     ifIndex: int
     lastEgressFlow: Union[datetime, int]
     lastIngressFlow: Union[datetime, int]
-    monitoredServiceCount: Optional[int]
     ipAddress: str
     snmpPrimary: Union[PrimaryType, str]
     isManaged: Union[Managed, str]
-    lastCapsdPoll: Union[datetime, int]
+    monitoredServiceCount: Optional[int] = None
+    lastCapsdPoll: Optional[Union[datetime, int]] = None
     snmpInterface: Optional[Union[SnmpInterface, dict]] = field(default_factory=dict)
     services: List[Optional[Service]] = field(default_factory=list)
 
@@ -212,7 +212,7 @@ class IPInterface:
             self.isManaged = Managed(self.isManaged)
         if isinstance(self.snmpPrimary, str):
             self.snmpPrimary = PrimaryType(self.snmpPrimary)
-        if isinstance(self.snmpInterface, dict):
+        if self.snmpInterface and isinstance(self.snmpInterface, dict):
             self.snmpInterface = SnmpInterface(**self.snmpInterface)
 
     def __repr__(self):
@@ -296,7 +296,7 @@ class Node:
             self.labelSource = LabelSource(self.labelSource)
         if isinstance(self.type, str):
             self.type = NodeType(self.type)
-        if isinstance(self.assetRecord, dict):
+        if self.assetRecord and isinstance(self.assetRecord, dict):
             self.assetRecord = AssetRecord(**self.assetRecord)
         if self.categories:
             self.categories = [id["name"] for id in self.categories]
