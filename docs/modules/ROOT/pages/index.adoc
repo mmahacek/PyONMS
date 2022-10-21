@@ -5,4 +5,4 @@
 
 Welcome to the {page-component-title} {page-version} documentation: information and guides to help you learn about {page-component-title} and start exploring its features.
 
-TIP: Use the left navigation bar to browse the documentation or the links below to access some highlights.
+TIP: Use the left navigation bar to browse the documentation.
