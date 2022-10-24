@@ -167,6 +167,8 @@ class SnmpInterface:
     pollFlag: str
     collect: bool
     poll: bool
+    collectionPolicySpecified: Optional[bool]
+    nodeId: Optional[int]
 
     def __post_init__(self):
         if isinstance(self.lastIngressFlow, int):
