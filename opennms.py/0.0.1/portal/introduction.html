@@ -3,19 +3,19 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>What is OpenNMS.py?</title>
+    <title>Cloud Portal</title>
     <meta name="generator" content="Antora 3.1.1">
-    <link rel="stylesheet" href="../../_/css/site.css">
-    <link rel="stylesheet" href="../../_/css/search.css">
-    <link rel="stylesheet" href="../../_/css/admonition-labels.css">
-    <link rel="icon" href="../../_/img/favicon.svg">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/search.css">
+    <link rel="stylesheet" href="../../../_/css/admonition-labels.css">
+    <link rel="icon" href="../../../_/img/favicon.svg">
   </head>
   <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a href="https://www.opennms.com"><img class="navbar-logo" src="../../_/img/logotype.svg"/></a>
-      <a class="navbar-site-title" href="../..">opennms.py</a>
+      <a href="https://www.opennms.com"><img class="navbar-logo" src="../../../_/img/logotype.svg"/></a>
+      <a class="navbar-site-title" href="../../..">opennms.py</a>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
         <span></span>
@@ -67,19 +67,19 @@
 </header>
 
 <div class="body">
-<div class="nav-container" data-component="opennms.py" data-version="0.0.1-SNAPSHOT">
+<div class="nav-container" data-component="opennms.py" data-version="0.0.1">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="index.html">OpenNMS.py</a></h3>
+    <h3 class="title"><a href="../index.html">OpenNMS.py</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">About</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="introduction.html">What is OpenNMS.py?</a>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../introduction.html">What is OpenNMS.py?</a>
   </li>
 </ul>
   </li>
@@ -88,7 +88,43 @@
     <span class="nav-text">Using</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="using/introduction.html">Basics</a>
+    <a class="nav-link" href="../using/introduction.html">Basics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../using/connecting.html">Connecting To A Server</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Endpoints</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Alarms</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Business Services</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Events</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Foreign Sources</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Nodes</span>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <span class="nav-text">Requisitions</span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Portal</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="introduction.html">Cloud Portal</a>
   </li>
 </ul>
   </li>
@@ -98,14 +134,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">OpenNMS.py</span>
-    <span class="version">0.0.1-SNAPSHOT</span>
+    <span class="version">0.0.1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
       <span class="title">OpenNMS.py</span>
       <ul class="versions">
         <li class="version is-current is-latest">
-          <a href="index.html">0.0.1-SNAPSHOT</a>
+          <a href="../index.html">0.0.1</a>
         </li>
       </ul>
     </li>
@@ -119,19 +155,53 @@
 <button class="nav-toggle"></button>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="index.html">OpenNMS.py</a></li>
-    <li>About</li>
-    <li><a href="introduction.html">What is OpenNMS.py?</a></li>
+    <li><a href="../index.html">OpenNMS.py</a></li>
+    <li>Portal</li>
+    <li><a href="introduction.html">Cloud Portal</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/mmahacek/PyONMS/edit/main/docs/modules/ROOT/pages/introduction.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/mmahacek/PyONMS/edit/main/docs/modules/ROOT/pages/portal/introduction.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">What is OpenNMS.py?</h1>
+<h1 class="page">Cloud Portal</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>OpenNMS.py is a Python library for accessing the <a href="https://docs.opennms.com/horizon/30/development/rest/rest-api.html">OpenNMS REST API</a>.
-The goal of this project is to provide a way to interact with entities an OpenNMS server as native Python objects.</p>
+<p>The OpenNMS Cloud Portal provides management capabilities for hosted services.
+A library for accessing the Cloud Portal API is included along site the OpenNMS.py library.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_getting_started"><a class="anchor" href="#_getting_started"></a>Getting started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <code>test_portal.py</code> file is provided as an example of interacting with the library.</p>
+</div>
+<div class="paragraph">
+<p>Define the following environment variable to store your API key for connecting to the cloud API.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>portal_secret</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The portal endpoints are still in development, therefore documentation is limited.
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -145,8 +215,8 @@ The goal of this project is to provide a way to interact with entities an OpenNM
   <p>Licensed under the terms of the AGPL-3.0.</p>
   <p><a href="https://docs.opennms.com/start-page/1.0.0/index.html" target="_blank">Legal Notice</a></p>
 </footer>
-<script src="../../_/js/site.js"></script>
-<script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
 <script type="text/x-mathjax-config">
