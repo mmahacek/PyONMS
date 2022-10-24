@@ -11,3 +11,5 @@ A `test_portal.py` file is provided as an example of interacting with the librar
 Define the following environment variable to store your API key for connecting to the cloud API.
 
 * `portal_secret`
+
+NOTE: The portal endpoints are still in development, therefore documentation is limited.

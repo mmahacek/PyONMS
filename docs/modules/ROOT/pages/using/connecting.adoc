@@ -1,0 +1,31 @@
+
+= Connecting To A Server
+
+The {page-component-title} library works by defining an instance and then making calls against the various endpoints.
+
+.Define a server instance
+[source, python]
+----
+from pyonms import PyONMS
+
+my_server = PyONMS(
+    hostname='http://localhost:8980/opennms',<1>
+    username='admin',<2>
+    password='admin',
+)
+----
+<1> Replace with the hostname to your instance.
+<2> Ensure the credentials provided have at least `ROLE_REST`.
+
+== Performing endpoint actions
+
+From your server instance object, endpoints can be utilized as class attributes of the server instance.
+
+.Example call to retrieve nodes for the instance
+[source, python]
+----
+nodes = my_server.nodes.get_nodes()
+----
+
+NOTE: Due to the early stage of this library, full documentation is not available for the various endpoints.
+This library does use type hinting, so your IDE should provide information regarding the inputs and results for the various methods.

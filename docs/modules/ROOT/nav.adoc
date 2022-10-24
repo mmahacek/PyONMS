@@ -3,8 +3,10 @@
 
 .Using
 * xref:using/introduction.adoc[]
+* xref:using/connecting.adoc[]
 * Endpoints
 ** Alarms
+** Business Services
 ** Events
 ** Foreign Sources
 ** Nodes
