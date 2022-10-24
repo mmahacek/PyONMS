@@ -2,7 +2,7 @@
 
 from enum import Enum
 from dataclasses import dataclass, field
-from typing import List, Union
+from typing import List, Optional
 
 import pyonms.models.exceptions
 
@@ -280,15 +280,13 @@ class IPServiceEdge:
 @dataclass(repr=False)
 class BusinessServiceRequest:
     name: str
-    attributes: List[Attribute] = field(default_factory=list)
+    attributes: List[Optional[Attribute]] = field(default_factory=list)
     reduce_function: ReduceFunction = field(default_factory=_reduce_function)
-    ip_service_edges: Union[List[IPServiceEdgeRequest], None] = field(
-        default_factory=list
-    )
-    reduction_key_edges: Union[List[str], None] = field(default_factory=list)
-    child_edges: Union[List[ChildEdgeRequest], None] = field(default_factory=list)
-    application_edges: Union[list, None] = field(default_factory=list)
-    parent_services: Union[List[int], None] = field(default_factory=list)
+    ip_service_edges: List[Optional[IPServiceEdgeRequest]] = field(default_factory=list)
+    reduction_key_edges: List[Optional[str]] = field(default_factory=list)
+    child_edges: List[Optional[ChildEdgeRequest]] = field(default_factory=list)
+    application_edges: List[Optional[str]] = field(default_factory=list)
+    parent_services: List[Optional[str]] = field(default_factory=list)
 
     def __repr__(self):
         return f"BusinessServiceRequest(name={self.name})"
@@ -299,9 +297,9 @@ class BusinessServiceRequest:
             "attributes": {"attribute": []},
             "reduce-function": self.reduce_function.to_dict(),
         }
-        if self.attributes:
-            for attribute in self.attributes:
-                payload["attributes"]["attribute"].append(attribute.to_dict())
+        for attribute in self.attributes:
+            payload["attributes"]["attribute"].append(attribute.to_dict())
+            self.attributes = self.attributes
         if self.reduction_key_edges:
             payload["reduction-key-edges"] = self.reduction_key_edges
         if self.ip_service_edges:
@@ -356,13 +354,13 @@ class BusinessService:
     location: str
     operational_status: str
     name: str
-    attributes: List[Attribute] = field(default_factory=list)
+    attributes: List[Optional[Attribute]] = field(default_factory=list)
     reduce_function: ReduceFunction = field(default_factory=_reduce_function)
-    ip_services_edges: List[Union[IPServiceEdge, None]] = field(default_factory=list)
-    reduction_key_edges: Union[list, None] = field(default_factory=list)
-    child_edges: List[Union[ChildEdge, None]] = field(default_factory=list)
-    application_edges: Union[list, None] = field(default_factory=list)
-    parent_services: Union[list, None] = field(default_factory=list)
+    ip_services_edges: List[Optional[IPServiceEdge]] = field(default_factory=list)
+    reduction_key_edges: List[Optional[str]] = field(default_factory=list)
+    child_edges: List[Optional[ChildEdge]] = field(default_factory=list)
+    application_edges: List[Optional[str]] = field(default_factory=list)
+    parent_services: List[Optional[str]] = field(default_factory=list)
 
     def __post_init__(self):  # noqa C901
         if self.attributes:
@@ -416,9 +414,8 @@ class BusinessService:
             "attributes": {"attribute": []},
             "reduce-function": self.reduce_function.to_dict(),
         }
-        if self.attributes.get("attribute"):
-            for attribute in self.attributes["attribute"]:
-                payload["attributes"]["attribute"].append(attribute.to_dict())
+        for attribute in self.attributes:
+            payload["attributes"]["attribute"].append(attribute.to_dict())
         if self.reduction_key_edges:
             payload["reduction-key-edges"] = self.reduction_key_edges
         if self.ip_services_edges:

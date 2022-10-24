@@ -3,7 +3,7 @@
 # cspell:ignore snmpinterfaces, ipinterfaces
 
 import concurrent.futures
-from typing import List, Union
+from typing import List, Optional
 
 from tqdm import tqdm
 
@@ -21,7 +21,7 @@ class BSMAPI(Endpoint):
 
     def get_bsm(
         self, id: int
-    ) -> Union[pyonms.models.business_service.BusinessService, None]:
+    ) -> Optional[pyonms.models.business_service.BusinessService]:
         record = self._get(uri=f"{self.url}/{id}")
         if record is not None:
             bsm = self.process_bsm(record)
@@ -42,11 +42,11 @@ class BSMAPI(Endpoint):
 
     def get_bsms(
         self, threads: int = 10
-    ) -> List[Union[pyonms.models.business_service.BusinessService, None]]:
+    ) -> List[Optional[pyonms.models.business_service.BusinessService]]:
         service_list = []
         services = self._get_bsm_ids()
 
-        with concurrent.futures.ProcessPoolExecutor(max_workers=threads) as pool:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
             with tqdm(
                 total=len(services["business-services"]),
                 unit="business-service",
@@ -70,7 +70,7 @@ class BSMAPI(Endpoint):
 
     def find_bsm_name(
         self, name: str, cache_only: bool = False
-    ) -> Union[pyonms.models.business_service.BusinessService, None]:
+    ) -> Optional[pyonms.models.business_service.BusinessService]:
         if self.cache_name.get(name):
             return self.cache[self.cache_name[name]]
         elif cache_only:
