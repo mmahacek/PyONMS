@@ -18,9 +18,11 @@ More details will be added as I figure out what they are.
 Currently the endpoints (partially) supported are:
 
 * Alarms (read-only)
+* Business Services (read-write)
 * Events (read-only)
+* Foreign Sources (read-only)
 * Nodes (read-only)
-* Requisitions (read-write)
+* Requisitions (read-only)
 
 ## Getting Started
 
