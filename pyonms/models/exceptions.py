@@ -34,3 +34,9 @@ class InvalidValueError(Exception):
         if valid:
             self.message += f" Valid options are {self.valid}."
         super().__init__(self.message)
+
+
+class AuthenticationError(Exception):
+    def __init__(self):
+        self.message = f"Verify login credentials are correct."
+        super().__init__(self.message)

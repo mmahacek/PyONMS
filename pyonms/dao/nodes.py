@@ -68,19 +68,26 @@ class NodeAPI(Endpoint):
         self, node_id: int
     ) -> List[Optional[pyonms.models.node.SnmpInterface]]:
         interfaces = []
-        records = self._get(uri=f"{self.url}/{node_id}/snmpinterfaces")
+        records = self.get_batch(
+            url=f"{self.url}/{node_id}/snmpinterfaces", endpoint="snmpInterface"
+        )
         if records:
-            for snmp_interface in records["snmpInterface"]:
-                interfaces.append(pyonms.models.node.SnmpInterface(**snmp_interface))
+            for snmp_interface in records:
+                if snmp_interface:
+                    interfaces.append(
+                        pyonms.models.node.SnmpInterface(**snmp_interface)
+                    )
         return interfaces
 
     def get_node_ip_addresses(
         self, node_id: int
     ) -> List[Optional[pyonms.models.node.IPInterface]]:
         ip_addresses = []
-        records = self._get(uri=f"{self.url}/{node_id}/ipinterfaces")
+        records = self.get_batch(
+            url=f"{self.url}/{node_id}/ipinterfaces", endpoint="ipInterface"
+        )
         if records:
-            for ip_interface in records["ipInterface"]:
+            for ip_interface in records:
                 ip = pyonms.models.node.IPInterface(**ip_interface)
                 ip.services = self.get_node_ip_services(node_id, ip.ipAddress)
                 ip_addresses.append(ip)
@@ -90,21 +97,28 @@ class NodeAPI(Endpoint):
         self, node_id: int, ip_address: str
     ) -> List[Optional[pyonms.models.node.Service]]:
         services = []
-        records = self._get(
-            uri=f"{self.url}/{node_id}/ipinterfaces/{ip_address}/services"
+        records = self.get_batch(
+            url=f"{self.url}/{node_id}/ipinterfaces/{ip_address}/services",
+            endpoint="service",
         )
         if records:
-            for service in records["service"]:
-                services.append(pyonms.models.node.Service(**service))
+            for service in records:
+                if service:
+                    new_service = pyonms.models.node.Service(**service)
+                    if new_service not in services:
+                        services.append(new_service)
         return services
 
     def get_node_metadata(
         self, node_id: int
     ) -> List[Optional[pyonms.models.node.Metadata]]:
         metadata = []
-        records = self._get(uri=f"{self.url}/{node_id}/metadata")
-        for record in records["metaData"]:
-            metadata.append(pyonms.models.node.Metadata(**record))
+        records = self.get_batch(
+            url=f"{self.url}/{node_id}/metadata", endpoint="metaData"
+        )
+        for record in records:
+            if record:
+                metadata.append(pyonms.models.node.Metadata(**record))
         return metadata
 
     def get_node_hardware(

@@ -110,11 +110,17 @@ class AssetRecord:
     def __repr__(self):
         return f"AssetRecord(id={self.id})"
 
+    def __hash__(self):
+        return hash((self.id))
+
 
 @dataclass
 class ServiceType:
     id: int
     name: str
+
+    def __hash__(self):
+        return hash((self.id))
 
 
 @dataclass(repr=False)
@@ -142,6 +148,9 @@ class Service:
     def __repr__(self):
         return f"Service(id={self.id}, serviceType={self.serviceType.name}, down={self.down})"
 
+    def __hash__(self):
+        return hash((self.id))
+
 
 @dataclass(repr=False)
 class SnmpInterface:
@@ -167,8 +176,8 @@ class SnmpInterface:
     pollFlag: str
     collect: bool
     poll: bool
-    collectionPolicySpecified: Optional[bool]
-    nodeId: Optional[int]
+    collectionPolicySpecified: Optional[bool] = None
+    nodeId: Optional[int] = None
 
     def __post_init__(self):
         if isinstance(self.lastIngressFlow, int):
@@ -182,6 +191,9 @@ class SnmpInterface:
 
     def __repr__(self):
         return f"SnmpInterface(id={self.id}, ifAlias={self.ifAlias})"
+
+    def __hash__(self):
+        return hash((self.id))
 
 
 @dataclass(repr=False)
@@ -220,12 +232,18 @@ class IPInterface:
     def __repr__(self):
         return f"IPInterface(id={self.id}, ipAddress={self.ipAddress})"
 
+    def __hash__(self):
+        return hash((self.id))
+
 
 @dataclass
 class Metadata:
     context: str
     key: str
     value: str
+
+    def __hash__(self):
+        return hash((self.context, self.key, self.value))
 
 
 @dataclass
@@ -305,3 +323,6 @@ class Node:
 
     def __repr__(self):
         return f"Node(id={self.id}, label={self.label})"
+
+    def __hash__(self):
+        return hash((self.id))

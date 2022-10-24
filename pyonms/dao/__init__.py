@@ -8,6 +8,7 @@ from requests.auth import HTTPBasicAuth
 from tqdm import tqdm
 
 import pyonms.utils
+from pyonms.models.exceptions import AuthenticationError
 
 
 class Endpoint:
@@ -40,7 +41,7 @@ class Endpoint:
             else:
                 params["limit"] = limit
             records = self._get(uri=url, params=params, endpoint=endpoint)
-            if records.get(endpoint, [None]) == [None]:
+            if records.get(endpoint, [None]) in [[None], []]:
                 return [None]
             if limit == 0 or records["totalCount"] < limit:
                 target_count = records["totalCount"]
@@ -76,7 +77,9 @@ class Endpoint:
     ) -> dict:
         response = requests.get(uri, auth=self.auth, headers=headers, params=params)
         if response.status_code == 200:
-            if "was not found" not in response.text:
+            if "Sign in to your account" in response.text:
+                raise AuthenticationError
+            elif "was not found" not in response.text:
                 if endpoint == "raw":
                     return response.text
                 else:
