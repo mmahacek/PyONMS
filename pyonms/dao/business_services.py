@@ -46,7 +46,7 @@ class BSMAPI(Endpoint):
         service_list = []
         services = self._get_bsm_ids()
 
-        with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
+        with concurrent.futures.ProcessPoolExecutor(max_workers=threads) as pool:
             with tqdm(
                 total=len(services["business-services"]),
                 unit="business-service",
