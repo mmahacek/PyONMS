@@ -8,7 +8,7 @@ def read(fname):
 
 setup(
     name="PyONMS",
-    version="0.0.1",
+    version="0.0.2",
     author="Mark Mahacek",
     author_email="mmahacek@opennms.com",
     packages=["pyonms", "pyonms.dao", "pyonms.models", "pyonms.portal", "pyonms.utils"],

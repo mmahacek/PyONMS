@@ -13,7 +13,7 @@ class MockAPI(PyONMS):
 @pytest.fixture
 def test_instance():
     return MockAPI(
-        hostname="http://localhost:8980/",
+        hostname="http://localhost:8980/opennms",
         username="admin",
         password="admin",
     )

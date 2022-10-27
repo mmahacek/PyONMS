@@ -70,7 +70,9 @@ class NodeAPI(Endpoint):
     ) -> List[Optional[pyonms.models.node.SnmpInterface]]:
         interfaces = []
         records = self.get_batch(
-            url=f"{self.url}/{node_id}/snmpinterfaces", endpoint="snmpInterface"
+            url=f"{self.url}/{node_id}/snmpinterfaces",
+            endpoint="snmpInterface",
+            hide_progress=True,
         )
         if records:
             for snmp_interface in records:
@@ -85,14 +87,19 @@ class NodeAPI(Endpoint):
     ) -> List[Optional[pyonms.models.node.IPInterface]]:
         ip_addresses = []
         records = self.get_batch(
-            url=f"{self.url}/{node_id}/ipinterfaces", endpoint="ipInterface"
+            url=f"{self.url}/{node_id}/ipinterfaces",
+            endpoint="ipInterface",
+            hide_progress=True,
         )
         if records:
             for ip_interface in records:
-                ip = pyonms.models.node.IPInterface(**ip_interface)
-                if services:
-                    ip.services = self.get_node_ip_services(node_id, ip.ipAddress)
-                ip_addresses.append(ip)
+                if ip_interface:
+                    ip = pyonms.models.node.IPInterface(**ip_interface)
+                    if services:
+                        ip.services = self.get_node_ip_services(node_id, ip.ipAddress)
+                    ip_addresses.append(ip)
+                else:
+                    pass
         return ip_addresses
 
     def get_node_ip_services(
@@ -102,6 +109,7 @@ class NodeAPI(Endpoint):
         records = self.get_batch(
             url=f"{self.url}/{node_id}/ipinterfaces/{ip_address}/services",
             endpoint="service",
+            hide_progress=True,
         )
         if records:
             for service in records:
@@ -116,7 +124,9 @@ class NodeAPI(Endpoint):
     ) -> List[Optional[pyonms.models.node.Metadata]]:
         metadata = []
         records = self.get_batch(
-            url=f"{self.url}/{node_id}/metadata", endpoint="metaData"
+            url=f"{self.url}/{node_id}/metadata",
+            endpoint="metaData",
+            hide_progress=True,
         )
         for record in records:
             if record:
@@ -131,27 +141,21 @@ class NodeAPI(Endpoint):
 
     def process_node(self, data: dict, components: list) -> pyonms.models.node.Node:
         node = pyonms.models.node.Node(**data)
-        for component in components:
-            if component in [NodeComponents.SNMP, NodeComponents.ALL]:
-                node.snmpInterfaces = self.get_node_snmpinterfaces(node.id)
-            if component in [
-                NodeComponents.IP,
-                NodeComponents.SERVICES,
-                NodeComponents.ALL,
-            ]:
-                if (
-                    NodeComponents.SERVICES in components
-                    or NodeComponents.ALL in components
-                ):
-                    node.ipInterfaces = self.get_node_ip_addresses(
-                        node.id, services=True
-                    )
-                else:
-                    node.ipInterfaces = self.get_node_ip_addresses(
-                        node.id, services=False
-                    )
-            if component in [NodeComponents.METADATA, NodeComponents.ALL]:
-                node.metadata = self.get_node_metadata(node.id)
-            if component in [NodeComponents.HARDWARE, NodeComponents.ALL]:
-                node.hardwareInventory = self.get_node_hardware(node.id)
+        if NodeComponents.ALL in components:
+            node.ipInterfaces = self.get_node_ip_addresses(node.id, services=True)
+            node.snmpInterfaces = self.get_node_snmpinterfaces(node.id)
+            node.metadata = self.get_node_metadata(node.id)
+            node.hardwareInventory = self.get_node_hardware(node.id)
+            return node
+        if NodeComponents.SERVICES in components:
+            node.ipInterfaces = self.get_node_ip_addresses(node.id, services=True)
+        elif NodeComponents.IP in components:
+            node.ipInterfaces = self.get_node_ip_addresses(node.id, services=False)
+        if NodeComponents.SNMP in components:
+            node.snmpInterfaces = self.get_node_snmpinterfaces(node.id)
+        if NodeComponents.METADATA in components:
+            node.metadata = self.get_node_metadata(node.id)
+        if NodeComponents.HARDWARE in components:
+            node.hardwareInventory = self.get_node_hardware(node.id)
+
         return node

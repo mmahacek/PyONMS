@@ -12,7 +12,9 @@ from pyonms.models.exceptions import AuthenticationError
 
 
 class Endpoint:
-    def __init__(self, hostname: str, username: str, password: str, **kwargs):
+    def __init__(
+        self, hostname: str, username: str, password: str, name: str, **kwargs
+    ):
         if hostname[-1:] == "/":
             hostname = hostname[:-1]
         self.base_v1 = f"{hostname}/rest/"
@@ -20,6 +22,7 @@ class Endpoint:
         self.hostname = hostname
         self.username = username
         self.password = password
+        self.name = name
         self.headers = {"Accept": "application/json"}
         self.auth = HTTPBasicAuth(self.username, self.password)
         for key, value in kwargs.items():
@@ -32,8 +35,14 @@ class Endpoint:
         limit: int = 0,
         batch_size: int = 100,
         params: dict = {},
+        hide_progress: bool = False,
     ) -> List[dict]:
-        with tqdm(total=limit, unit="record", desc=f"Pulling {endpoint} data") as pbar:
+        with tqdm(
+            total=limit,
+            unit="record",
+            desc=f"Pulling {self.name} {endpoint} data",
+            disable=hide_progress,
+        ) as pbar:
             result = []
             params["offset"] = 0
             if limit > batch_size:

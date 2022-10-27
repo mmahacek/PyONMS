@@ -9,13 +9,19 @@ import pyonms.dao.requisitions
 
 
 class PyONMS:
-    def __init__(self, hostname: str, username: str, password: str):
+    def __init__(self, hostname: str, username: str, password: str, name: str = None):
         self.hostname = hostname
         args = {
             "hostname": hostname,
             "username": username,
             "password": password,
         }
+        if name:
+            self.name = name
+            args["name"] = name
+        else:
+            self.name = hostname
+            args["name"] = ""
         self.alarms = pyonms.dao.alarms.AlarmAPI(args)
         self.bsm = pyonms.dao.business_services.BSMAPI(args)
         self.events = pyonms.dao.events.EventAPI(args)
