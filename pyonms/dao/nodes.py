@@ -51,7 +51,9 @@ class NodeAPI(Endpoint):
             threads = len(records)
         with concurrent.futures.ProcessPoolExecutor(max_workers=threads) as pool:
             with tqdm(
-                total=len(records), unit="node", desc="Hydrating Node objects"
+                total=len(records),
+                unit="node",
+                desc=f"Hydrating {self.name} Node objects",
             ) as progress:
                 futures = []
                 for record in records:

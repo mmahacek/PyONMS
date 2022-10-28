@@ -1,5 +1,7 @@
 # __init__.py
 
+from urllib.parse import urlsplit
+
 import pyonms.dao.alarms
 import pyonms.dao.business_services
 import pyonms.dao.events
@@ -20,8 +22,8 @@ class PyONMS:
             self.name = name
             args["name"] = name
         else:
-            self.name = hostname
-            args["name"] = ""
+            self.name = urlsplit(hostname).netloc.split(":")[0]
+            args["name"] = self.name
         self.alarms = pyonms.dao.alarms.AlarmAPI(args)
         self.bsm = pyonms.dao.business_services.BSMAPI(args)
         self.events = pyonms.dao.events.EventAPI(args)

@@ -1,9 +1,9 @@
 name: opennms.py
-version: '0.0.2-SNAPSHOT'
+version: '0.0.3-SNAPSHOT'
 title: OpenNMS.py
 asciidoc:
   attributes:
-    full-display-version: '0.0.2-SNAPSHOT'
+    full-display-version: '0.0.3-SNAPSHOT'
     experimental: true
     source-language: asciidoc@
     xrefstyle: short@

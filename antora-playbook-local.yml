@@ -17,7 +17,7 @@ ui:
   - path: .nojekyll
   - path: index.html
     contents: |
-      <html><head><meta http-equiv="refresh" content="0; url='opennms.py/0.0.2-SNAPSHOT/index.html'" /></head></html>
+      <html><head><meta http-equiv="refresh" content="0; url='opennms.py/0.0.3-SNAPSHOT/index.html'" /></head></html>
 asciidoc:
   attributes:
     experimental: true
