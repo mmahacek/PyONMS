@@ -1,0 +1,69 @@
+
+# Alarms
+
+The Alarms endpoint provides read-only access to system alarm records.
+
+== Supported methods
+
+=== get_alarm()
+
+Get alarm by ID.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|id
+|int
+|Required
+|ID of the alarm to retrieve.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|Alarm
+|Alarm object
+|===
+
+=== get_alarms()
+
+Get all alarms in system.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|limit
+|int
+|100
+|Maximum number of alarms to return.
+Set to `0` to get all alarms.
+
+|batch_size
+|int
+|100
+|Number of alarms to get per API call.
+If batch size is less than the limit, multiple API calls will automatically be made until limit is reached.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|List[Alarm]
+|List of Alarm objects.
+|===

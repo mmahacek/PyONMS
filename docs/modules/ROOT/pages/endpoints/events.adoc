@@ -1,0 +1,71 @@
+
+# Events
+
+The Events endpoint provides read-only access to system event records.
+
+== Supported methods
+
+=== get_event()
+
+Get event by ID.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|id
+|int
+|Required
+|ID of the event to retrieve.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|Event
+|Event object
+|===
+
+=== get_events()
+
+Get all events in system.
+
+WARNING: Do not use this with a limit of `0` as you probably have a lot of events in your server.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|limit
+|int
+|100
+|Maximum number of events to return.
+Set to `0` to get all events.
+
+|batch_size
+|int
+|100
+|Number of events to get per API call.
+If batch size is less than the limit, multiple API calls will automatically be made until limit is reached.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|List[Event]
+|List of Event objects.
+|===

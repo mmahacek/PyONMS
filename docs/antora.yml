@@ -1,13 +1,13 @@
 name: opennms.py
-version: '0.0.2'
+version: '0.0.3-SNAPSHOT'
 title: OpenNMS.py
 asciidoc:
   attributes:
-    full-display-version: '0.0.2'
+    full-display-version: '0.0.3-SNAPSHOT'
     experimental: true
     source-language: asciidoc@
     xrefstyle: short@
     python-version: 3.9
-    repo-url: 'https://github.com/mmahacek/PyONMS/'
+    repo-url: 'https://github.com/mmahacek/PyONMS'
 nav:
   - modules/ROOT/nav.adoc

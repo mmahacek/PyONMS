@@ -50,7 +50,7 @@ class BSMAPI(Endpoint):
             with tqdm(
                 total=len(services["business-services"]),
                 unit="business-service",
-                desc="Getting Business Services",
+                desc=f"Getting {self.name} Business Services",
             ) as progress:
                 futures = []
                 for service_url in services["business-services"]:
