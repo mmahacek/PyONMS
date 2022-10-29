@@ -1,0 +1,112 @@
+
+= Nodes
+
+The Nodes endpoint provides read-only access to nodes in inventory.
+Any changes to nodes should be made through a xref:ROOT:endpoints/requisitions.adoc[requisition].
+
+== Supported methods
+
+=== get_node()
+
+Get one node by database ID number.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|id
+|int
+|Required
+|Database ID of node to retrieve.
+
+|components
+|List[NodeComponents]
+|[NodeComponents.ALL]
+|List of <<NodeComponents>> objects.
+Defaults to include all component options.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|Node
+|Node object
+|===
+
+=== get_nodes()
+
+Get all nodes in inventory.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|components
+|List[NodeComponents]
+|[None]
+|List of <<NodeComponents>> objects.
+Defaults to include no component options.
+
+|limit
+|int
+|100
+|Maximum number of nodes to return.
+Set to `0` to get all nodes.
+
+|batch_size
+|int
+|100
+|Number of nodes to get per API call.
+If batch size is less than the limit, multiple API calls will automatically be made until limit is reached.
+
+|threads
+|int
+|10
+|Number of simultaneous threads to make API calls.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|List[Node]
+|List of Node objects.
+|===
+
+== NodeComponents
+
+By default, the node endpoints gather only basic information about the node.
+The `components` parameter takes a list of NodeComponents enum values to indicate what additional data to include for the node.
+
+.Example call for just IP and SNMP interfaces
+[source, python]
+----
+nodes = server.nodes.get_nodes(limit=0, components=[NodeComponents.IP, NodeComponents.SNMP])
+----
+
+NOTE: Each components requires an additional API call per node to retrieve data.
+
+Available components:
+
+NodeComponents.SNMP:: SnmpInterfaces.
+NodeComponents.IP:: IPInterfaces.
+NodeComponents.SERVICES:: Monitored Services.
+As services are associated with IP Interfaces, if `SERVICES` is included, all IPInterfaces will also be collected.
+NodeComponents.METADATA:: Metadata records.
+NodeComponents.HARDWARE:: Hardware Inventory.
+Currently only the default set of hardware inventory fields are supported.
+If you have customized hardware inventory collection, including this component will generate an error.
+NodeComponents.ALL:: Includes all of the above components.

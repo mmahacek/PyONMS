@@ -26,15 +26,21 @@ class NodeAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v2 + "nodes"
 
-    def get_node(self, id: int) -> Optional[pyonms.models.node.Node]:
+    def get_node(
+        self, id: int, components: List[NodeComponents] = [NodeComponents.ALL]
+    ) -> Optional[pyonms.models.node.Node]:
         record = self._get(uri=f"{self.url}/{id}")
         if record is not None:
-            return self.process_node(record, components=[NodeComponents.ALL])
+            return self.process_node(record, components=components)
         else:
             return None
 
     def get_nodes(
-        self, limit=100, batch_size=100, components: list = [], threads: int = 10
+        self,
+        limit=100,
+        batch_size=100,
+        components: List[NodeComponents] = [],
+        threads: int = 10,
     ) -> List[Optional[pyonms.models.node.Node]]:
         devices = []
         params = {}

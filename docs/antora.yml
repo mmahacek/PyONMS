@@ -8,6 +8,6 @@ asciidoc:
     source-language: asciidoc@
     xrefstyle: short@
     python-version: 3.9
-    repo-url: 'https://github.com/mmahacek/PyONMS/'
+    repo-url: 'https://github.com/mmahacek/PyONMS'
 nav:
   - modules/ROOT/nav.adoc

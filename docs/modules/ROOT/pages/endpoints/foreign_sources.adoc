@@ -1,0 +1,71 @@
+
+# Foreign Sources
+
+The Foreign Sources endpoint currently only provides read-only access to the detectors and policies of a requisition.
+Information regarding requisition nodes is included as part of the xref:ROOT:endpoints/requisitions.adoc[Requisition] endpoint.
+
+
+== Supported methods
+
+=== get_foreign_source()
+
+Get specific foreign source definition by name.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|name
+|str
+|Required
+|Name of foreign source definition to retrieve.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|ForeignSource
+|ForeignSource object
+|===
+
+=== get_foreign_sources()
+
+Get all foreign source definitions in system.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|limit
+|int
+|100
+|Maximum number of foreign source definitions to return.
+Set to `0` to get all foreign source definitions.
+
+|batch_size
+|int
+|100
+|Number of foreign source definitions to get per API call.
+If batch size is less than the limit, multiple API calls will automatically be made until limit is reached.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|List[ForeignSource]
+|List of ForeignSource objects.
+|===

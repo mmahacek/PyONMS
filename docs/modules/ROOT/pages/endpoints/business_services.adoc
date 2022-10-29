@@ -1,0 +1,214 @@
+
+# Business Services
+
+The Business Services endpoint provides read and write access to Business Service Monitoring (BSM) records.
+
+== Supported methods
+
+=== get_bsm()
+
+Get business service by ID.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|id
+|int
+|Required
+|ID of the business service to retrieve.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|BusinessService
+|BusinessService object
+|===
+
+=== get_bsms()
+
+Get all business services in system.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|threads
+|int
+|10
+|Number of simultaneous threads to make API calls.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|List[BusinessService]
+|List of BusinessService objects.
+|===
+
+=== find_bsm_name()
+
+Search for a business service by name.
+The REST API does not provide a way to search for business service objects by name.
+This method will pull each service record from the server until a matching name is found.
+If the `cache_only` parameter is `True`, only business service objects previously retrieved this session will be searched.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|name
+|str
+|Required
+|Name of the business service to retrieve.
+Must be an exact, case-sensitive match.
+
+|cache_only
+|bool
+|False
+|If True, only search BSM objects that have previously been retrieved this session.
+If False, pull list of BSMs from the server and search for the specified `name`.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|BusinessService
+|BusinessService object
+|===
+
+=== reload_bsm_daemon()
+
+Reloads the business service daemon to apply any create, update, or delete actions.
+
+.Parameters
+[options="header, autowidth", cols="1"]
+|===
+|Description
+
+|This method does not take any parameters
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|None
+|No response is returned from this method.
+|===
+
+
+=== create_bsm()
+
+Create new business service object.
+Will return a `DuplicateEntityError` if there already is an existing business service with the same name.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|bsm
+|BusinessServiceRequest
+|Required
+|BusinessServiceRequest object.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|None
+|No response is returned from this method.
+|===
+
+=== update_bsm()
+
+Update an existing business service object.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|id
+|int
+|Required
+|ID of the business service to update.
+
+|bsm
+|BusinessServiceRequest
+|Required
+|BusinessServiceRequest object to update the specified the service with the given `id`.
+The provided object will overwrite the existing business service.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|None
+|No response is returned from this method.
+|===
+
+=== delete_bsm()
+
+Delete a business service object by ID.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|id
+|int
+|Required
+|ID of the business service to delete.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|None
+|No response is returned from this method.
+|===

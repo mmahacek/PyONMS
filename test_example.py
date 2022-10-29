@@ -9,6 +9,15 @@ from pyonms.dao.nodes import NodeComponents
 
 load_dotenv()
 
+# This test file utilizes environment variables to store server name and credentials as an alternative to including them in your code.
+# You can set the following environment variables or create an `.env` file to provide credentials for accessing a Meridian/Horizon server.
+# Set the following values in the file:
+
+# * `hostname` (Example: `\http://localhost:8980/opennms`)
+# * `username`
+# * `password`
+
+
 my_server = PyONMS(
     hostname=os.getenv("hostname"),
     username=os.getenv("username"),

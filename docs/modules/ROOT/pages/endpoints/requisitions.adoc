@@ -1,0 +1,150 @@
+
+# Requisitions
+
+The Requisitions endpoint currently only provides read-only access to list of included nodes.
+Information regarding detectors and policies is included as part of the xref:ROOT:endpoints/foreign_sources.adoc[Foreign Sources] endpoint.
+
+
+== Supported methods
+
+=== get_requisition()
+
+Get specific requisition by name.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|name
+|str
+|Required
+|Name of requisition to retrieve.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|Requisition
+|Requisition object
+|===
+
+=== get_requisitions()
+
+Get all requisitions in system.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|limit
+|int
+|100
+|Maximum number of requisitions to return.
+Set to `0` to get all requisitions.
+
+|batch_size
+|int
+|100
+|Number of requisitions to get per API call.
+If batch size is less than the limit, multiple API calls will automatically be made until limit is reached.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|List[Requisition]
+|List of Requisition objects.
+|===
+
+=== import_requisition()
+
+Trigger a reimport of a specified requisition.
+Import and rescan of requisitions happens in the background and the API will not indicate when the import starts or stops, just if the request was received.
+
+.Parameters
+[options="header, autowidth", cols="1,1,1,2"]
+|===
+|Name
+|Type
+|Default
+|Description
+
+|name
+|str
+|Required
+|Name of requisition to reimport.
+
+|rescan
+|bool
+|False
+|If True, perform rescan of existing nodes.
+If False, skip rescan of existing nodes.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|Boolean
+|Returns True or False if request was received.
+|===
+
+=== get_requisition_active_count()
+
+Returns the number of active requisitions in the server.
+
+.Parameters
+[options="header, autowidth", cols="1"]
+|===
+|Description
+
+|This method does not take any parameters.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|int
+|Count of active requisitions.
+|===
+
+=== get_requisition_deployed_count()
+
+Returns the number of deployed requisitions in the server.
+
+.Parameters
+[options="header, autowidth", cols="1"]
+|===
+|Description
+
+|This method does not take any parameters.
+|===
+
+.Returns
+[options="header, autowidth", cols="1,2"]
+|===
+|Type
+|Description
+
+|int
+|Count of deployed requisitions.
+|===
