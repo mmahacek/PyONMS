@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Nodes</title>
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/search.css">
+    <link rel="stylesheet" href="../../../_/css/admonition-labels.css">
+    <link rel="icon" href="../../../_/img/favicon.svg">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a href="https://www.opennms.com"><img class="navbar-logo" src="../../../_/img/logotype.svg"/></a>
+      <a class="navbar-site-title" href="../../..">opennms.py</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Videos</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item"
+               href="https://www.youtube.com/watch?v=GJzmkshdjiI&list=PLsXgBGH3nG7iZSlssmZB3xWsAJlst2j2z"
+               target="blank">OpenNMS 101 Training</a>
+            <a class="navbar-item"
+               href="https://www.youtube.com/watch?v=aoiSjNvDC7E&list=PLsXgBGH3nG7h6zy2hENGRJbs0BYQaqBu4"
+               target="blank">OpenNMS 102 Training</a>
+            <a class="navbar-item" href="https://www.youtube.com/opennms" target="blank">OpenNMS on YouTube</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Community Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opennms.com" target="blank">Project Website</a>
+            <a class="navbar-item" href="https://issues.opennms.org" target="blank">JIRA</a>
+            <a class="navbar-item" href="https://opennms.discourse.group" target="blank">Discourse</a>
+            <a class="navbar-item" href="https://chat.opennms.com" target="blank">Mattermost Chat</a>
+            <a class="navbar-item" href="https://toolbox.opennms.eu" target="blank">Toolbox</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">OpenNMS Group</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opennms.com/training" target="blank">Training</a>
+            <a class="navbar-item" href="https://www.opennms.com/support" target="blank">Commercial Support</a>
+            <a class="navbar-item" href="https://www.opennms.com/sponsored-development" target="blank">Sponsored
+              Development</a>
+          </div>
+        </div>
+        <a class="navbar-item" href="https://vault.opennms.com/docs/">Archived Docs</a>
+      </div>
+      <div class="navbar-item">
+      <span class="control">
+        <a class="button is-primary" href="https://github.com/opennms" target="blank">GitHub</a>
+      </span>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="body">
+<div class="nav-container" data-component="opennms.py" data-version="0.0.3">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">OpenNMS.py</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">About</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../introduction.html">What is OpenNMS.py?</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Using</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../using/introduction.html">Basics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../using/connecting.html">Connecting To A Server</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../using/support.html">Support</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Endpoints</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="alarms.html">Alarms</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="business_services.html">Business Services</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="events.html">Events</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="foreign_sources.html">Foreign Sources</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="nodes.html">Nodes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="requisitions.html">Requisitions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Portal</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../portal/introduction.html">Cloud Portal</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">OpenNMS.py</span>
+    <span class="version">0.0.3</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">OpenNMS.py</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">0.0.3</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">OpenNMS.py</a></li>
+    <li>Endpoints</li>
+    <li><a href="nodes.html">Nodes</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/mmahacek/PyONMS/edit/main/docs/modules/ROOT/pages/endpoints/nodes.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Nodes</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Nodes endpoint provides read-only access to nodes in inventory.
+Any changes to nodes should be made through a <a href="requisitions.html" class="xref page">requisition</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_supported_methods"><a class="anchor" href="#_supported_methods"></a>Supported methods</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_get_node"><a class="anchor" href="#_get_node"></a>get_node()</h3>
+<div class="paragraph">
+<p>Get one node by database ID number.</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 1. Parameters</caption>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Required</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Database ID of node to retrieve.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">components</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List[NodeComponents]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[NodeComponents.ALL]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of <a href="#_nodecomponents">NodeComponents</a> objects.
+Defaults to include all component options.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 2. Returns</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node object</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_get_nodes"><a class="anchor" href="#_get_nodes"></a>get_nodes()</h3>
+<div class="paragraph">
+<p>Get all nodes in inventory.</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 3. Parameters</caption>
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Default</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">components</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List[NodeComponents]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[None]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of <a href="#_nodecomponents">NodeComponents</a> objects.
+Defaults to include no component options.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">limit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of nodes to return.
+Set to <code>0</code> to get all nodes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">batch_size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">100</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of nodes to get per API call.
+If batch size is less than the limit, multiple API calls will automatically be made until limit is reached.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">threads</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of simultaneous threads to make API calls.</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 4. Returns</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List[Node]</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List of Node objects.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_nodecomponents"><a class="anchor" href="#_nodecomponents"></a>NodeComponents</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, the node endpoints gather only basic information about the node.
+The <code>components</code> parameter takes a list of NodeComponents enum values to indicate what additional data to include for the node.</p>
+</div>
+<div class="listingblock">
+<div class="title">Example call for just IP and SNMP interfaces</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">nodes = server.nodes.get_nodes(limit=0, components=[NodeComponents.IP, NodeComponents.SNMP])</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Each components requires an additional API call per node to retrieve data.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Available components:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">NodeComponents.SNMP</dt>
+<dd>
+<p>SnmpInterfaces.</p>
+</dd>
+<dt class="hdlist1">NodeComponents.IP</dt>
+<dd>
+<p>IPInterfaces.</p>
+</dd>
+<dt class="hdlist1">NodeComponents.SERVICES</dt>
+<dd>
+<p>Monitored Services.
+As services are associated with IP Interfaces, if <code>SERVICES</code> is included, all IPInterfaces will also be collected.</p>
+</dd>
+<dt class="hdlist1">NodeComponents.METADATA</dt>
+<dd>
+<p>Metadata records.</p>
+</dd>
+<dt class="hdlist1">NodeComponents.HARDWARE</dt>
+<dd>
+<p>Hardware Inventory.
+Currently only the default set of hardware inventory fields are supported.
+If you have customized hardware inventory collection, including this component will generate an error.</p>
+</dd>
+<dt class="hdlist1">NodeComponents.ALL</dt>
+<dd>
+<p>Includes all of the above components.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright (c) 2002–2022 The OpenNMS Group, Inc.</p>
+  <p>Licensed under the terms of the AGPL-3.0.</p>
+  <p><a href="https://docs.opennms.com/start-page/1.0.0/index.html" target="_blank">Legal Notice</a></p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: {
+      Macros: {
+      RR: "{\\mathbb R}",
+      NN: "{\\mathbb N}",
+      Nso: "{N_{\\mathrm{so}}}",
+      Nma: "{N_{\\mathrm{ma}}}",
+      Nno: "{N_{\\mathrm{no}}}",
+      Ne: "{N_{\\mathrm{e}}}",
+      Ilag: ["{\\mathcal{I}^{\\mathrm{lag}}_{#1}}",1],
+      calTh: "{\\mathcal{T}_h}",
+      Ck: ["{\\mathcal{C}^{#1}}",1],
+      Pk: ["{\\mathcal{P}^{#1}}",1],
+      Qk: ["{\\mathcal{Q}^{#1}}",1],
+      Pch: ["{P^{#1}_{c,h}}",1],
+      Pcho: ["{P^{#1}_{c,h,0}}",1],
+      Qch: ["{Q^{#1}_{c,h}}",1],
+      Ich: ["{\\mathcal{I}^{#1}_{c,h}#2}",2],
+      poly: ["{\\mathbb{#1}}",1],
+      nf: "{n_f}",
+      normal: "{\\mathbf{n}}",
+      ngeo: "{n_{\\mathrm{geo}}}",
+      geo: "{\\mathrm{geo}}",
+      card: ["{\\operatorname{card}(#1)}",1],
+      dim: ["{\\operatorname{dim}(#1)}",1],
+      opdim: "{\\operatorname{dim}}",
+      card: ["{\\operatorname{card}(#1)}",1],
+      poly: ["{\\mathbb{#1}}",1],
+      R: ["{\\mathbb{R}^{#1}}",1],
+      set: ["{\\left\\{#1\\right\\}}",1],
+      diam: "{\\operatorname{diam}}",
+      jump: ["{[\\![ #1 ]\\!]}",1],
+      Next: "{\\mathrm{n}}",
+      essinf: "{\\operatorname{ess}\\, \\operatorname{inf}}",
+      tr: "{\\operatorname{tr}}",
+      Id: "{\\mathcal{I}}",
+      disp: ["{\\mathbf{#1}}",1],
+      stresst: ["{\\mathbf{\\sigma(#1)}}",1],
+      deformt: ["{\\mathbf{\\varepsilon(#1)}}",1],
+      domain: "{\\Omega}",
+      prect: ["{\\left\\(#1\\right\\)}",1],
+      ds: "",
+      bold: ["{\\bf #1}",1]
+  },
+  extensions: ["mhchem.js"] }
+});
+</script>
+  </body>
+</html>
