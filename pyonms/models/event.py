@@ -11,6 +11,8 @@ from pyonms.utils import convert_time
 
 
 class Severity(Enum):
+    """Severity Levels"""
+
     INDETERMINATE = 1
     CLEARED = 2
     NORMAL = 3

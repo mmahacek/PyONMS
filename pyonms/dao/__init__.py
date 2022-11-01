@@ -153,9 +153,7 @@ class Endpoint:
                     v2_data[key] = [value["model_import"]]
         return v2_data
 
-    def _delete(
-        self, uri: str, headers: dict = {}, params: dict = {}, endpoint: str = None
-    ) -> dict:
+    def _delete(self, uri: str, headers: dict = {}, params: dict = {}) -> dict:
         headers["Accept"] = "application/json"
         requests.delete(uri, auth=self.auth, headers=headers)
         return {}

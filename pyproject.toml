@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name="PyONMS"
+version="0.0.4"
+requires-python = ">=3.6"
+description="A Python library for accessing the OpenNMS REST API."
+license={text = "MIT License"}
+dependencies=["requests", "python-dotenv", "xmltodict", "tqdm"]
+dynamic = ["readme"]
+
+
+[tool.setuptools]
+license-files = ["LICENSE.txt"]
+packages=["pyonms", "pyonms.dao", "pyonms.models", "pyonms.portal", "pyonms.utils"]
+#url="https://github.com/mmahacek/PyONMS"
+#author="Mark Mahacek"
+#author_email="mmahacek@opennms.com"
+
+[tool.setuptools.dynamic]
+readme = {file = "README.md"}

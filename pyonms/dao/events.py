@@ -15,7 +15,7 @@ class EventAPI(Endpoint):
     def get_event(self, id: int) -> Union[pyonms.models.event.Event, None]:
         record = self._get(uri=f"{self.url}/{id}")
         if record is not None:
-            return self.process_event(record)
+            return self._process_event(record)
         else:
             return None
 
@@ -32,8 +32,8 @@ class EventAPI(Endpoint):
         if records == [None]:
             return [None]
         for record in records:
-            events.append(self.process_event(record))
+            events.append(self._process_event(record))
         return events
 
-    def process_event(self, data: dict) -> pyonms.models.event.Event:
+    def _process_event(self, data: dict) -> pyonms.models.event.Event:
         return pyonms.models.event.Event(**data)

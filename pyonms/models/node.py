@@ -26,12 +26,27 @@ class NodeType(Enum):
 class Managed(Enum):
     MANAGED = "M"
     UNMANAGED = "U"
+    DELETED = "D"
+    ALIAS = "A"
+    FORCE_UNMANAGED = "F"
+    NOT_POLLED = "N"
+    REMOTELY_MONITORED = "X"
 
 
 class PrimaryType(Enum):
     PRIMARY = "P"
     SECONDARY = "S"
     NOT_ELIGIBLE = "N"
+
+
+@dataclass
+class Metadata:
+    context: str
+    key: str
+    value: str
+
+    def __hash__(self):
+        return hash((self.context, self.key, self.value))
 
 
 @dataclass(repr=False)
@@ -136,6 +151,8 @@ class Service:
     statusLong: str
     lastFail: datetime
     lastGood: datetime
+    metadata: List[Optional[Metadata]] = field(default_factory=list)
+    applications: List[Optional[str]] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.serviceType, dict):
@@ -212,6 +229,7 @@ class IPInterface:
     lastCapsdPoll: Optional[Union[datetime, int]] = None
     snmpInterface: Optional[Union[SnmpInterface, dict]] = field(default_factory=dict)
     services: List[Optional[Service]] = field(default_factory=list)
+    metadata: List[Optional[Metadata]] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.id, str):
@@ -234,16 +252,6 @@ class IPInterface:
 
     def __hash__(self):
         return hash((self.id))
-
-
-@dataclass
-class Metadata:
-    context: str
-    key: str
-    value: str
-
-    def __hash__(self):
-        return hash((self.context, self.key, self.value))
 
 
 @dataclass

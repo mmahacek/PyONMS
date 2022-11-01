@@ -18,7 +18,7 @@ class ForeignSourceAPI(Endpoint):
     ) -> Optional[pyonms.models.foreign_source.ForeignSource]:
         record = self._get(uri=f"{self.url}/{name}", endpoint="foreignSources")
         if record is not None:
-            return self.process_foreign_source(record)
+            return self._process_foreign_source(record)
         else:
             return None
 
@@ -32,10 +32,10 @@ class ForeignSourceAPI(Endpoint):
         if records == [None]:
             return [None]
         for record in records["foreignSources"]:
-            foreign_sources.append(self.process_foreign_source(record))
+            foreign_sources.append(self._process_foreign_source(record))
         return foreign_sources
 
-    def process_foreign_source(
+    def _process_foreign_source(
         self, data: dict
     ) -> pyonms.models.foreign_source.ForeignSource:
         if data.get("date-stamp"):
