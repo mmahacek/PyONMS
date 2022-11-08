@@ -9,11 +9,17 @@ import pyonms.models.exceptions
 
 class Severity(Enum):
     INDETERMINATE = "Indeterminate"
+    "Indeterminate"
     NORMAL = "Normal"
+    "Normal"
     WARNING = "Warning"
+    "Warning"
     MINOR = "Minor"
+    "Minor"
     MAJOR = "Major"
+    "Major"
     CRITICAL = "Critical"
+    "Critical"
 
 
 MAP_FUNCTIONS = ["Identity", "Increase", "Decrease", "Ignore", "SetTo"]
@@ -247,7 +253,7 @@ class IPServiceEdge:
             del self.ip_service["ip-address"]
             self.ip_service = IPService(**self.ip_service)
             self.ip_service_id = self.ip_service.id
-        if self.map_function:
+        if isinstance(self.map_function, dict):
             self.map_function = MapFunction(**self.map_function)
 
     def __repr__(self):
@@ -278,14 +284,180 @@ class IPServiceEdge:
 
 
 @dataclass(repr=False)
+class Application:
+    id: int
+    application_name: str
+    location: Optional[str] = None
+
+    def __repr__(self):
+        return f"Application(id={self.id}, application={self.application_name})"
+
+    def __hash__(self):
+        return hash((self.id))
+
+    def to_dict(self) -> dict:
+        payload = {
+            "id": self.id,
+            "application-name": self.application_name,
+        }
+        return payload
+
+
+@dataclass(repr=False)
+class ApplicationEdgeRequest:
+    id: int
+    weight: int = 1
+    map_function: MapFunction = field(default_factory=_map_function)
+
+    def __post_init__(self):
+        if isinstance(self.map_function, dict):
+            self.map_function = MapFunction(**self.map_function)
+
+    def __repr__(self):
+        return f"ApplicationEdgeRequest(application={self.application['application-name']})"
+
+    def __hash__(self):
+        return hash((self.application))
+
+    def to_dict(self) -> dict:
+        payload = {
+            "application-id": self.id,
+            "map-function": self.map_function.to_dict(),
+            "weight": self.weight,
+        }
+        return payload
+
+
+@dataclass(repr=False)
+class ApplicationEdge:
+    id: int
+    location: str
+    operational_status: str
+    weight: int = 1
+    map_function: MapFunction = field(default_factory=_map_function)
+    reduction_keys: list = field(default_factory=list)
+    application: Application = field(default_factory=dict)
+
+    def __post_init__(self):
+        if isinstance(self.map_function, dict):
+            self.map_function = MapFunction(**self.map_function)
+        if isinstance(self.application, dict):
+            if self.application.get("application-name"):
+                self.application["application_name"] = self.application[
+                    "application-name"
+                ]
+                del self.application["application-name"]
+            self.application = Application(**self.application)
+
+    def __repr__(self):
+        return f"ApplicationEdge(id={self.id}, application={self.application['application-name']})"
+
+    def __hash__(self):
+        return hash((self.id))
+
+    def to_dict(self) -> dict:
+        payload = {
+            "id": self.id,
+            "location": self.location,
+            "operational-status": self.operational_status,
+            "map-function": self.map_function.to_dict(),
+            "weight": self.weight,
+            "application": self.application.to_dict(),
+        }
+        return payload
+
+    def request(self) -> ApplicationEdgeRequest:
+        return ApplicationEdgeRequest(
+            id=self.application.id,
+            weight=self.weight,
+            map_function=self.map_function,
+        )
+
+
+@dataclass(repr=False)
+class ReductionKeyEdgeRequest:
+    reduction_key: str
+    friendly_name: str
+    weight: int = 1
+    map_function: MapFunction = field(default_factory=_map_function)
+
+    def __post_init__(self):
+        if isinstance(self.map_function, dict):
+            self.map_function = MapFunction(**self.map_function)
+
+    def __repr__(self):
+        return f"ReductionKeyEdgeRequest(reduction_key={self.reduction_key})"
+
+    def __hash__(self):
+        return hash((self.reduction_key))
+
+    def to_dict(self) -> dict:
+        payload = {
+            "reduction-key": self.reduction_key,
+            "map-function": self.map_function.to_dict(),
+            "weight": self.weight,
+        }
+        return payload
+
+
+@dataclass(repr=False)
+class ReductionKeyEdge:
+    id: int
+    location: str
+    friendly_name: str
+    reduction_keys: List[str]
+    operational_status: str
+    weight: int = 1
+    map_function: MapFunction = field(default_factory=_map_function)
+
+    def __post_init__(self):
+        if len(self.friendly_name) > 30:
+            raise pyonms.models.exceptions.StringLengthError(
+                30, value=self.friendly_name
+            )
+        if isinstance(self.map_function, dict):
+            self.map_function = MapFunction(**self.map_function)
+
+    def __repr__(self):
+        return f"ReductionKeyEdge(id={self.id}, reduction_key={self.reduction_keys[0]})"
+
+    def __hash__(self):
+        return hash((self.id))
+
+    def to_dict(self) -> dict:
+        payload = {
+            "id": self.id,
+            "location": self.location,
+            "operational-status": self.operational_status,
+            "map-function": self.map_function.to_dict(),
+            "weight": self.weight,
+            "reduction-keys": self.reduction_keys,
+            "friendly-name": self.friendly_name,
+        }
+        return payload
+
+    def request(self) -> ReductionKeyEdgeRequest:
+        return ReductionKeyEdgeRequest(
+            reduction_key=self.reduction_keys[0],
+            friendly_name=self.friendly_name,
+            weight=self.weight,
+            map_function=self.map_function,
+        )
+
+
+@dataclass(repr=False)
 class BusinessServiceRequest:
     name: str
     attributes: List[Optional[Attribute]] = field(default_factory=list)
     reduce_function: ReduceFunction = field(default_factory=_reduce_function)
     ip_service_edges: List[Optional[IPServiceEdgeRequest]] = field(default_factory=list)
-    reduction_key_edges: List[Optional[str]] = field(default_factory=list)
+    reduction_key_edges: List[Optional[ReductionKeyEdgeRequest]] = field(
+        default_factory=list
+    )
     child_edges: List[Optional[ChildEdgeRequest]] = field(default_factory=list)
-    application_edges: List[Optional[str]] = field(default_factory=list)
+    application_edges: List[Optional[ApplicationEdgeRequest]] = field(
+        default_factory=list
+    )
     parent_services: List[Optional[str]] = field(default_factory=list)
 
     def __repr__(self):
@@ -301,7 +473,9 @@ class BusinessServiceRequest:
             payload["attributes"]["attribute"].append(attribute.to_dict())
             self.attributes = self.attributes
         if self.reduction_key_edges:
-            payload["reduction-key-edges"] = self.reduction_key_edges
+            payload["reduction-key-edges"] = [
+                edge.to_dict() for edge in self.reduction_key_edges
+            ]
         if self.ip_service_edges:
             payload["ip-service-edges"] = [
                 edge.to_dict() for edge in self.ip_service_edges
@@ -309,7 +483,9 @@ class BusinessServiceRequest:
         if self.child_edges:
             payload["child-edges"] = [edge.to_dict() for edge in self.child_edges]
         if self.application_edges:
-            payload["application-edges"] = self.application_edges
+            payload["application-edges"] = [
+                edge.to_dict() for edge in self.application_edges
+            ]
         if self.parent_services:
             payload["parent-services"] = self.parent_services
         return payload
@@ -322,7 +498,11 @@ class BusinessServiceRequest:
         self.attributes.append(attribute)
 
     def update_edge(
-        self, ip_edge: IPServiceEdgeRequest = None, child_edge: ChildEdgeRequest = None
+        self,
+        ip_edge: IPServiceEdgeRequest = None,
+        child_edge: ChildEdgeRequest = None,
+        application_edge: ApplicationEdgeRequest = None,
+        reduction_key_edge: ReductionKeyEdgeRequest = None,
     ) -> None:
         if isinstance(ip_edge, IPServiceEdgeRequest):
             if ip_edge.ip_service_id in [
@@ -336,6 +516,10 @@ class BusinessServiceRequest:
                     ][0]
                 )
             self.ip_service_edges.append(ip_edge)
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(
+                name="ip_edge", value=ip_edge, valid=[IPServiceEdgeRequest]
+            )
         if isinstance(child_edge, ChildEdgeRequest):
             if child_edge.child_id in [edge.child_id for edge in self.child_edges]:
                 self.child_edges.remove(
@@ -346,6 +530,47 @@ class BusinessServiceRequest:
                     ][0]
                 )
             self.child_edges.append(child_edge)
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(
+                name="child_edge", value=child_edge, valid=[ChildEdgeRequest]
+            )
+        if isinstance(application_edge, ApplicationEdgeRequest):
+            if application_edge["id"] in [
+                edge.application for edge in self.application_edges
+            ]:
+                self.application_edges.remove(
+                    [
+                        edge
+                        for edge in self.application_edges
+                        if edge.id == application_edge.id
+                    ][0]
+                )
+            self.application_edges.append(application_edge)
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(
+                name="application_edge",
+                value=application_edge,
+                valid=[ApplicationEdgeRequest],
+            )
+        if isinstance(reduction_key_edge, ReductionKeyEdgeRequest):
+            if reduction_key_edge.reduction_keys[0] in [
+                edge.reduction_keys[0] for edge in self.reduction_key_edges
+            ]:
+                self.reduction_key_edges.remove(
+                    [
+                        edge
+                        for edge in self.reduction_key_edges
+                        if edge.reduction_keys[0]
+                        == reduction_key_edge.reduction_keys[0]
+                    ][0]
+                )
+            self.reduction_key_edges.append(reduction_key_edge)
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(
+                name="reduction_key_edge",
+                value=reduction_key_edge,
+                valid=[ReductionKeyEdgeRequest],
+            )
 
 
 @dataclass(repr=False)
@@ -357,9 +582,9 @@ class BusinessService:
     attributes: List[Optional[Attribute]] = field(default_factory=list)
     reduce_function: ReduceFunction = field(default_factory=_reduce_function)
     ip_services_edges: List[Optional[IPServiceEdge]] = field(default_factory=list)
-    reduction_key_edges: List[Optional[str]] = field(default_factory=list)
+    reduction_key_edges: List[Optional[ReductionKeyEdge]] = field(default_factory=list)
     child_edges: List[Optional[ChildEdge]] = field(default_factory=list)
-    application_edges: List[Optional[str]] = field(default_factory=list)
+    application_edges: List[Optional[ApplicationEdge]] = field(default_factory=list)
     parent_services: List[Optional[str]] = field(default_factory=list)
 
     def __post_init__(self):  # noqa C901
@@ -399,6 +624,32 @@ class BusinessService:
                     del edge["child-id"]
                     child_edges.append(ChildEdge(**edge))
                 self.child_edges = child_edges
+        if self.application_edges:
+            if isinstance(self.application_edges[0], dict):
+                application_edges = []
+                for edge in self.application_edges:
+                    edge["operational_status"] = edge.get("operational-status")
+                    del edge["operational-status"]
+                    edge["map_function"] = edge.get("map-function")
+                    del edge["map-function"]
+                    edge["reduction_keys"] = edge.get("reduction-keys")
+                    del edge["reduction-keys"]
+                    application_edges.append(ApplicationEdge(**edge))
+                self.application_edges = application_edges
+        if self.reduction_key_edges:
+            if isinstance(self.reduction_key_edges[0], dict):
+                reduction_key_edges = []
+                for edge in self.reduction_key_edges:
+                    edge["operational_status"] = edge.get("operational-status")
+                    del edge["operational-status"]
+                    edge["map_function"] = edge.get("map-function")
+                    del edge["map-function"]
+                    edge["reduction_keys"] = edge.get("reduction-keys")
+                    del edge["reduction-keys"]
+                    edge["friendly_name"] = edge.get("friendly-name")
+                    del edge["friendly-name"]
+                    reduction_key_edges.append(ReductionKeyEdge(**edge))
+                self.reduction_key_edges = reduction_key_edges
         if isinstance(self.reduce_function, dict):
             self.reduce_function = ReduceFunction(**self.reduce_function)
 
@@ -417,15 +668,19 @@ class BusinessService:
         for attribute in self.attributes:
             payload["attributes"]["attribute"].append(attribute.to_dict())
         if self.reduction_key_edges:
-            payload["reduction-key-edges"] = self.reduction_key_edges
+            payload["reduction-key-edges"] = [
+                edge.to_dict() for edge in self.reduction_key_edges
+            ]
         if self.ip_services_edges:
             payload["ip-services-edges"] = [
                 edge.to_dict() for edge in self.ip_services_edges
             ]
         if self.child_edges:
-            payload["child-edges"] = self.child_edges
+            payload["child-edges"] = [edge.to_dict() for edge in self.child_edges]
         if self.application_edges:
-            payload["application-edges"] = self.application_edges
+            payload["application-edges"] = [
+                edge.to_dict() for edge in self.application_edges
+            ]
         if self.parent_services:
             payload["parent-services"] = self.parent_services
         return payload
@@ -435,8 +690,6 @@ class BusinessService:
             name=self.name,
             attributes=self.attributes,
             reduce_function=self.reduce_function,
-            reduction_key_edges=self.reduction_key_edges,
-            application_edges=self.application_edges,
         )
         if self.ip_services_edges:
             request.ip_service_edges = [
@@ -444,4 +697,12 @@ class BusinessService:
             ]
         if self.child_edges:
             request.child_edges = [edge.request() for edge in self.child_edges]
+        if self.application_edges:
+            request.application_edges = [
+                edge.request() for edge in self.application_edges
+            ]
+        if self.reduction_key_edges:
+            request.reduction_key_edges = [
+                edge.request() for edge in self.reduction_key_edges
+            ]
         return request
