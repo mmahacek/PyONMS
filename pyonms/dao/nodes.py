@@ -44,7 +44,7 @@ class NodeAPI(Endpoint):
     ) -> List[Optional[pyonms.models.node.Node]]:
         devices = []
         params = {}
-        records = self.get_batch(
+        records = self._get_batch(
             url=self.url,
             endpoint="node",
             limit=limit,
@@ -77,7 +77,7 @@ class NodeAPI(Endpoint):
         self, node_id: int
     ) -> List[Optional[pyonms.models.node.SnmpInterface]]:
         interfaces = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=f"{self.url}/{node_id}/snmpinterfaces",
             endpoint="snmpInterface",
             hide_progress=True,
@@ -94,7 +94,7 @@ class NodeAPI(Endpoint):
         self, node_id: int, services: bool = False, metadata: bool = False
     ) -> List[Optional[pyonms.models.node.IPInterface]]:
         ip_addresses = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=f"{self.url}/{node_id}/ipinterfaces",
             endpoint="ipInterface",
             hide_progress=True,
@@ -120,7 +120,7 @@ class NodeAPI(Endpoint):
         self, node_id: int, ip_address: str, metadata: bool = False
     ) -> List[Optional[pyonms.models.node.Service]]:
         services = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=f"{self.url}/{node_id}/ipinterfaces/{ip_address}/services",
             endpoint="service",
             hide_progress=True,
@@ -143,7 +143,7 @@ class NodeAPI(Endpoint):
         self, node_id: int
     ) -> List[Optional[pyonms.models.node.Metadata]]:
         metadata = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=f"{self.url}/{node_id}/metadata",
             endpoint="metaData",
             hide_progress=True,
@@ -157,7 +157,7 @@ class NodeAPI(Endpoint):
         self, node_id: int, ipaddress: str
     ) -> List[Optional[pyonms.models.node.Metadata]]:
         metadata = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=f"{self.url}/{node_id}/ipinterfaces/{ipaddress}/metadata",
             endpoint="metaData",
             hide_progress=True,
@@ -171,7 +171,7 @@ class NodeAPI(Endpoint):
         self, node_id: int, ipaddress: str, service: str
     ) -> List[Optional[pyonms.models.node.Metadata]]:
         metadata = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=f"{self.url}/{node_id}/ipinterfaces/{ipaddress}/services/{service}/metadata",
             endpoint="metaData",
             hide_progress=True,

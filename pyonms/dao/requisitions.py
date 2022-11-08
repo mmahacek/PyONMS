@@ -27,7 +27,7 @@ class RequisitionsAPI(Endpoint):
     ) -> List[Union[pyonms.models.requisition.Requisition, None]]:
         requisitions = []
         params = {}
-        records = self.get_batch(
+        records = self._get_batch(
             url=self.url,
             endpoint="requisitions",
             limit=limit,

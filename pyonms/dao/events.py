@@ -23,7 +23,7 @@ class EventAPI(Endpoint):
         self, limit=100, batch_size=100
     ) -> List[Union[pyonms.models.event.Event, None]]:
         events = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=self.url,
             endpoint="event",
             limit=limit,

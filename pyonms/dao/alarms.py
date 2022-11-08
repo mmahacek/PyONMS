@@ -22,7 +22,7 @@ class AlarmAPI(Endpoint):
         self, limit=100, batch_size=100
     ) -> List[Union[pyonms.models.alarm.Alarm, None]]:
         alarms = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=self.url,
             endpoint="alarm",
             limit=limit,

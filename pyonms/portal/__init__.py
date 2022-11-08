@@ -36,7 +36,7 @@ class Portal:
         self.secret = secret
         self.headers = {"Accept": "application/json", "X-API-Key": secret}
 
-    def _get_batch(
+    def __get_batch(
         self,
         url: str,
         endpoint: str,

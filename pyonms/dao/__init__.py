@@ -28,7 +28,7 @@ class Endpoint:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def get_batch(
+    def _get_batch(
         self,
         url: str,
         endpoint: str,
@@ -94,6 +94,8 @@ class Endpoint:
                 else:
                     xml_data = pyonms.utils.convert_xml(response.text)
                     return self._convert_v1_to_v2(endpoint, xml_data)
+        elif response.status_code == 599:
+            return response.text
         return {}
 
     def _post(
