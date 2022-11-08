@@ -14,12 +14,19 @@ class Severity(Enum):
     """Severity Levels"""
 
     INDETERMINATE = 1
+    "Indeterminate"
     CLEARED = 2
+    "Cleared"
     NORMAL = 3
+    "Normal"
     WARNING = 4
+    "Warning"
     MINOR = 5
+    "Minor"
     MAJOR = 6
+    "Major"
     CRITICAL = 7
+    "Critical"
 
 
 @dataclass
