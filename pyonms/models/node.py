@@ -10,28 +10,62 @@ from pyonms.utils import convert_time
 
 class LabelSource(Enum):
     USER = "U"
+    "User specified"
     NETBIOS = "N"
+    "Netbios"
     HOSTNAME = "H"
+    "Hostname"
     SYSNAME = "S"
+    "System name"
     ADDRESS = "A"
+    "Address"
     UNKNOWN = " "
+    "Unknown"
 
 
 class NodeType(Enum):
     ACTIVE = "A"
+    "Active"
     DELETED = "D"
+    "Deleted"
     UNKNOWN = " "
+    "Unknown"
 
 
 class Managed(Enum):
     MANAGED = "M"
+    "Managed"
     UNMANAGED = "U"
+    "Unmanaged"
+    DELETED = "D"
+    "Deleted"
+    ALIAS = "A"
+    "Alias"
+    FORCE_UNMANAGED = "F"
+    "Force Unmanaged"
+    NOT_POLLED = "N"
+    "Not Polled"
+    REMOTELY_MONITORED = "X"
+    "Remotely Monitored"
 
 
 class PrimaryType(Enum):
     PRIMARY = "P"
+    "SNMP Primary"
     SECONDARY = "S"
+    "SNMP Secondary"
     NOT_ELIGIBLE = "N"
+    "No SNMP"
+
+
+@dataclass
+class Metadata:
+    context: str
+    key: str
+    value: str
+
+    def __hash__(self):
+        return hash((self.context, self.key, self.value))
 
 
 @dataclass(repr=False)
@@ -136,6 +170,8 @@ class Service:
     statusLong: str
     lastFail: datetime
     lastGood: datetime
+    metadata: List[Optional[Metadata]] = field(default_factory=list)
+    applications: List[Optional[str]] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.serviceType, dict):
@@ -212,6 +248,7 @@ class IPInterface:
     lastCapsdPoll: Optional[Union[datetime, int]] = None
     snmpInterface: Optional[Union[SnmpInterface, dict]] = field(default_factory=dict)
     services: List[Optional[Service]] = field(default_factory=list)
+    metadata: List[Optional[Metadata]] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.id, str):
@@ -234,16 +271,6 @@ class IPInterface:
 
     def __hash__(self):
         return hash((self.id))
-
-
-@dataclass
-class Metadata:
-    context: str
-    key: str
-    value: str
-
-    def __hash__(self):
-        return hash((self.context, self.key, self.value))
 
 
 @dataclass

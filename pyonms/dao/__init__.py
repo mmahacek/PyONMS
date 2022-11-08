@@ -28,7 +28,7 @@ class Endpoint:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def get_batch(
+    def _get_batch(
         self,
         url: str,
         endpoint: str,
@@ -94,6 +94,8 @@ class Endpoint:
                 else:
                     xml_data = pyonms.utils.convert_xml(response.text)
                     return self._convert_v1_to_v2(endpoint, xml_data)
+        elif response.status_code == 599:
+            return response.text
         return {}
 
     def _post(
@@ -153,9 +155,7 @@ class Endpoint:
                     v2_data[key] = [value["model_import"]]
         return v2_data
 
-    def _delete(
-        self, uri: str, headers: dict = {}, params: dict = {}, endpoint: str = None
-    ) -> dict:
+    def _delete(self, uri: str, headers: dict = {}, params: dict = {}) -> dict:
         headers["Accept"] = "application/json"
         requests.delete(uri, auth=self.auth, headers=headers)
         return {}

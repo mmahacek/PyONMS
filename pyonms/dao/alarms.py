@@ -14,7 +14,7 @@ class AlarmAPI(Endpoint):
     def get_alarm(self, id: int) -> Union[pyonms.models.alarm.Alarm, None]:
         record = self._get(uri=f"{self.url}/{id}")
         if record is not None:
-            return self.process_alarm(record)
+            return self._process_alarm(record)
         else:
             return None
 
@@ -22,7 +22,7 @@ class AlarmAPI(Endpoint):
         self, limit=100, batch_size=100
     ) -> List[Union[pyonms.models.alarm.Alarm, None]]:
         alarms = []
-        records = self.get_batch(
+        records = self._get_batch(
             url=self.url,
             endpoint="alarm",
             limit=limit,
@@ -31,8 +31,8 @@ class AlarmAPI(Endpoint):
         if records == [None]:
             return [None]
         for record in records:
-            alarms.append(self.process_alarm(record))
+            alarms.append(self._process_alarm(record))
         return alarms
 
-    def process_alarm(self, data: dict) -> pyonms.models.alarm.Alarm:
+    def _process_alarm(self, data: dict) -> pyonms.models.alarm.Alarm:
         return pyonms.models.alarm.Alarm(**data)

@@ -30,7 +30,7 @@ class PortalBrokerConfig:
 class PortalBrokerKafka(PortalBrokerConfig):
     bootstrapServers: List[str] = field(default_factory=list)
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         payload = {"type": self.type, "bootstrapServers": self.bootstrapServers}
         return payload
 
@@ -41,7 +41,7 @@ class PortalBrokerJms(PortalBrokerConfig):
     user: str
     password: str
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         payload = {
             "type": self.type,
             "url": self.url,
@@ -57,7 +57,7 @@ class PortalHttpConfig:
     user: str
     password: str
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         payload = {"url": self.url, "user": self.user, "password": self.password}
         return payload
 
@@ -72,7 +72,7 @@ class PortalInstance:
 class PortalInstanceCreate:
     name: str
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         payload = {"name": self.name}
         return payload
 
@@ -112,7 +112,7 @@ class PortalConnectivityProfileCreate:
     httpConfig: PortalHttpConfig
     brokerConfig: Union[PortalBrokerJms, PortalBrokerKafka]
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         payload = {
             "name": self.name,
             "httpConfig": self.httpConfig.to_dict(),
@@ -141,7 +141,7 @@ class PortalLocationCreate:
     connectivityProfile: PortalConnectivityProfile
     minionFeatureProfile: PortalFeatureProfile = None
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         payload = {"name": self.name}
         if isinstance(self.onmsInstance, str):
             payload["onmsInstanceId"] = self.onmsInstance
@@ -171,7 +171,7 @@ class PortalMinion:
     locationId: Union[str, PortalLocation]
     minionProfileId: Optional[Union[str, PortalMinionProfile]] = None
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         payload = {}
         if isinstance(self.locationId, str):
             payload["locationId"] = self.locationId
@@ -217,7 +217,7 @@ class PortalAppliance:
     def __repr__(self):
         return f"PortalAppliance(label={self.label}, id={self.id}"
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         payload = {
             "id": self.id,
             "label": self.label,

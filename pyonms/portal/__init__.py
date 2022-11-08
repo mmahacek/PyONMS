@@ -25,12 +25,18 @@ from pyonms.portal.models import (
 
 class Portal:
     def __init__(self, secret: str):
+        """OpenNMS Cloud Portal
+        Attributes:
+            secret (str): API Key
+        Returns:
+            `Portal` object
+        """
         self.hostname = "https://portal.opennms.com/api/v1/external/"
         self.base_v1 = self.hostname
         self.secret = secret
         self.headers = {"Accept": "application/json", "X-API-Key": secret}
 
-    def _get_batch(
+    def __get_batch(
         self,
         url: str,
         endpoint: str,

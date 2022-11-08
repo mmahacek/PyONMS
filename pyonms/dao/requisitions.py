@@ -16,7 +16,7 @@ class RequisitionsAPI(Endpoint):
     ) -> Union[pyonms.models.requisition.Requisition, None]:
         record = self._get(uri=f"{self.url}/{name}", endpoint="requisitions")
         if record is not None:
-            return self.process_requisition(record)
+            return self._process_requisition(record)
         else:
             return None
 
@@ -27,7 +27,7 @@ class RequisitionsAPI(Endpoint):
     ) -> List[Union[pyonms.models.requisition.Requisition, None]]:
         requisitions = []
         params = {}
-        records = self.get_batch(
+        records = self._get_batch(
             url=self.url,
             endpoint="requisitions",
             limit=limit,
@@ -37,10 +37,10 @@ class RequisitionsAPI(Endpoint):
         if records == [None]:
             return [None]
         for record in records:
-            requisitions.append(self.process_requisition(record))
+            requisitions.append(self._process_requisition(record))
         return requisitions
 
-    def process_requisition(self, data: dict) -> pyonms.models.requisition.Requisition:
+    def _process_requisition(self, data: dict) -> pyonms.models.requisition.Requisition:
         return pyonms.models.requisition.Requisition(**data)
 
     def get_requisition_active_count(self) -> int:
@@ -51,7 +51,7 @@ class RequisitionsAPI(Endpoint):
         count = self._get(uri=f"{self.url}/deployed/count", endpoint="raw")
         return int(count)
 
-    def import_requisition(self, name: str, rescan: bool = False):
+    def import_requisition(self, name: str, rescan: bool = False) -> bool:
         status = self._put(
             uri=f"{self.url}/{name}/import", data={}, params={"rescanExisting": rescan}
         )
