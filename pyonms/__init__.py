@@ -10,6 +10,8 @@ import pyonms.dao.alarms
 import pyonms.dao.business_services
 import pyonms.dao.events
 import pyonms.dao.foreign_sources
+import pyonms.dao.health
+import pyonms.dao.info
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
 
@@ -44,10 +46,16 @@ class PyONMS:
         """`pyonms.dao.events.EventAPI` endpoint"""
         self.fs = pyonms.dao.foreign_sources.ForeignSourceAPI(args)
         """`pyonms.dao.foreign_sources.ForeignSourceAPI` endpoint"""
+        self.health = pyonms.dao.health.HealthAPI(args)
+        """`pyonms.dao.health.HealthAPI` endpoint"""
+        self.info = pyonms.dao.info.InfoAPI(args)
+        """`pyonms.dao.info.InfoAPI` endpoint"""
         self.nodes = pyonms.dao.nodes.NodeAPI(args)
         """`pyonms.dao.nodes.NodeAPI` endpoint"""
         self.requisitions = pyonms.dao.requisitions.RequisitionsAPI(args)
         """`pyonms.dao.requisitions.RequisitionsAPI` endpoint"""
+
+        self.status = self.info.get_info()
 
     def __repr__(self):
         return self.hostname

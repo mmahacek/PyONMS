@@ -21,6 +21,8 @@ Currently the endpoints (partially) supported are:
 * Business Services (read-write)
 * Events (read-only)
 * Foreign Sources (read-only)
+* Heath (read-only)
+* Info (read-only)
 * Nodes (read-only)
 * Requisitions (read-only)
 
