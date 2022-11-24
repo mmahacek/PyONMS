@@ -15,6 +15,8 @@ import pyonms.dao.info
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
 
+from pyonms.models.event import Event, EventParameter
+
 
 class PyONMS:
     def __init__(self, hostname: str, username: str, password: str, name: str = None):
@@ -59,3 +61,12 @@ class PyONMS:
 
     def __repr__(self):
         return self.hostname
+
+    def reload_daemon(self, name: str):
+        reload_event = Event(
+            uei="uei.opennms.org/internal/reloadDaemonConfig", source="pyonms"
+        )
+        reload_event.parameters.append(
+            EventParameter(name="daemonName", value=name, type="string")
+        )
+        self.events.send_event(reload_event)

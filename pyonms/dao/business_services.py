@@ -110,7 +110,7 @@ class BSMAPI(Endpoint):
         self, bsm: pyonms.models.business_service.BusinessServiceRequest
     ) -> None:
         response = self._post(uri=self.url, json=bsm.to_dict())
-        if "constraint [bsm_service_name_key]" in response:
+        if "constraint [bsm_service_name_key]" in response.text:
             raise pyonms.models.exceptions.DuplicateEntityError(bsm.name, bsm)
 
     def update_bsm(
