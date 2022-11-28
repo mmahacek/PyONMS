@@ -63,6 +63,10 @@ class PyONMS:
         return self.hostname
 
     def reload_daemon(self, name: str):
+        """Send event to reload a given daemon
+        Attributes:
+            name (str): Daemon name
+        """
         reload_event = Event(
             uei="uei.opennms.org/internal/reloadDaemonConfig", source="pyonms"
         )
