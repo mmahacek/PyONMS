@@ -504,7 +504,7 @@ class BusinessServiceRequest:
         application_edge: ApplicationEdgeRequest = None,
         reduction_key_edge: ReductionKeyEdgeRequest = None,
     ) -> None:
-        if isinstance(ip_edge, IPServiceEdgeRequest):
+        if ip_edge and isinstance(ip_edge, IPServiceEdgeRequest):
             if ip_edge.ip_service_id in [
                 edge.ip_service_id for edge in self.ip_service_edges
             ]:
@@ -520,7 +520,7 @@ class BusinessServiceRequest:
             raise pyonms.models.exceptions.InvalidValueError(
                 name="ip_edge", value=ip_edge, valid=[IPServiceEdgeRequest]
             )
-        if isinstance(child_edge, ChildEdgeRequest):
+        if child_edge and isinstance(child_edge, ChildEdgeRequest):
             if child_edge.child_id in [edge.child_id for edge in self.child_edges]:
                 self.child_edges.remove(
                     [
@@ -534,7 +534,7 @@ class BusinessServiceRequest:
             raise pyonms.models.exceptions.InvalidValueError(
                 name="child_edge", value=child_edge, valid=[ChildEdgeRequest]
             )
-        if isinstance(application_edge, ApplicationEdgeRequest):
+        if application_edge and isinstance(application_edge, ApplicationEdgeRequest):
             if application_edge["id"] in [
                 edge.application for edge in self.application_edges
             ]:
@@ -552,7 +552,9 @@ class BusinessServiceRequest:
                 value=application_edge,
                 valid=[ApplicationEdgeRequest],
             )
-        if isinstance(reduction_key_edge, ReductionKeyEdgeRequest):
+        if reduction_key_edge and isinstance(
+            reduction_key_edge, ReductionKeyEdgeRequest
+        ):
             if reduction_key_edge.reduction_keys[0] in [
                 edge.reduction_keys[0] for edge in self.reduction_key_edges
             ]:
