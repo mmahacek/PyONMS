@@ -4,3 +4,4 @@ pytest
 pytest-vcr
 xmltodict
 tqdm
+pdoc
