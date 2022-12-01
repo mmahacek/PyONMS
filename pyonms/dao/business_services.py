@@ -16,6 +16,9 @@ class BSMAPI(Endpoint):
     def __init__(self, kwargs):
         super().__init__(**kwargs)
         self.url = self.base_v2 + "business-services"
+        self._init_cache()
+
+    def _init_cache(self):
         self.cache = {}
         self.cache_name = {}
 
@@ -110,7 +113,7 @@ class BSMAPI(Endpoint):
         self, bsm: pyonms.models.business_service.BusinessServiceRequest
     ) -> None:
         response = self._post(uri=self.url, json=bsm.to_dict())
-        if "constraint [bsm_service_name_key]" in response:
+        if "constraint [bsm_service_name_key]" in response.text:
             raise pyonms.models.exceptions.DuplicateEntityError(bsm.name, bsm)
 
     def update_bsm(
@@ -143,5 +146,9 @@ class BSMAPI(Endpoint):
             new_request.parent_services.append(parent)
         return new_request
 
-    def delete_bsm(self, id: int) -> None:
-        self._delete(uri=f"{self.url}/{id}")
+    def delete_bsm(self, bsm: pyonms.models.business_service.BusinessService) -> None:
+        self._delete(uri=f"{self.url}/{bsm.id}")
+        if self.cache.get(bsm.id):
+            del self.cache[bsm.id]
+        if self.cache_name.get(bsm.name):
+            del self.cache_name[bsm.name]

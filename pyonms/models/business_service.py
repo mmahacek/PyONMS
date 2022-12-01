@@ -516,7 +516,7 @@ class BusinessServiceRequest:
                     ][0]
                 )
             self.ip_service_edges.append(ip_edge)
-        else:
+        elif ip_edge:
             raise pyonms.models.exceptions.InvalidValueError(
                 name="ip_edge", value=ip_edge, valid=[IPServiceEdgeRequest]
             )
@@ -530,7 +530,7 @@ class BusinessServiceRequest:
                     ][0]
                 )
             self.child_edges.append(child_edge)
-        else:
+        elif child_edge:
             raise pyonms.models.exceptions.InvalidValueError(
                 name="child_edge", value=child_edge, valid=[ChildEdgeRequest]
             )
@@ -546,7 +546,7 @@ class BusinessServiceRequest:
                     ][0]
                 )
             self.application_edges.append(application_edge)
-        else:
+        elif application_edge:
             raise pyonms.models.exceptions.InvalidValueError(
                 name="application_edge",
                 value=application_edge,
@@ -565,7 +565,7 @@ class BusinessServiceRequest:
                     ][0]
                 )
             self.reduction_key_edges.append(reduction_key_edge)
-        else:
+        elif reduction_key_edge:
             raise pyonms.models.exceptions.InvalidValueError(
                 name="reduction_key_edge",
                 value=reduction_key_edge,

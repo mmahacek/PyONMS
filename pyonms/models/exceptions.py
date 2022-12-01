@@ -38,5 +38,5 @@ class InvalidValueError(Exception):
 
 class AuthenticationError(Exception):
     def __init__(self):
-        self.message = f"Verify login credentials are correct."
+        self.message = "Verify login credentials are correct."
         super().__init__(self.message)

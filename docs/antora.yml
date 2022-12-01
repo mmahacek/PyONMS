@@ -1,10 +1,10 @@
 name: opennms.py
-version: '0.0.4'
+version: '0.0.5'
 prerelease: true
 title: OpenNMS.py
 asciidoc:
   attributes:
-    full-display-version: '0.0.4'
+    full-display-version: '0.0.5'
     experimental: true
     source-language: asciidoc@
     xrefstyle: short@

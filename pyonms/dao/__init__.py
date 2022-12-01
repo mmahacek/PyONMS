@@ -105,7 +105,7 @@ class Endpoint:
         data: dict = None,
         json: dict = None,
         params: dict = {},
-    ) -> dict:
+    ) -> requests.Response:
         if json:
             response = requests.post(
                 uri, auth=self.auth, headers=headers, json=json, params=params
@@ -116,7 +116,7 @@ class Endpoint:
             )
         else:
             response = requests.post(uri, auth=self.auth, headers=headers)
-        return response.text
+        return response
 
     def _put(
         self,

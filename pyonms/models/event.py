@@ -35,21 +35,25 @@ class EventParameter:
     value: Union[int, str]
     type: str
 
+    def _to_dict(self) -> dict:
+        payload = {"parmName": self.name, "value": self.value}
+        return payload
+
 
 @dataclass(repr=False)
 class Event:
-    id: int
     uei: str
-    label: str
-    time: datetime
-    source: str
-    createTime: datetime
-    description: str
-    logMessage: str
-    severity: Severity
-    log: bool
-    display: bool
-    location: str
+    id: int = None
+    label: str = None
+    time: datetime = None
+    source: str = None
+    createTime: datetime = None
+    description: str = None
+    logMessage: str = None
+    severity: Severity = None
+    log: bool = None
+    display: bool = None
+    location: str = None
     nodeId: int = None
     nodeLabel: str = None
     ipAddress: str = None
@@ -62,9 +66,12 @@ class Event:
     serviceType: ServiceType = field(default_factory=dict)
 
     def __post_init__(self):
-        self.time = convert_time(self.time)
-        self.createTime = convert_time(self.createTime)
-        self.severity = Severity[self.severity]
+        if isinstance(self.time, int):
+            self.time = convert_time(self.time)
+        if isinstance(self.createTime, int):
+            self.createTime = convert_time(self.createTime)
+        if isinstance(self.severity, str):
+            self.severity = Severity[self.severity]
         if self.display == "Y":
             self.display = True
         elif self.display == "N":
@@ -74,8 +81,20 @@ class Event:
         elif self.log == "N":
             self.log = False
         self.parameters = [EventParameter(**parameter) for parameter in self.parameters]
-        if self.serviceType:
+        if self.serviceType and isinstance(self.serviceType, dict):
             self.serviceType = ServiceType(**self.serviceType)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"Event(id={self.id}, uei={self.uei})"
+
+    def _to_dict(self) -> dict:
+        payload = {}
+        for attr in dir(self):
+            if attr[0] != "_" and getattr(self, attr):
+                payload[attr] = getattr(self, attr)
+        if self.parameters:
+            del payload["parameters"]
+            payload["parms"] = []
+            for parameter in self.parameters:
+                payload["parms"].append(parameter._to_dict())
+        return payload
