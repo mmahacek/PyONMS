@@ -74,3 +74,4 @@ class PyONMS:
             EventParameter(name="daemonName", value=name, type="string")
         )
         self.events.send_event(reload_event)
+        print(f"Sending event to trigger reload of the {name} daemon.")
