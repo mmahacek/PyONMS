@@ -1,7 +1,7 @@
 # utils.__init__.py
 
 from collections import OrderedDict
-from datetime import datetime
+from datetime import datetime  # , timezone
 from typing import Union
 
 import xmltodict
@@ -9,7 +9,9 @@ import xmltodict
 
 def convert_time(time: int) -> datetime:
     if isinstance(time, int):
-        return datetime.utcfromtimestamp(time / 1000)
+        time_stamp = datetime.fromtimestamp(time / 1000)
+        # time_stamp.replace(tzinfo=timezone.utc)
+        return time_stamp
     else:
         return None
 
