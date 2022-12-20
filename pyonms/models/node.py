@@ -67,10 +67,14 @@ class Metadata:
     def __hash__(self):
         return hash((self.context, self.key, self.value))
 
+    def _to_dict(self) -> dict:
+        payload = {"context": self.context, "key": self.key, "value": self.value}
+        return payload
+
 
 @dataclass(repr=False)
 class AssetRecord:
-    id: int
+    id: int = None
     slot: Optional[str] = None
     port: Optional[str] = None
     region: Optional[str] = None
@@ -146,6 +150,13 @@ class AssetRecord:
 
     def __hash__(self):
         return hash((self.id))
+
+    def _to_dict(self) -> dict:
+        payload = {}
+        for item in dir(self):
+            if item[0] != "_" and getattr(self, item):
+                payload[item] = getattr(self, item)
+        return payload
 
 
 @dataclass
