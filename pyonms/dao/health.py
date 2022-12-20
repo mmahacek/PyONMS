@@ -15,7 +15,7 @@ class HealthAPI(Endpoint):
     def get_health(self) -> pyonms.models.health.Health:
         record = self._get(uri=f"{self.url}", endpoint="raw")
         if record is not None:
-            record = json.loads(record)
+            # record = json.loads(record)
             health = self._process_health(record)
             if health.healthy:
                 print(f"Connected to {self.name}")
