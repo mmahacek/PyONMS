@@ -11,7 +11,21 @@ description="A Python library for accessing the OpenNMS REST API."
 license={text = "MIT License"}
 dependencies=["requests", "python-dotenv", "xmltodict", "tqdm"]
 dynamic = ["readme"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
 
+]
+
+[project.urls]
+"Homepage" = "https://github.com/mmahacek/PyONMS"
+"Documentation" = "https://mmahacek.github.io/PyONMS/"
 
 [tool.setuptools]
 license-files = ["LICENSE.txt"]
