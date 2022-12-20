@@ -1,7 +1,5 @@
 # dao.info.py
 
-import json
-
 from pyonms.dao import Endpoint
 
 import pyonms.models.info
@@ -15,7 +13,6 @@ class InfoAPI(Endpoint):
     def get_info(self) -> pyonms.models.info.Info:
         record = self._get(uri=f"{self.url}", endpoint="raw")
         if record is not None:
-            # record = json.loads(record)
             return self._process_info(record)
         else:
             return None
