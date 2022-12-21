@@ -33,7 +33,7 @@ class Severity(Enum):
 class EventParameter:
     name: str
     value: Union[int, str]
-    type: str
+    type: str = "string"
 
     def _to_dict(self) -> dict:
         payload = {"parmName": self.name, "value": self.value}
@@ -91,7 +91,9 @@ class Event:
         payload = {}
         for attr in dir(self):
             if attr[0] != "_" and getattr(self, attr):
-                payload[attr] = getattr(self, attr)
+                payload[attr.lower()] = getattr(self, attr)
+        if isinstance(payload.get("severity"), Severity):
+            payload["severity"] = self.severity.name
         if self.parameters:
             del payload["parameters"]
             payload["parms"] = []
