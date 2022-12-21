@@ -186,6 +186,13 @@ class RequisitionNode:
         else:
             self.interface[interface.ip_addr] = interface
 
+    def change_ip(self, old_ip: str, new_ip: str):
+        if new_ip not in self.interface.keys():
+            self.interface[new_ip] = self.interface[old_ip]
+            del self.interface[old_ip]
+        else:
+            raise pyonms.models.exceptions.DuplicateEntityError("IP Address", Interface)
+
 
 @dataclass
 class Requisition:
