@@ -8,8 +8,8 @@ from typing import List, Optional
 from tqdm import tqdm
 
 from pyonms.dao import Endpoint
+
 import pyonms.models.business_service
-import pyonms.models.exceptions
 
 
 class BSMAPI(Endpoint):

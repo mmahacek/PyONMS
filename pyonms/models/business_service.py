@@ -4,7 +4,7 @@ from enum import Enum
 from dataclasses import dataclass, field
 from typing import List, Optional
 
-import pyonms.models.exceptions
+from pyonms.models import exceptions
 
 
 class Severity(Enum):
@@ -48,7 +48,7 @@ class MapFunction:
 
     def __post_init__(self):
         if self.type not in MAP_FUNCTIONS:
-            raise pyonms.models.exceptions.InvalidValueError(
+            raise exceptions.InvalidValueError(
                 name="MapFunction", value="self.type", valid=MAP_FUNCTIONS
             )
         if self.type == "SetTo" and self.status:
@@ -76,7 +76,7 @@ class ReduceFunction:
 
     def __post_init__(self):
         if self.type not in REDUCE_FUNCTIONS:
-            raise pyonms.models.exceptions.InvalidValueError(
+            raise exceptions.InvalidValueError(
                 name="ReduceFunction", value=self.type, valid=REDUCE_FUNCTIONS
             )
         if self.type == "ExponentialPropagation" and not self.properties:
@@ -85,7 +85,7 @@ class ReduceFunction:
             if not self.properties:
                 self.properties["threshold"] = self.threshold
             if self.threshold > 1:
-                raise pyonms.models.exceptions.InvalidValueError(
+                raise exceptions.InvalidValueError(
                     name="Threshold", value=self.threshold, valid="decimal between 0-1"
                 )
         elif self.type == "HighestSeverityAbove" and not self.properties:
@@ -209,9 +209,7 @@ class IPServiceEdgeRequest:
 
     def __post_init__(self):
         if len(self.friendly_name) > 30:
-            raise pyonms.models.exceptions.StringLengthError(
-                30, value=self.friendly_name
-            )
+            raise exceptions.StringLengthError(30, value=self.friendly_name)
         if isinstance(self.map_function, dict):
             self.map_function = MapFunction(**self.map_function)
 
@@ -412,9 +410,7 @@ class ReductionKeyEdge:
 
     def __post_init__(self):
         if len(self.friendly_name) > 30:
-            raise pyonms.models.exceptions.StringLengthError(
-                30, value=self.friendly_name
-            )
+            raise exceptions.StringLengthError(30, value=self.friendly_name)
         if isinstance(self.map_function, dict):
             self.map_function = MapFunction(**self.map_function)
 
@@ -497,7 +493,7 @@ class BusinessServiceRequest:
             )
         self.attributes.append(attribute)
 
-    def update_edge(
+    def update_edge(  # noqa C901
         self,
         ip_edge: IPServiceEdgeRequest = None,
         child_edge: ChildEdgeRequest = None,
@@ -517,7 +513,7 @@ class BusinessServiceRequest:
                 )
             self.ip_service_edges.append(ip_edge)
         elif ip_edge:
-            raise pyonms.models.exceptions.InvalidValueError(
+            raise exceptions.InvalidValueError(
                 name="ip_edge", value=ip_edge, valid=[IPServiceEdgeRequest]
             )
         if isinstance(child_edge, ChildEdgeRequest):
@@ -531,7 +527,7 @@ class BusinessServiceRequest:
                 )
             self.child_edges.append(child_edge)
         elif child_edge:
-            raise pyonms.models.exceptions.InvalidValueError(
+            raise exceptions.InvalidValueError(
                 name="child_edge", value=child_edge, valid=[ChildEdgeRequest]
             )
         if isinstance(application_edge, ApplicationEdgeRequest):
@@ -547,7 +543,7 @@ class BusinessServiceRequest:
                 )
             self.application_edges.append(application_edge)
         elif application_edge:
-            raise pyonms.models.exceptions.InvalidValueError(
+            raise exceptions.InvalidValueError(
                 name="application_edge",
                 value=application_edge,
                 valid=[ApplicationEdgeRequest],
@@ -566,7 +562,7 @@ class BusinessServiceRequest:
                 )
             self.reduction_key_edges.append(reduction_key_edge)
         elif reduction_key_edge:
-            raise pyonms.models.exceptions.InvalidValueError(
+            raise exceptions.InvalidValueError(
                 name="reduction_key_edge",
                 value=reduction_key_edge,
                 valid=[ReductionKeyEdgeRequest],
