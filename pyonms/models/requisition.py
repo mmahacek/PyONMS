@@ -2,10 +2,10 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List
 
-import pyonms.models.exceptions
 
+from pyonms.models import exceptions
 from pyonms.models.node import AssetRecord, Metadata, PrimaryType
 from pyonms.utils import convert_time
 
@@ -41,7 +41,7 @@ class AssetField:
 
     def __post_init__(self):
         if self.name not in ASSET_FIELDS:
-            raise pyonms.models.exceptions.InvalidValueError(
+            raise exceptions.InvalidValueError(
                 "Asset field", self.name, valid=ASSET_FIELDS
             )
 
@@ -135,7 +135,7 @@ class RequisitionNode:
     interface: Dict[str, Interface] = field(default_factory=dict)
     meta_data: List[Metadata] = field(default_factory=list)
 
-    def __post_init__(self):
+    def __post_init__(self):  # noqa C901
         for index, asset in enumerate(self.asset):
             if isinstance(asset, dict):
                 self.asset[index] = AssetField(**asset)
@@ -180,18 +180,33 @@ class RequisitionNode:
 
         Raises:
             pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
-        """
+        """  # noqa
         if merge:
-            raise pyonms.models.exceptions.MethodNotImplemented
+            raise exceptions.MethodNotImplemented
         else:
             self.interface[interface.ip_addr] = interface
 
     def change_ip(self, old_ip: str, new_ip: str):
+        """Change the IP address of an existing IP interface
+
+        Args:
+            old_ip (str): Existing IP address
+            new_ip (str): New IP address
+
+        Raises:
+            pyonms.models.exceptions.InvalidValueError: If the `old_ip` does not exist on the node.
+            pyonms.models.exceptions.DuplicateEntityError: If the `new_ip` already exists on another IP Interface.
+        """  # noqa
+        if old_ip not in self.interface.keys():
+            raise exceptions.InvalidValueError(
+                name="old_ip", value=old_ip, valid=self.interface.keys()
+            )
         if new_ip not in self.interface.keys():
             self.interface[new_ip] = self.interface[old_ip]
+            self.interface[new_ip].ip_addr = new_ip
             del self.interface[old_ip]
         else:
-            raise pyonms.models.exceptions.DuplicateEntityError("IP Address", Interface)
+            raise exceptions.DuplicateEntityError(name="IP Address", value=new_ip)
 
 
 @dataclass
@@ -199,7 +214,7 @@ class Requisition:
     foreign_source: str
     date_stamp: datetime = None
     last_import: datetime = None
-    node: Optional[Dict[str, RequisitionNode]] = field(default_factory=dict)
+    node: Dict[str, RequisitionNode] = field(default_factory=dict)
 
     def __post_init__(self):
         if isinstance(self.date_stamp, int):
@@ -237,8 +252,14 @@ class Requisition:
 
         Raises:
             pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
-        """
+        """  # noqa
         if merge:
-            raise pyonms.models.exceptions.MethodNotImplemented
+            raise exceptions.MethodNotImplemented
         else:
             self.node[node.foreign_id] = node
+
+    def remove_node(self, foreign_id: str):
+        if foreign_id in self.node.keys():
+            del self.node[foreign_id]
+        else:
+            raise exceptions.InvalidValueError(name="Foreign ID", value=foreign_id)

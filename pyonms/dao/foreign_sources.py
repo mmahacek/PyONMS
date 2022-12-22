@@ -63,3 +63,11 @@ class ForeignSourceAPI(Endpoint):
             if "was not found" not in response.text:
                 return response.json()
         return {}
+
+    def update_foreign_source(
+        self, foreign_source: pyonms.models.foreign_source.ForeignSource
+    ):
+        response = self._post(
+            uri=self.url, headers=self.headers, json=foreign_source._to_dict()
+        )
+        return response
