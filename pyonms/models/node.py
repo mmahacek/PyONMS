@@ -330,6 +330,7 @@ class Node:
     sysLocation: Optional[str] = None
     sysContact: Optional[str] = None
     sysDescription: Optional[str] = None
+    collectionPolicySpecified: Optional[bool] = None
     assetRecord: Optional[Union[AssetRecord, dict]] = field(default_factory=dict)
     categories: List[Optional[Union[str, dict]]] = field(default_factory=list)
     snmpInterfaces: List[Optional[SnmpInterface]] = field(default_factory=list)
