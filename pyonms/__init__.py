@@ -4,6 +4,7 @@
 .. include:: ../README.md
 """
 
+from multiprocessing import current_process
 from urllib.parse import urlsplit
 
 import pyonms.dao.alarms
@@ -46,7 +47,9 @@ class PyONMS:
         self.info = pyonms.dao.info.InfoAPI(args)
         """`pyonms.dao.info.InfoAPI` endpoint"""
 
-        self.health_status = self.health.get_health()
+        if current_process().name == "MainProcess":
+            self.health_status = self.health.get_health()
+
         self.server_status = self.info.get_info()
         args["version"] = self.server_status.version
 
