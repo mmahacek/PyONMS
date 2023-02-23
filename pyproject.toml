@@ -6,9 +6,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name="PyONMS"
 version="0.0.6"
-requires-python = ">=3.6"
+requires-python = ">=3.8"
 description="A Python library for accessing the OpenNMS REST API."
-license={text = "MIT License"}
+license={file = "LICENSE.txt"}
 dependencies=["requests", "python-dotenv", "xmltodict", "tqdm"]
 dynamic = ["readme"]
 classifiers = [
