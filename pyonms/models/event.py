@@ -39,6 +39,9 @@ class EventParameter:
         payload = {"parmName": self.name, "value": self.value}
         return payload
 
+    def __hash__(self):
+        return hash((self.name))
+
 
 @dataclass(repr=False)
 class Event:
@@ -62,7 +65,7 @@ class Event:
     snmp: str = None
     snmpHost: str = None
     ifIndex: int = None
-    parameters: List[Union[EventParameter, None]] = field(default_factory=dict)
+    parameters: List[Union[EventParameter, None]] = field(default_factory=list)
     serviceType: ServiceType = field(default_factory=dict)
 
     def __post_init__(self):
