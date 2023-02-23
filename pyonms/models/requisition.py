@@ -4,11 +4,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, List
 
-
 from pyonms.models import exceptions
 from pyonms.models.node import AssetRecord, Metadata, PrimaryType
 from pyonms.utils import convert_time
-
 
 NODE_ATTRIBUTES = [
     "node_label",
@@ -76,6 +74,13 @@ class Service:
 
         return payload
 
+    def set_metadata(self, key: str, value: str):
+        for data in self.meta_data:
+            if data.key == key:
+                data.value = value
+                return
+        self.meta_data.append(Metadata(context="requisition", key=key, value=value))
+
 
 @dataclass
 class Interface:
@@ -118,6 +123,13 @@ class Interface:
         payload["category"] = [category._to_dict() for category in self.category]
         payload["meta-data"] = [data.to_dict() for data in self.meta_data]
         return payload
+
+    def set_metadata(self, key: str, value: str):
+        for data in self.meta_data:
+            if data.key == key:
+                data.value = value
+                return
+        self.meta_data.append(Metadata(context="requisition", key=key, value=value))
 
 
 @dataclass
@@ -168,7 +180,7 @@ class RequisitionNode:
         payload["interface"] = [
             interface._to_dict() for interface in self.interface.values()
         ]
-        payload["meta-data"] = [data.to_dict() for data in self.meta_data]
+        payload["meta-data"] = [data._to_dict() for data in self.meta_data]
         return payload
 
     def add_interface(self, interface: Interface, merge: bool = True):
@@ -207,6 +219,13 @@ class RequisitionNode:
             del self.interface[old_ip]
         else:
             raise exceptions.DuplicateEntityError(name="IP Address", value=new_ip)
+
+    def set_metadata(self, key: str, value: str):
+        for data in self.meta_data:
+            if data.key == key:
+                data.value = value
+                return
+        self.meta_data.append(Metadata(context="requisition", key=key, value=value))
 
 
 @dataclass
