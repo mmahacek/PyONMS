@@ -75,6 +75,10 @@ class Service:
         return payload
 
     def set_metadata(self, key: str, value: str):
+        """Add or update metadata for the service.
+        If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        Context will be "requisition".
+        """
         for data in self.meta_data:
             if data.key == key:
                 data.value = value
@@ -125,6 +129,10 @@ class Interface:
         return payload
 
     def set_metadata(self, key: str, value: str):
+        """Add or update metadata for the interface.
+        If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        Context will be "requisition".
+        """
         for data in self.meta_data:
             if data.key == key:
                 data.value = value
@@ -221,6 +229,10 @@ class RequisitionNode:
             raise exceptions.DuplicateEntityError(name="IP Address", value=new_ip)
 
     def set_metadata(self, key: str, value: str):
+        """Add or update metadata for the node.
+        If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        Context will be "requisition".
+        """
         for data in self.meta_data:
             if data.key == key:
                 data.value = value
