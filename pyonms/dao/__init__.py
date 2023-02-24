@@ -49,7 +49,9 @@ class Endpoint:
                 params["limit"] = batch_size
             else:
                 params["limit"] = limit
-            records = self._get(uri=url, params=params, endpoint=endpoint)
+            records = self._get(
+                uri=url, params=params, endpoint=endpoint, headers=self.headers
+            )
             if records.get(endpoint, [None]) in [[None], []]:
                 return [None]
             if limit == 0 or records["totalCount"] < limit:
@@ -70,11 +72,13 @@ class Endpoint:
     def _get(
         self, uri: str, headers: dict = {}, params: dict = {}, endpoint: str = None
     ) -> dict:
-        if self.base_v1 in uri:
-            return self._get_v1(
-                uri=uri, headers=headers, params=params, endpoint=endpoint
-            )
-        headers["Accept"] = "application/json"
+        # if self.base_v1 in uri:
+        #    return self._get_v1(
+        #        uri=uri, headers=headers, params=params, endpoint=endpoint
+        #    )
+        if endpoint != "raw":
+            for key, value in self.headers.items():
+                headers[key] = value
         response = requests.get(uri, auth=self.auth, headers=headers, params=params)
         if response.status_code == 200:
             if "was not found" not in response.text:

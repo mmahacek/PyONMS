@@ -67,10 +67,14 @@ class Metadata:
     def __hash__(self):
         return hash((self.context, self.key, self.value))
 
+    def _to_dict(self) -> dict:
+        payload = {"context": self.context, "key": self.key, "value": self.value}
+        return payload
+
 
 @dataclass(repr=False)
 class AssetRecord:
-    id: int
+    id: int = None
     slot: Optional[str] = None
     port: Optional[str] = None
     region: Optional[str] = None
@@ -146,6 +150,13 @@ class AssetRecord:
 
     def __hash__(self):
         return hash((self.id))
+
+    def _to_dict(self) -> dict:
+        payload = {}
+        for item in dir(self):
+            if item[0] != "_" and getattr(self, item):
+                payload[item] = getattr(self, item)
+        return payload
 
 
 @dataclass
@@ -319,6 +330,7 @@ class Node:
     sysLocation: Optional[str] = None
     sysContact: Optional[str] = None
     sysDescription: Optional[str] = None
+    collectionPolicySpecified: Optional[bool] = None
     assetRecord: Optional[Union[AssetRecord, dict]] = field(default_factory=dict)
     categories: List[Optional[Union[str, dict]]] = field(default_factory=list)
     snmpInterfaces: List[Optional[SnmpInterface]] = field(default_factory=list)

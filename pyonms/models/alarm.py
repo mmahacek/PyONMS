@@ -38,6 +38,7 @@ class Alarm:
     troubleTicket: str = None
     troubleTicketLink: str = None
     troubleTicketState: int = None
+    qosAlarmState: str = None
     firstEvent: Union[Event, None] = field(default_factory=dict)
     lastEvent: Union[Event, None] = field(default_factory=dict)
     parameters: List[Union[EventParameter, None]] = field(default_factory=list)

@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Optional
 
+from pyonms.models import exceptions
 from pyonms.utils import convert_time
 
 
@@ -15,6 +16,9 @@ class Parameter:
     def __post_init__(self):
         self.key = str(self.key)
         self.value = str(self.value)
+
+    def _to_dict(self) -> dict:
+        return {"key": self.key, "value": self.value}
 
 
 @dataclass
@@ -37,6 +41,11 @@ class Detector:
             f"Detector(name={self.name}, class_type={self.class_type.split('.')[-1]})"
         )
 
+    def _to_dict(self) -> dict:
+        payload = {"name": self.name, "class": self.class_type}
+        payload["parameter"] = [parameter._to_dict() for parameter in self.parameter]
+        return payload
+
 
 @dataclass(repr=False)
 class Policy:
@@ -56,32 +65,93 @@ class Policy:
     def __repr__(self):
         return f"Policy(name={self.name}, class_type={self.class_type.split('.')[-1]})"
 
+    def _to_dict(self) -> dict:
+        payload = {"name": self.name, "class": self.class_type}
+        payload["parameter"] = [parameter._to_dict() for parameter in self.parameter]
+        return payload
+
 
 @dataclass(repr=False)
 class ForeignSource:
     name: str
-    date_stamp: datetime
+    date_stamp: Optional[datetime] = None
     scan_interval: str = "1d"
-    detectors: List[Optional[Detector]] = field(default_factory=list)
-    policies: List[Optional[Policy]] = field(default_factory=list)
+    detectors: dict[str, Detector] = field(default_factory=dict)
+    policies: dict[str, Policy] = field(default_factory=dict)
 
     def __post_init__(self):
         if isinstance(self.date_stamp, int):
             self.date_stamp = convert_time(self.date_stamp)
-        detectors = []
+        detectors = {}
         for detector in self.detectors:
             if isinstance(detector, dict):
-                detectors.append(Detector(**detector))
+                new_detector = Detector(**detector)
+                detectors[new_detector.name] = new_detector
             elif isinstance(detector, Detector):
-                detectors.append(detector)
+                detectors[detector.name] = detector
         self.detectors = detectors
-        policies = []
+        policies = {}
         for policy in self.policies:
             if isinstance(policy, dict):
-                policies.append(Policy(**policy))
+                new_policy = Policy(**policy)
+                policies[new_policy.name] = new_policy
             elif isinstance(policy, Policy):
-                policies.append(policy)
+                policies[policy.name] = policy
         self.policies = policies
 
     def __repr__(self):
         return f"ForeignSource(name={self.name})"
+
+    def _to_dict(self) -> dict:
+        payload = {"name": self.name, "scan-interval": self.scan_interval}
+        if self.date_stamp:
+            payload["date-stamp"] = self.date_stamp
+        payload["detectors"] = [
+            detector._to_dict() for detector in self.detectors.values()
+        ]
+        payload["policies"] = [
+            policies._to_dict() for policies in self.policies.values()
+        ]
+        return payload
+
+    def add_detector(self, detector: Detector, merge: bool = True):
+        """Add a detector to the foreign source
+
+        Args:
+            node (`Detector`): Detector to add.
+            merge (bool, optional): Merge non-null attributes with existing detector in requisition. Set to `False` to overwrite entire detector record. Defaults to `True`.
+
+        Raises:
+            pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
+        """  # noqa
+        if merge:
+            raise exceptions.MethodNotImplemented
+        else:
+            self.detectors[detector.name] = detector
+
+    def remove_detector(self, name: str):
+        if name in self.detectors.keys():
+            del self.detectors[name]
+        else:
+            raise exceptions.InvalidValueError(name="Detector name", value=name)
+
+    def add_policy(self, policy: Policy, merge: bool = True):
+        """Add a policy to the foreign source
+
+        Args:
+            node (`Policy`): Policy to add.
+            merge (bool, optional): Merge non-null attributes with existing policy in requisition. Set to `False` to overwrite entire policy record. Defaults to `True`.
+
+        Raises:
+            pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
+        """  # noqa
+        if merge:
+            raise exceptions.MethodNotImplemented
+        else:
+            self.policies[policy.name] = policy
+
+    def remove_policy(self, name: str):
+        if name in self.policies.keys():
+            del self.policies[name]
+        else:
+            raise exceptions.InvalidValueError(name="Policy name", value=name)

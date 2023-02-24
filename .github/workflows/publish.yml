@@ -41,7 +41,7 @@ jobs:
       - run: pip install -e . pdoc
       # ADJUST THIS: build your documentation into docs/.
       # We use a custom build script for pdoc itself, ideally you just run `pdoc -o docs/ ...` here.
-      - run: pdoc -o html pyonms --docformat google
+      - run: pdoc -o html pyonms --docformat google -e pyonms=https://github.com/mmahacek/PyONMS/tree/main/pyonms/
 
       - uses: actions/upload-pages-artifact@v1
         with:

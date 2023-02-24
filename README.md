@@ -2,7 +2,7 @@
 
 A Python library for accessing the OpenNMS REST API.
 
-This is being developed with Python 3.10 and OpenNMS 30.
+This is being developed with Python 3.10 and OpenNMS 31.
 It may work on older versions, but they haven't been tested yet.
 
 - [OpenNMS REST API documentation](https://docs.opennms.com/horizon/30/development/rest/rest-api.html)

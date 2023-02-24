@@ -9,7 +9,14 @@ from typing import List, Optional
 class Response:
     description: str
     status: str
+    success: bool = None
     message: Optional[str] = None
+
+    def __post_init__(self):
+        if self.status == "Success":
+            self.success = True
+        else:
+            pass
 
 
 @dataclass(repr=False)

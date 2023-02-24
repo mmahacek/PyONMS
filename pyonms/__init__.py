@@ -4,6 +4,7 @@
 .. include:: ../README.md
 """
 
+from multiprocessing import current_process
 from urllib.parse import urlsplit
 
 import pyonms.dao.alarms
@@ -40,6 +41,18 @@ class PyONMS:
         else:
             self.name = urlsplit(hostname).netloc.split(":")[0]
             args["name"] = self.name
+
+        self.health = pyonms.dao.health.HealthAPI(args)
+        """`pyonms.dao.health.HealthAPI` endpoint"""
+        self.info = pyonms.dao.info.InfoAPI(args)
+        """`pyonms.dao.info.InfoAPI` endpoint"""
+
+        if current_process().name == "MainProcess":
+            self.health_status = self.health.get_health()
+
+        self.server_status = self.info.get_info()
+        args["version"] = self.server_status.version
+
         self.alarms = pyonms.dao.alarms.AlarmAPI(args)
         """`pyonms.dao.alarms.AlarmAPI` endpoint"""
         self.bsm = pyonms.dao.business_services.BSMAPI(args)
@@ -48,16 +61,10 @@ class PyONMS:
         """`pyonms.dao.events.EventAPI` endpoint"""
         self.fs = pyonms.dao.foreign_sources.ForeignSourceAPI(args)
         """`pyonms.dao.foreign_sources.ForeignSourceAPI` endpoint"""
-        self.health = pyonms.dao.health.HealthAPI(args)
-        """`pyonms.dao.health.HealthAPI` endpoint"""
-        self.info = pyonms.dao.info.InfoAPI(args)
-        """`pyonms.dao.info.InfoAPI` endpoint"""
         self.nodes = pyonms.dao.nodes.NodeAPI(args)
         """`pyonms.dao.nodes.NodeAPI` endpoint"""
         self.requisitions = pyonms.dao.requisitions.RequisitionsAPI(args)
         """`pyonms.dao.requisitions.RequisitionsAPI` endpoint"""
-
-        self.status = self.info.get_info()
 
     def __repr__(self):
         return self.hostname
@@ -74,3 +81,4 @@ class PyONMS:
             EventParameter(name="daemonName", value=name, type="string")
         )
         self.events.send_event(reload_event)
+        print(f"Sending event to trigger reload of the {name} daemon.")

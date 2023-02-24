@@ -33,11 +33,14 @@ class Severity(Enum):
 class EventParameter:
     name: str
     value: Union[int, str]
-    type: str
+    type: str = "string"
 
     def _to_dict(self) -> dict:
         payload = {"parmName": self.name, "value": self.value}
         return payload
+
+    def __hash__(self):
+        return hash((self.name))
 
 
 @dataclass(repr=False)
@@ -62,7 +65,7 @@ class Event:
     snmp: str = None
     snmpHost: str = None
     ifIndex: int = None
-    parameters: List[Union[EventParameter, None]] = field(default_factory=dict)
+    parameters: List[Union[EventParameter, None]] = field(default_factory=list)
     serviceType: ServiceType = field(default_factory=dict)
 
     def __post_init__(self):
@@ -91,7 +94,9 @@ class Event:
         payload = {}
         for attr in dir(self):
             if attr[0] != "_" and getattr(self, attr):
-                payload[attr] = getattr(self, attr)
+                payload[attr.lower()] = getattr(self, attr)
+        if isinstance(payload.get("severity"), Severity):
+            payload["severity"] = self.severity.name
         if self.parameters:
             del payload["parameters"]
             payload["parms"] = []
