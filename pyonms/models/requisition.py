@@ -239,6 +239,16 @@ class RequisitionNode:
                 return
         self.meta_data.append(Metadata(context="requisition", key=key, value=value))
 
+    def set_asset(self, name: str, value: str):
+        """Add or update asset data for the node.
+        If a AssetField record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        """
+        for data in self.asset:
+            if data.name == name:
+                data.value = value
+                return
+        self.asset.append(AssetField(name=name, value=value))
+
 
 @dataclass
 class Requisition:
