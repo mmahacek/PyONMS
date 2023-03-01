@@ -70,13 +70,16 @@ class Service:
     def _to_dict(self) -> dict:
         payload = {"service-name": self.service_name}
         payload["category"] = [category._to_dict() for category in self.category]
-        payload["meta-data"] = [data._to_dict() for data in self.meta_data]
+        payload["meta-data"] = [
+            data._to_dict() for data in self.meta_data if data.value
+        ]
 
         return payload
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the service.
         If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        Set `value` to none to remove the key.
         Context will be "requisition".
         """
         for data in self.meta_data:
@@ -125,12 +128,13 @@ class Interface:
             service._to_dict() for service in self.monitored_service
         ]
         payload["category"] = [category._to_dict() for category in self.category]
-        payload["meta-data"] = [data.to_dict() for data in self.meta_data]
+        payload["meta-data"] = [data.to_dict() for data in self.meta_data if data.value]
         return payload
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the interface.
         If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        Set `value` to none to remove the key.
         Context will be "requisition".
         """
         for data in self.meta_data:
@@ -183,12 +187,14 @@ class RequisitionNode:
         for node_field in NODE_ATTRIBUTES:
             if getattr(self, node_field):
                 payload[node_field.replace("_", "-")] = getattr(self, node_field)
-        payload["asset"] = [asset._to_dict() for asset in self.asset]
+        payload["asset"] = [asset._to_dict() for asset in self.asset if asset.value]
         payload["category"] = [category._to_dict() for category in self.category]
         payload["interface"] = [
             interface._to_dict() for interface in self.interface.values()
         ]
-        payload["meta-data"] = [data._to_dict() for data in self.meta_data]
+        payload["meta-data"] = [
+            data._to_dict() for data in self.meta_data if data.value
+        ]
         return payload
 
     def add_interface(self, interface: Interface, merge: bool = True):
@@ -231,6 +237,7 @@ class RequisitionNode:
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the node.
         If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        Set `value` to none to remove the key.
         Context will be "requisition".
         """
         for data in self.meta_data:
@@ -242,6 +249,7 @@ class RequisitionNode:
     def set_asset(self, name: str, value: str):
         """Add or update asset data for the node.
         If a AssetField record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        Set `value` to none to remove the asset field.
         """
         for data in self.asset:
             if data.name == name:
