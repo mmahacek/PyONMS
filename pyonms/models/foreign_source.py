@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from pyonms.models import exceptions
 from pyonms.utils import convert_time
@@ -76,8 +76,8 @@ class ForeignSource:
     name: str
     date_stamp: Optional[datetime] = None
     scan_interval: str = "1d"
-    detectors: dict[str, Detector] = field(default_factory=dict)
-    policies: dict[str, Policy] = field(default_factory=dict)
+    detectors: Dict[str, Detector] = field(default_factory=dict)
+    policies: Dict[str, Policy] = field(default_factory=dict)
 
     def __post_init__(self):
         if isinstance(self.date_stamp, int):
