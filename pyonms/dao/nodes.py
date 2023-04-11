@@ -8,8 +8,8 @@ from typing import List, Optional
 
 from tqdm import tqdm
 
-from pyonms.dao import Endpoint
 import pyonms.models.node
+from pyonms.dao import Endpoint
 
 
 class NodeComponents(Enum):
@@ -55,7 +55,7 @@ class NodeAPI(Endpoint):
             return [None]
         if threads > len(records):
             threads = len(records)
-        with concurrent.futures.ProcessPoolExecutor(max_workers=threads) as pool:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
             with tqdm(
                 total=len(records),
                 unit="node",

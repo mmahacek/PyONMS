@@ -7,9 +7,8 @@ from typing import List, Optional
 
 from tqdm import tqdm
 
-from pyonms.dao import Endpoint
-
 import pyonms.models.business_service
+from pyonms.dao import Endpoint
 
 
 class BSMAPI(Endpoint):
@@ -49,7 +48,7 @@ class BSMAPI(Endpoint):
         service_list = []
         services = self._get_bsm_ids()
 
-        with concurrent.futures.ProcessPoolExecutor(max_workers=threads) as pool:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=threads) as pool:
             with tqdm(
                 total=len(services["business-services"]),
                 unit="business-service",
