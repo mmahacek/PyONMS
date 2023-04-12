@@ -4,6 +4,8 @@
 .. include:: ../README.md
 """
 
+__version__ = "0.0.7"
+
 from multiprocessing import current_process
 from urllib.parse import urlsplit
 
@@ -15,7 +17,6 @@ import pyonms.dao.health
 import pyonms.dao.info
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
-
 from pyonms.models.event import Event, EventParameter
 
 
