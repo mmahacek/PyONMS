@@ -1,16 +1,16 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
-build-backend = "setuptools.build_meta"
-
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
+dynamic = ["version"]
 name="PyONMS"
-version="0.0.6"
 requires-python = ">=3.8"
 description="A Python library for accessing the OpenNMS REST API."
-license={file = "LICENSE.txt"}
+readme = "README.md"
+license-files = {paths = ["LICENSE.txt"]}
+authors = [{ name = "Mark Mahacek", email = "mmahacek@opennms.com" }]
 dependencies=["requests", "python-dotenv", "xmltodict", "tqdm"]
-dynamic = ["readme"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -20,19 +20,11 @@ classifiers = [
     "Intended Audience :: System Administrators",
     "Intended Audience :: Developers",
     "Natural Language :: English",
-
 ]
 
 [project.urls]
 "Homepage" = "https://github.com/mmahacek/PyONMS"
 "Documentation" = "https://mmahacek.github.io/PyONMS/"
 
-[tool.setuptools]
-license-files = ["LICENSE.txt"]
-packages=["pyonms", "pyonms.dao", "pyonms.models", "pyonms.portal", "pyonms.utils"]
-#url="https://github.com/mmahacek/PyONMS"
-#author="Mark Mahacek"
-#author_email="mmahacek@opennms.com"
-
-[tool.setuptools.dynamic]
-readme = {file = "README.md"}
+[tool.hatch.version]
+path = "pyonms/__init__.py"

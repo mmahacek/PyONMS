@@ -1,13 +1,12 @@
 # dao.requisitions.py
 
-import requests
-
 from typing import List, Union
 
-from pyonms.dao import Endpoint
-from pyonms.utils import normalize_dict
+import requests
 
 import pyonms.models.requisition
+from pyonms.dao import Endpoint
+from pyonms.utils import normalize_dict
 
 
 class RequisitionsAPI(Endpoint):
@@ -89,6 +88,7 @@ class RequisitionsAPI(Endpoint):
         return response
 
     def update_requisition(self, requisition: pyonms.models.requisition.Requisition):
+        """Post an entire requisition to create or overwrite."""
         response = self._post(
             uri=self.url, headers=self.headers, json=requisition._to_dict()
         )

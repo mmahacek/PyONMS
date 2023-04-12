@@ -1,3 +1,6 @@
+![package version](https://img.shields.io/pypi/v/pyonms)
+![python version](https://img.shields.io/pypi/pyversions/pyonms)
+
 # PyONMS
 
 A Python library for accessing the OpenNMS REST API.
@@ -5,26 +8,26 @@ A Python library for accessing the OpenNMS REST API.
 This is being developed with Python 3.10 and OpenNMS 31.
 It may work on older versions, but they haven't been tested yet.
 
-- [OpenNMS REST API documentation](https://docs.opennms.com/horizon/30/development/rest/rest-api.html)
+- [OpenNMS REST API documentation](https://docs.opennms.com/horizon/31/development/rest/rest-api.html)
 
 ## Information
 
-This is currently an early, pre-alpha version of this library.
-More details will be added as I figure out what they are.
+This currently is an early, pre-release version of this library.
+It is not maintained or published by The OpenNMS Group.
 
 
 ## Endpoints Supported
 
-Currently the endpoints (partially) supported are:
+Currently supported endpoints include:
 
 * Alarms (read-only)
 * Business Services (read-write)
-* Events (read-only)
-* Foreign Sources (read-only)
+* Events (read, send)
+* Foreign Sources (read-write)
 * Heath (read-only)
 * Info (read-only)
 * Nodes (read-only)
-* Requisitions (read-only)
+* Requisitions (read-write)
 
 ## Getting Started
 

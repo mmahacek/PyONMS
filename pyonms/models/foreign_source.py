@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import List, Optional
+from typing import Dict, List, Optional
 
 from pyonms.models import exceptions
 from pyonms.utils import convert_time
@@ -25,16 +25,16 @@ class Parameter:
 class Detector:
     name: str
     class_type: str
-    parameter: List[Optional[Parameter]] = field(default_factory=list)
+    parameters: List[Optional[Parameter]] = field(default_factory=list)
 
     def __post_init__(self):
         parameters = []
-        for param in self.parameter:
+        for param in self.parameters:
             if isinstance(param, dict):
                 parameters.append(Parameter(**param))
             elif isinstance(param, Parameter):
                 parameters.append(param)
-        self.parameter = parameters
+        self.parameters = parameters
 
     def __repr__(self):
         return (
@@ -43,7 +43,7 @@ class Detector:
 
     def _to_dict(self) -> dict:
         payload = {"name": self.name, "class": self.class_type}
-        payload["parameter"] = [parameter._to_dict() for parameter in self.parameter]
+        payload["parameter"] = [parameter._to_dict() for parameter in self.parameters]
         return payload
 
 
@@ -51,23 +51,23 @@ class Detector:
 class Policy:
     name: str
     class_type: str
-    parameter: List[Optional[Parameter]] = field(default_factory=list)
+    parameters: List[Optional[Parameter]] = field(default_factory=list)
 
     def __post_init__(self):
         parameters = []
-        for param in self.parameter:
+        for param in self.parameters:
             if isinstance(param, dict):
                 parameters.append(Parameter(**param))
             elif isinstance(param, Parameter):
                 parameters.append(param)
-        self.parameter = parameters
+        self.parameters = parameters
 
     def __repr__(self):
         return f"Policy(name={self.name}, class_type={self.class_type.split('.')[-1]})"
 
     def _to_dict(self) -> dict:
         payload = {"name": self.name, "class": self.class_type}
-        payload["parameter"] = [parameter._to_dict() for parameter in self.parameter]
+        payload["parameter"] = [parameter._to_dict() for parameter in self.parameters]
         return payload
 
 
@@ -76,8 +76,8 @@ class ForeignSource:
     name: str
     date_stamp: Optional[datetime] = None
     scan_interval: str = "1d"
-    detectors: dict[str, Detector] = field(default_factory=dict)
-    policies: dict[str, Policy] = field(default_factory=dict)
+    detectors: Dict[str, Detector] = field(default_factory=dict)
+    policies: Dict[str, Policy] = field(default_factory=dict)
 
     def __post_init__(self):
         if isinstance(self.date_stamp, int):
