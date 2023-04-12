@@ -2,9 +2,9 @@
 
 from typing import List, Union
 
-from pyonms.dao import Endpoint
 import pyonms.models.event
 import pyonms.models.node
+from pyonms.dao import Endpoint
 
 
 class EventAPI(Endpoint):

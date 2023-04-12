@@ -1,8 +1,7 @@
 # dao.health.py
 
-from pyonms.dao import Endpoint
-
 import pyonms.models.health
+from pyonms.dao import Endpoint
 
 
 class HealthAPI(Endpoint):

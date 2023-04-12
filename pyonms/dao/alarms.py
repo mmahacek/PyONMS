@@ -2,8 +2,8 @@
 
 from typing import List, Union
 
-from pyonms.dao import Endpoint
 import pyonms.models.alarm
+from pyonms.dao import Endpoint
 
 
 class AlarmAPI(Endpoint):

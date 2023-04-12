@@ -3,7 +3,6 @@
 from typing import List
 
 import requests
-
 from requests.auth import HTTPBasicAuth
 from tqdm import tqdm
 
