@@ -92,9 +92,17 @@ class Event:
 
     def _to_dict(self) -> dict:
         payload = {}
-        for attr in dir(self):
-            if attr[0] != "_" and getattr(self, attr):
-                payload[attr.lower()] = getattr(self, attr)
+        for key, value in vars(self).items():
+            if key == "description":
+                key = "descr"
+            elif key == "operatorInstructions":
+                key = "operinstruct"
+            elif key == "ipAddress":
+                key = "interface"
+            elif key in ["logMessage", "display"]:
+                continue
+            if value:
+                payload[key.lower()] = value
         if isinstance(payload.get("severity"), Severity):
             payload["severity"] = self.severity.name
         if self.parameters:
