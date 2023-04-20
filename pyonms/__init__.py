@@ -26,7 +26,7 @@ class PyONMS:
             hostname (str): OpenNMS URL
             username (str): Username
             password (str): Password
-            name (str): Instance name
+            name (str): Instance name. Defaults to hostname if omitted.
         Returns:
             `PyONMS` object
         """

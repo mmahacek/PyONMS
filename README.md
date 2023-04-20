@@ -31,4 +31,10 @@ Currently supported endpoints include:
 
 ## Getting Started
 
+You can install this library by running:
+
+```
+pip3 install pyonms
+```
+
 See the [project documentation](https://mmahacek.github.io/PyONMS/) for instructions on using this library.
