@@ -1,7 +1,8 @@
 # models.info.py
 
-from dataclasses import dataclass
-from typing import List, Optional
+
+from dataclasses import dataclass, field
+from typing import Dict, Optional
 
 
 @dataclass
@@ -47,13 +48,13 @@ class Version:
 
 @dataclass(repr=False)
 class Info:
-    displayVersion: str
-    version: str
-    packageName: str
-    packageDescription: str
-    ticketerConfig: TicketerConfig
-    datetimeformatConfig: DateFormat
-    services: List[Service]
+    displayVersion: str = None
+    version: str = None
+    packageName: str = None
+    packageDescription: str = None
+    ticketerConfig: TicketerConfig = None
+    datetimeformatConfig: DateFormat = None
+    services: Dict[str, Service] = field(default_factory=dict)
 
     def __post_init__(self):
         if isinstance(self.version, str):
