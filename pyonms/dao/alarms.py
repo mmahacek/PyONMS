@@ -4,6 +4,7 @@ from typing import List, Union
 
 import pyonms.models.alarm
 from pyonms.dao import Endpoint
+from pyonms.models import exceptions
 
 
 class AlarmAPI(Endpoint):
@@ -19,7 +20,7 @@ class AlarmAPI(Endpoint):
             return None
 
     def get_alarms(
-        self, limit=100, batch_size=100
+        self, limit: int = 100, batch_size: int = 100
     ) -> List[Union[pyonms.models.alarm.Alarm, None]]:
         alarms = []
         records = self._get_batch(
@@ -36,3 +37,22 @@ class AlarmAPI(Endpoint):
 
     def _process_alarm(self, data: dict) -> pyonms.models.alarm.Alarm:
         return pyonms.models.alarm.Alarm(**data)
+
+    def ack_alarm(self, id: int, ack: bool):
+        if not isinstance(ack, bool):
+            raise exceptions.InvalidValueError(
+                name="ack", value=ack, valid="[True, False]"
+            )
+        params = {"ack": ack}
+        self._put(uri=f"{self.url}/{id}", params=params, data=params)
+        return
+
+    def clear_alarm(self, id: int):
+        params = {"clear": True}
+        self._put(uri=f"{self.url}/{id}", params=params, data=params)
+        return
+
+    def escalate_alarm(self, id: int):
+        params = {"escalate": True}
+        self._put(uri=f"{self.url}/{id}", params=params, data=params)
+        return
