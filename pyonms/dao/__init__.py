@@ -82,6 +82,8 @@ class Endpoint:
         if response.status_code == 200:
             if "was not found" not in response.text:
                 return response.json()
+        elif response.status_code == 401:
+            raise AuthenticationError
         return {}
 
     def _get_v1(
