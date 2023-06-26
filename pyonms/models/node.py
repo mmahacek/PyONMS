@@ -32,7 +32,7 @@ class NodeType(Enum):
     "Unknown"
 
 
-class Managed(Enum):
+class ManagedIP(Enum):
     MANAGED = "M"
     "Managed"
     UNMANAGED = "U"
@@ -47,6 +47,17 @@ class Managed(Enum):
     "Not Polled"
     REMOTELY_MONITORED = "X"
     "Remotely Monitored"
+
+
+class ServiceStatus(Enum):
+    MANAGED = "A"
+    UNMANAGED = "U"
+    DELETED = "D"
+    FORCE_UNMANAGED = "F"
+    NOT_MONITORED = "N"
+    RESCAN_TO_RESUME = "R"
+    RESCAN_TO_SUSPEND = "S"
+    REMOTELY_MONITORED = "X"
 
 
 class PrimaryType(Enum):
@@ -172,7 +183,7 @@ class ServiceType:
 class Service:
     id: int
     notify: str = None
-    status: str = None
+    status: Union[ServiceStatus, str] = None
     qualifier: str = None
     down: bool = None
     source: str = None
@@ -187,6 +198,8 @@ class Service:
     def __post_init__(self):
         if isinstance(self.serviceType, dict):
             self.serviceType = ServiceType(**self.serviceType)
+        if isinstance(self.status, str):
+            self.status = ServiceStatus(self.status)
         if isinstance(self.lastFail, int):
             self.lastFail = convert_time(self.lastFail)
         if isinstance(self.lastGood, int):
@@ -254,7 +267,7 @@ class IPInterface:
     lastIngressFlow: Union[datetime, int] = None
     ipAddress: str = None
     snmpPrimary: Union[PrimaryType, str] = None
-    isManaged: Union[Managed, str] = None
+    isManaged: Union[ManagedIP, str] = None
     monitoredServiceCount: Optional[int] = None
     lastCapsdPoll: Optional[Union[datetime, int]] = None
     snmpInterface: Optional[Union[SnmpInterface, dict]] = field(default_factory=dict)
@@ -271,7 +284,7 @@ class IPInterface:
         if isinstance(self.lastIngressFlow, int):
             self.lastIngressFlow = convert_time(self.lastIngressFlow)
         if isinstance(self.isManaged, str):
-            self.isManaged = Managed(self.isManaged)
+            self.isManaged = ManagedIP(self.isManaged)
         if isinstance(self.snmpPrimary, str):
             self.snmpPrimary = PrimaryType(self.snmpPrimary)
         if self.snmpInterface and isinstance(self.snmpInterface, dict):
