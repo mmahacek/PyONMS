@@ -2,7 +2,7 @@
 
 
 from dataclasses import dataclass, field
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 
 
 @dataclass
@@ -54,7 +54,8 @@ class Info:
     packageDescription: str = None
     ticketerConfig: TicketerConfig = None
     datetimeformatConfig: DateFormat = None
-    services: Dict[str, Service] = field(default_factory=dict)
+    services: List[Service] = field(default_factory=list)
+    enabled_services: List[str] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.version, str):
@@ -69,6 +70,7 @@ class Info:
         for service, status in self.services.items():
             services.append(Service(name=service, status=status))
         self.services = services
+        self.enabled_services = [service.name.lower() for service in self.services]
 
     def __repr__(self):
         text = f"Info(version={self.displayVersion},"
