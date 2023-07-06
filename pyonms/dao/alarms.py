@@ -1,6 +1,6 @@
 # dao.alarms.py
 
-from typing import List, Union
+from typing import List, Optional
 
 import pyonms.models.alarm
 from pyonms.dao import Endpoint
@@ -12,7 +12,7 @@ class AlarmAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v2 + "alarms"
 
-    def get_alarm(self, id: int) -> Union[pyonms.models.alarm.Alarm, None]:
+    def get_alarm(self, id: int) -> Optional[pyonms.models.alarm.Alarm]:
         record = self._get(uri=f"{self.url}/{id}")
         if record is not None:
             return self._process_alarm(record)
@@ -21,7 +21,7 @@ class AlarmAPI(Endpoint):
 
     def get_alarms(
         self, limit: int = 100, batch_size: int = 100
-    ) -> List[Union[pyonms.models.alarm.Alarm, None]]:
+    ) -> List[Optional[pyonms.models.alarm.Alarm]]:
         alarms = []
         records = self._get_batch(
             url=self.url,

@@ -1,5 +1,8 @@
 # __init__.py
 
+
+# cSpell: ignore UDLAPI
+
 """
 .. include:: ../README.md
 """
@@ -17,6 +20,7 @@ import pyonms.dao.health
 import pyonms.dao.info
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
+import pyonms.dao.udl
 from pyonms.models.event import Event, EventParameter
 from pyonms.models.exceptions import InvalidValueError
 
@@ -67,6 +71,8 @@ class PyONMS:
         """`pyonms.dao.nodes.NodeAPI` endpoint"""
         self.requisitions = pyonms.dao.requisitions.RequisitionsAPI(args)
         """`pyonms.dao.requisitions.RequisitionsAPI` endpoint"""
+        self.udl = pyonms.dao.udl.UDLAPI(args)
+        """`pyonms.dao.udl.UDLAPI` endpoint"""
 
     def __repr__(self):
         return self.hostname
