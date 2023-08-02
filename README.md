@@ -24,11 +24,17 @@ Currently supported endpoints include:
 * Business Services (read-write)
 * Events (read, send)
 * Foreign Sources (read-write)
-* Heath (read-only)
+* Health (read-only)
 * Info (read-only)
 * Nodes (read-only)
 * Requisitions (read-write)
 
 ## Getting Started
+
+You can install this library by running:
+
+```
+pip3 install pyonms
+```
 
 See the [project documentation](https://mmahacek.github.io/PyONMS/) for instructions on using this library.

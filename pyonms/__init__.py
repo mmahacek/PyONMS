@@ -1,10 +1,13 @@
 # __init__.py
 
+
+# cSpell: ignore UDLAPI
+
 """
 .. include:: ../README.md
 """
 
-__version__ = "0.0.8"
+__version__ = "0.0.9"
 
 from multiprocessing import current_process
 from urllib.parse import urlsplit
@@ -17,7 +20,9 @@ import pyonms.dao.health
 import pyonms.dao.info
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
+import pyonms.dao.udl
 from pyonms.models.event import Event, EventParameter
+from pyonms.models.exceptions import InvalidValueError
 
 
 class PyONMS:
@@ -26,7 +31,7 @@ class PyONMS:
             hostname (str): OpenNMS URL
             username (str): Username
             password (str): Password
-            name (str): Instance name
+            name (str): Instance name. Defaults to hostname if omitted.
         Returns:
             `PyONMS` object
         """
@@ -66,6 +71,8 @@ class PyONMS:
         """`pyonms.dao.nodes.NodeAPI` endpoint"""
         self.requisitions = pyonms.dao.requisitions.RequisitionsAPI(args)
         """`pyonms.dao.requisitions.RequisitionsAPI` endpoint"""
+        self.udl = pyonms.dao.udl.UDLAPI(args)
+        """`pyonms.dao.udl.UDLAPI` endpoint"""
 
     def __repr__(self):
         return self.hostname
@@ -75,6 +82,10 @@ class PyONMS:
         Attributes:
             name (str): Daemon name
         """
+        if name.lower() not in self.server_status.enabled_services:
+            raise InvalidValueError(
+                name="name", value=name, valid=self.server_status.enabled_services
+            )
         reload_event = Event(
             uei="uei.opennms.org/internal/reloadDaemonConfig", source="pyonms"
         )

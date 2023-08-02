@@ -3,7 +3,6 @@
 from typing import List
 
 import requests
-
 from requests.auth import HTTPBasicAuth
 from tqdm import tqdm
 
@@ -81,8 +80,12 @@ class Endpoint:
                 headers[key] = value
         response = requests.get(uri, auth=self.auth, headers=headers, params=params)
         if response.status_code == 200:
+            if response.encoding in ("ISO-8859-1"):
+                return response.text
             if "was not found" not in response.text:
                 return response.json()
+        elif response.status_code == 401:
+            raise AuthenticationError
         return {}
 
     def _get_v1(

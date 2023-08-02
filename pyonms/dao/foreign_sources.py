@@ -4,8 +4,8 @@ from typing import List, Optional
 
 import requests
 
-from pyonms.dao import Endpoint
 import pyonms.models.foreign_source
+from pyonms.dao import Endpoint
 
 
 class ForeignSourceAPI(Endpoint):

@@ -1,7 +1,6 @@
 # models.health.py
 
-from dataclasses import dataclass
-
+from dataclasses import dataclass, field
 from typing import List, Optional
 
 
@@ -21,8 +20,8 @@ class Response:
 
 @dataclass(repr=False)
 class Health:
-    healthy: bool
-    responses: List[Response]
+    healthy: bool = None
+    responses: List[Response] = field(default_factory=list)
 
     def __post_init__(self):
         responses = []

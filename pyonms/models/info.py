@@ -1,8 +1,8 @@
 # models.info.py
 
 
-from dataclasses import dataclass
-from typing import List, Optional
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional
 
 
 @dataclass
@@ -48,13 +48,14 @@ class Version:
 
 @dataclass(repr=False)
 class Info:
-    displayVersion: str
-    version: str
-    packageName: str
-    packageDescription: str
-    ticketerConfig: TicketerConfig
-    datetimeformatConfig: DateFormat
-    services: List[Service]
+    displayVersion: str = None
+    version: str = None
+    packageName: str = None
+    packageDescription: str = None
+    ticketerConfig: TicketerConfig = None
+    datetimeformatConfig: DateFormat = None
+    services: List[Service] = field(default_factory=list)
+    enabled_services: List[str] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.version, str):
@@ -69,6 +70,7 @@ class Info:
         for service, status in self.services.items():
             services.append(Service(name=service, status=status))
         self.services = services
+        self.enabled_services = [service.name.lower() for service in self.services]
 
     def __repr__(self):
         text = f"Info(version={self.displayVersion},"

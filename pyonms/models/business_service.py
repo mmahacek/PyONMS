@@ -1,7 +1,7 @@
 # models.business_service.py
 
-from enum import Enum
 from dataclasses import dataclass, field
+from enum import Enum
 from typing import List, Optional
 
 from pyonms.models import exceptions

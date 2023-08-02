@@ -6,20 +6,19 @@ import requests
 from tqdm import tqdm
 
 from pyonms.models.exceptions import DuplicateEntityError
-
 from pyonms.portal.models import (
     PortalAppliance,
-    PortalApplianceStatus,
     PortalApplianceProfile,
-    PortalInstance,
-    PortalSubscription,
+    PortalApplianceStatus,
     PortalConnectivityProfile,
-    PortalFeatureProfile,
-    PortalLocation,
-    PortalInstanceCreate,
     PortalConnectivityProfileCreate,
+    PortalFeatureProfile,
+    PortalInstance,
+    PortalInstanceCreate,
+    PortalLocation,
     PortalLocationCreate,
     PortalMinion,
+    PortalSubscription,
 )
 
 
