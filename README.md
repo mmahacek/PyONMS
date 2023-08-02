@@ -20,7 +20,7 @@ It is not maintained or published by The OpenNMS Group.
 
 Currently supported endpoints include:
 
-* Alarms (read-only)
+* Alarms (read, update)
 * Business Services (read-write)
 * Events (read, send)
 * Foreign Sources (read-write)
@@ -28,6 +28,7 @@ Currently supported endpoints include:
 * Info (read-only)
 * Nodes (read-only)
 * Requisitions (read-write)
+* User Defined Links (read-write)
 
 ## Getting Started
 
