@@ -209,7 +209,10 @@ class RequisitionNode:
             pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
         """  # noqa
         if merge:
-            raise exceptions.MethodNotImplemented
+            if interface.ip_addr not in self.interface.keys():
+                self.interface[interface.ip_addr] = interface
+            else:
+                raise exceptions.MethodNotImplemented
         else:
             self.interface[interface.ip_addr] = interface
 
@@ -323,7 +326,10 @@ class Requisition:
             pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
         """  # noqa
         if merge:
-            raise exceptions.MethodNotImplemented
+            if node.foreign_id not in self.node.keys():
+                self.node[node.foreign_id] = node
+            else:
+                raise exceptions.MethodNotImplemented
         else:
             self.node[node.foreign_id] = node
 
