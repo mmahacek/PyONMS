@@ -26,12 +26,20 @@ from pyonms.models.exceptions import InvalidValueError
 
 
 class PyONMS:
-    def __init__(self, hostname: str, username: str, password: str, name: str = None):
+    def __init__(
+        self,
+        hostname: str,
+        username: str,
+        password: str,
+        name: str = None,
+        verify_ssl: bool = True,
+    ):
         """Attributes:
             hostname (str): OpenNMS URL
             username (str): Username
             password (str): Password
-            name (str): Instance name. Defaults to hostname if omitted.
+            name (str): Instance name. Defaults to hostname.
+            verify_ssl (bool): Verify SSL certificate. Defaults to True.
         Returns:
             `PyONMS` object
         """
@@ -40,6 +48,7 @@ class PyONMS:
             "hostname": hostname,
             "username": username,
             "password": password,
+            "verify_ssl": verify_ssl,
         }
         if name:
             self.name = name

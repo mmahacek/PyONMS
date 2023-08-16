@@ -83,7 +83,12 @@ class RequisitionsAPI(Endpoint):
         params: dict = {},
     ) -> requests.Response:
         response = requests.put(
-            uri, auth=self.auth, headers=self.headers, data=data, params=params
+            uri,
+            auth=self.auth,
+            headers=self.headers,
+            data=data,
+            params=params,
+            verify=self.verify_ssl,
         )
         return response
 

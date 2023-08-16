@@ -5,9 +5,12 @@ from typing import List
 import requests
 from requests.auth import HTTPBasicAuth
 from tqdm import tqdm
+from urllib3.exceptions import InsecureRequestWarning
 
 import pyonms.utils
 from pyonms.models.exceptions import AuthenticationError
+
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
 
 class Endpoint:
@@ -78,7 +81,9 @@ class Endpoint:
         if endpoint != "raw":
             for key, value in self.headers.items():
                 headers[key] = value
-        response = requests.get(uri, auth=self.auth, headers=headers, params=params)
+        response = requests.get(
+            uri, auth=self.auth, headers=headers, params=params, verify=self.verify_ssl
+        )
         if response.status_code == 200:
             if response.encoding in ("ISO-8859-1"):
                 return response.text
@@ -91,7 +96,9 @@ class Endpoint:
     def _get_v1(
         self, uri: str, endpoint: str, headers: dict = {}, params: dict = {}
     ) -> dict:
-        response = requests.get(uri, auth=self.auth, headers=headers, params=params)
+        response = requests.get(
+            uri, auth=self.auth, headers=headers, params=params, verify=self.verify_ssl
+        )
         if response.status_code == 200:
             if "Sign in to your account" in response.text:
                 raise AuthenticationError
@@ -115,14 +122,26 @@ class Endpoint:
     ) -> requests.Response:
         if json:
             response = requests.post(
-                uri, auth=self.auth, headers=headers, json=json, params=params
+                uri,
+                auth=self.auth,
+                headers=headers,
+                json=json,
+                params=params,
+                verify=self.verify_ssl,
             )
         elif data:
             response = requests.post(
-                uri, auth=self.auth, headers=headers, data=data, params=params
+                uri,
+                auth=self.auth,
+                headers=headers,
+                data=data,
+                params=params,
+                verify=self.verify_ssl,
             )
         else:
-            response = requests.post(uri, auth=self.auth, headers=headers)
+            response = requests.post(
+                uri, auth=self.auth, headers=headers, verify=self.verify_ssl
+            )
         return response
 
     def _put(
@@ -135,11 +154,21 @@ class Endpoint:
     ) -> dict:
         if json:
             response = requests.put(
-                uri, auth=self.auth, headers=headers, json=json, params=params
+                uri,
+                auth=self.auth,
+                headers=headers,
+                json=json,
+                params=params,
+                verify=self.verify_ssl,
             )
         elif data:
             response = requests.put(
-                uri, auth=self.auth, headers=headers, data=data, params=params
+                uri,
+                auth=self.auth,
+                headers=headers,
+                data=data,
+                params=params,
+                verify=self.verify_ssl,
             )
         else:
             return None
@@ -164,5 +193,5 @@ class Endpoint:
 
     def _delete(self, uri: str, headers: dict = {}, params: dict = {}) -> dict:
         headers["Accept"] = "application/json"
-        requests.delete(uri, auth=self.auth, headers=headers)
+        requests.delete(uri, auth=self.auth, headers=headers, verify=self.verify_ssl)
         return {}
