@@ -160,6 +160,7 @@ class RequisitionNode:
     meta_data: List[Metadata] = field(default_factory=list)
 
     def __post_init__(self):  # noqa C901
+        self.foreign_id = str(self.foreign_id)
         for index, asset in enumerate(self.asset):
             if isinstance(asset, dict):
                 self.asset[index] = AssetField(**asset)
@@ -236,9 +237,10 @@ class RequisitionNode:
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the node.
-        If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
-        Set `value` to none to remove the key.
-        Context will be "requisition".
+
+        Args:
+            key (str):   Metadata key.
+            value (str): Metadata value. Set to `None` to remove the entry.
         """
         for data in self.meta_data:
             if data.key == key:
@@ -248,14 +250,32 @@ class RequisitionNode:
 
     def set_asset(self, name: str, value: str):
         """Add or update asset data for the node.
-        If a AssetField record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
-        Set `value` to none to remove the asset field.
+
+        Args:
+            name (str):  Asset field name.
+            value (str): Asset field value. Set to `None` to remove the entry.
         """
         for data in self.asset:
             if data.name == name:
                 data.value = value
                 return
         self.asset.append(AssetField(name=name, value=value))
+
+    def add_category(self, category: str):
+        """Add category to node, if not currently assigned
+
+        Args:
+            category (str): Category name
+        """
+        if category not in [cat.name for cat in self.category]:
+            self.category.append(Category(name=category))
+
+    def remove_category(self, category: str):
+        """Remove category from node
+
+        Args:
+            category (str): Category name"""
+        self.category = [cat for cat in self.category if cat.name != category]
 
 
 @dataclass
