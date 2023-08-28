@@ -143,6 +143,39 @@ class Interface:
                 return
         self.meta_data.append(Metadata(context="requisition", key=key, value=value))
 
+    def _merge_interface(self, new_interface: "Interface") -> "Interface":
+        if self.ip_addr != new_interface.ip_addr:
+            raise exceptions.InvalidValueError(
+                name="ip_addr", value=new_interface.ip_addr, valid=[self.ip_addr]
+            )
+        final_interface = Interface(**self._to_dict())
+        if new_interface.status:
+            final_interface.status = new_interface.status
+        if (
+            new_interface.snmp_primary
+            and new_interface.snmp_primary != self.snmp_primary
+        ):
+            final_interface.snmp_primary = new_interface.snmp_primary
+        if new_interface.descr:
+            final_interface.descr = new_interface.descr
+        if new_interface.managed:
+            final_interface.managed = new_interface.managed
+        for service in new_interface.monitored_service:
+            if service.service_name in [_.service_name for _ in self.monitored_service]:
+                final_interface.monitored_service = [
+                    _.service_name
+                    for _ in final_interface.monitored_service
+                    if _.service_name != service.service_name
+                ]
+            final_interface.monitored_service.append(service)
+
+        for category in new_interface.category:
+            if category not in [cat.name for cat in self.category]:
+                final_interface.category.append(Category(name=category))
+        for key, value in new_interface.meta_data.items():
+            final_interface.set_metadata(key=key, value=value)
+        return final_interface
+
 
 @dataclass
 class RequisitionNode:
@@ -259,7 +292,7 @@ class RequisitionNode:
             value (str): Asset field value. Set to `None` to remove the entry.
         """
         for data in self.asset:
-            if data.name == name:
+            if data.name.lower() == name.lower():
                 data.value = value
                 return
         self.asset.append(AssetField(name=name, value=value))
