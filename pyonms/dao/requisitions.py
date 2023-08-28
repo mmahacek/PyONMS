@@ -98,3 +98,18 @@ class RequisitionsAPI(Endpoint):
             uri=self.url, headers=self.headers, json=requisition._to_dict()
         )
         return response
+
+    def update_node(
+        self,
+        requisition: Union[str, pyonms.models.requisition.Requisition],
+        node: pyonms.models.requisition.RequisitionNode,
+    ):
+        """Post a single node to create or overwrite."""
+        if isinstance(requisition, pyonms.models.requisition.Requisition):
+            requisition = requisition.foreign_source
+        response = self._post(
+            uri=f"{self.url}/{requisition}/nodes/{node.foreign_id}",
+            headers=self.headers,
+            json=node._to_dict(),
+        )
+        return response
