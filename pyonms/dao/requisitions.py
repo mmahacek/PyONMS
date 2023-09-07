@@ -14,6 +14,14 @@ class RequisitionsAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v1 + "requisitions"
 
+    def get_requisition_names(self) -> List[str]:
+        names = self._get(
+            uri=f"{self.base_v1}/requisitionNames",
+            endpoint="requisitionNames",
+            headers=self.headers,
+        )
+        return names["foreign-source"]
+
     def get_requisition(
         self, name: str
     ) -> Union[pyonms.models.requisition.Requisition, None]:
