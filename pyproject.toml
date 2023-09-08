@@ -4,13 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 dynamic = ["version"]
-name="pyonms"
+name = "pyonms"
 requires-python = ">=3.8"
-description="A Python library for accessing the OpenNMS REST API."
+description = "A Python library for accessing the OpenNMS REST API."
 readme = "README.md"
-license-files = {paths = ["LICENSE.txt"]}
+license = { file = "LICENSE.txt" }
 authors = [{ name = "Mark Mahacek", email = "mmahacek@opennms.com" }]
-dependencies=["requests", "python-dotenv", "xmltodict", "tqdm"]
+dependencies = ["requests", "python-dotenv", "xmltodict", "tqdm"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -26,5 +26,78 @@ classifiers = [
 "Homepage" = "https://github.com/mmahacek/PyONMS"
 "Documentation" = "https://mmahacek.github.io/PyONMS/"
 
+[tool.poetry]
+name = "pyonms"
+authors = ["Mark Mahacek <mmahacek@opennms.com>"]
+description = ""
+version = "0.0.10"
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "*"
+python-dotenv = "*"
+xmltodict = "*"
+tqdm = "*"
+
+[tool.poetry.group.dev.dependencies]
+black = "*"
+pylint = "*"
+pylama = "*"
+pytest = "*"
+pytest-vcr = "*"
+pdoc = "*"
+tox = "*"
+coverage = "*"
+
+
 [tool.hatch.version]
 path = "pyonms/__init__.py"
+
+[tool.coverage.run]
+command_line = '-m pytest'
+branch = true
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc\\.)?abstractmethod",
+]
+
+ignore_errors = true
+
+[tool.coverage.json]
+output = './coverage.json'
+pretty_print = true
+
+[tool.coverage.lcov]
+output = './coverage.lcov'
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+requies =
+    tox>=4
+env_list = py{38,39,310,311}
+
+[testenv]
+description = run unit tests
+deps =
+    pytest>=7
+    pytest-vcr
+commands =
+    pytest {posargs:tests}
+"""
