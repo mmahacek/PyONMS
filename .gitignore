@@ -26,6 +26,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+poetry.lock
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -114,6 +115,7 @@ venv.bak/
 venv39/
 venv38/
 venv310/
+venv311/
 
 # Spyder project settings
 .spyderproject
