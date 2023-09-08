@@ -4,7 +4,7 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Union
+from typing import Dict, Optional, Union
 
 from pyonms.models.node import ServiceType
 from pyonms.utils import convert_time
@@ -46,27 +46,29 @@ class EventParameter:
 @dataclass(repr=False)
 class Event:
     uei: str
-    id: int = None
-    label: str = None
-    time: datetime = None
-    source: str = None
-    createTime: datetime = None
-    description: str = None
-    logMessage: str = None
-    severity: Severity = None
-    log: bool = None
-    display: bool = None
-    location: str = None
-    nodeId: int = None
-    nodeLabel: str = None
-    ipAddress: str = None
-    operatorInstructions: str = None
-    host: str = None
-    snmp: str = None
-    snmpHost: str = None
-    ifIndex: int = None
-    parameters: List[Union[EventParameter, None]] = field(default_factory=list)
-    serviceType: ServiceType = field(default_factory=dict)
+    id: Optional[int] = None
+    label: Optional[str] = None
+    time: Optional[datetime] = None
+    source: Optional[str] = None
+    createTime: Optional[datetime] = None
+    description: Optional[str] = None
+    logMessage: Optional[str] = None
+    severity: Optional[Severity] = None
+    log: Optional[bool] = None
+    display: Optional[bool] = None
+    location: Optional[str] = None
+    nodeId: Optional[int] = None
+    nodeLabel: Optional[str] = None
+    ipAddress: Optional[str] = None
+    operatorInstructions: Optional[str] = None
+    host: Optional[str] = None
+    snmp: Optional[str] = None
+    snmpHost: Optional[str] = None
+    ifIndex: Optional[int] = None
+    parameters: Optional[Dict[str, Optional[EventParameter]]] = field(
+        default_factory=dict
+    )
+    serviceType: Optional[ServiceType] = None
 
     def __post_init__(self):
         if isinstance(self.time, int):
@@ -83,7 +85,8 @@ class Event:
             self.log = True
         elif self.log == "N":
             self.log = False
-        self.parameters = [EventParameter(**parameter) for parameter in self.parameters]
+        parameters = [EventParameter(**parameter) for parameter in self.parameters]
+        self.parameters = {parm.name: parm for parm in parameters}
         if self.serviceType and isinstance(self.serviceType, dict):
             self.serviceType = ServiceType(**self.serviceType)
 
@@ -108,6 +111,20 @@ class Event:
         if self.parameters:
             del payload["parameters"]
             payload["parms"] = []
-            for parameter in self.parameters:
+            for parameter in self.parameters.values():
                 payload["parms"].append(parameter._to_dict())
         return payload
+
+    def set_parameter(self, name: str, value: str, type: str = "string") -> None:
+        """Set or remove an `EventParameter`.
+
+        Args:
+            name (str): Name of the parameter to update.
+            value (str): Value of the parameter to set.  If `None`, existing parameter will be removed.
+            type (str, optional): Data type of the value. Defaults to "string".
+        """
+        if value:
+            self.parameters[name] = EventParameter(name=name, value=value, type=type)
+        else:
+            if name in self.parameters.keys():
+                del self.parameters[name]
