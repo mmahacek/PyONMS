@@ -26,31 +26,6 @@ classifiers = [
 "Homepage" = "https://github.com/mmahacek/PyONMS"
 "Documentation" = "https://mmahacek.github.io/PyONMS/"
 
-[tool.poetry]
-name = "pyonms"
-authors = ["Mark Mahacek <mmahacek@opennms.com>"]
-description = ""
-version = "0.0.10"
-
-
-[tool.poetry.dependencies]
-python = "^3.8"
-requests = "*"
-python-dotenv = "*"
-xmltodict = "*"
-tqdm = "*"
-
-[tool.poetry.group.dev.dependencies]
-black = "*"
-pylint = "*"
-pylama = "*"
-pytest = "*"
-pytest-vcr = "*"
-pdoc = "*"
-tox = "*"
-coverage = "*"
-
-
 [tool.hatch.version]
 path = "pyonms/__init__.py"
 
