@@ -21,7 +21,7 @@ import pyonms.dao.info
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
 import pyonms.dao.udl
-from pyonms.models.event import Event, EventParameter
+from pyonms.models.event import Event
 from pyonms.models.exceptions import InvalidValueError
 
 
@@ -91,15 +91,16 @@ class PyONMS:
         Attributes:
             name (str): Daemon name
         """
-        if name.lower() not in self.server_status.enabled_services:
+        if (
+            self.server_status.enabled_services
+            and name.lower() not in self.server_status.enabled_services
+        ):
             raise InvalidValueError(
                 name="name", value=name, valid=self.server_status.enabled_services
             )
         reload_event = Event(
             uei="uei.opennms.org/internal/reloadDaemonConfig", source="pyonms"
         )
-        reload_event.parameters.append(
-            EventParameter(name="daemonName", value=name, type="string")
-        )
+        reload_event.set_parameter(name="daemonName", value=name, type="string")
         self.events.send_event(reload_event)
         print(f"Sending event to trigger reload of the {name} daemon.")
