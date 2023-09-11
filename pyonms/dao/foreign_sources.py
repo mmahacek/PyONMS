@@ -58,7 +58,9 @@ class ForeignSourceAPI(Endpoint):
         self, uri: str, headers: dict = {}, params: dict = {}, endpoint: str = ""
     ) -> dict:
         headers["Accept"] = "application/json"
-        response = requests.get(uri, auth=self.auth, headers=headers, params=params)
+        response = requests.get(
+            uri, auth=self.auth, headers=headers, params=params, verify=self.verify_ssl
+        )
         if response.status_code == 200:
             if "was not found" not in response.text:
                 return response.json()

@@ -143,6 +143,39 @@ class Interface:
                 return
         self.meta_data.append(Metadata(context="requisition", key=key, value=value))
 
+    def _merge_interface(self, new_interface: "Interface") -> "Interface":
+        if self.ip_addr != new_interface.ip_addr:
+            raise exceptions.InvalidValueError(
+                name="ip_addr", value=new_interface.ip_addr, valid=[self.ip_addr]
+            )
+        final_interface = Interface(**self._to_dict())
+        if new_interface.status:
+            final_interface.status = new_interface.status
+        if (
+            new_interface.snmp_primary
+            and new_interface.snmp_primary != self.snmp_primary
+        ):
+            final_interface.snmp_primary = new_interface.snmp_primary
+        if new_interface.descr:
+            final_interface.descr = new_interface.descr
+        if new_interface.managed:
+            final_interface.managed = new_interface.managed
+        for service in new_interface.monitored_service:
+            if service.service_name in [_.service_name for _ in self.monitored_service]:
+                final_interface.monitored_service = [
+                    _.service_name
+                    for _ in final_interface.monitored_service
+                    if _.service_name != service.service_name
+                ]
+            final_interface.monitored_service.append(service)
+
+        for category in new_interface.category:
+            if category not in [cat.name for cat in self.category]:
+                final_interface.category.append(Category(name=category))
+        for key, value in new_interface.meta_data.items():
+            final_interface.set_metadata(key=key, value=value)
+        return final_interface
+
 
 @dataclass
 class RequisitionNode:
@@ -160,6 +193,7 @@ class RequisitionNode:
     meta_data: List[Metadata] = field(default_factory=list)
 
     def __post_init__(self):  # noqa C901
+        self.foreign_id = str(self.foreign_id)
         for index, asset in enumerate(self.asset):
             if isinstance(asset, dict):
                 self.asset[index] = AssetField(**asset)
@@ -208,7 +242,10 @@ class RequisitionNode:
             pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
         """  # noqa
         if merge:
-            raise exceptions.MethodNotImplemented
+            if interface.ip_addr not in self.interface.keys():
+                self.interface[interface.ip_addr] = interface
+            else:
+                raise exceptions.MethodNotImplemented
         else:
             self.interface[interface.ip_addr] = interface
 
@@ -236,9 +273,10 @@ class RequisitionNode:
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the node.
-        If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
-        Set `value` to none to remove the key.
-        Context will be "requisition".
+
+        Args:
+            key (str):   Metadata key.
+            value (str): Metadata value. Set to `None` to remove the entry.
         """
         for data in self.meta_data:
             if data.key == key:
@@ -248,14 +286,32 @@ class RequisitionNode:
 
     def set_asset(self, name: str, value: str):
         """Add or update asset data for the node.
-        If a AssetField record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
-        Set `value` to none to remove the asset field.
+
+        Args:
+            name (str):  Asset field name.
+            value (str): Asset field value. Set to `None` to remove the entry.
         """
         for data in self.asset:
-            if data.name == name:
+            if data.name.lower() == name.lower():
                 data.value = value
                 return
         self.asset.append(AssetField(name=name, value=value))
+
+    def add_category(self, category: str):
+        """Add category to node, if not currently assigned
+
+        Args:
+            category (str): Category name
+        """
+        if category not in [cat.name for cat in self.category]:
+            self.category.append(Category(name=category))
+
+    def remove_category(self, category: str):
+        """Remove category from node
+
+        Args:
+            category (str): Category name"""
+        self.category = [cat for cat in self.category if cat.name != category]
 
 
 @dataclass
@@ -303,7 +359,10 @@ class Requisition:
             pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
         """  # noqa
         if merge:
-            raise exceptions.MethodNotImplemented
+            if node.foreign_id not in self.node.keys():
+                self.node[node.foreign_id] = node
+            else:
+                raise exceptions.MethodNotImplemented
         else:
             self.node[node.foreign_id] = node
 

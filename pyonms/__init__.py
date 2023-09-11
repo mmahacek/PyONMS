@@ -1,13 +1,13 @@
 # __init__.py
 
-
+# flake8: noqa W503
 # cSpell: ignore UDLAPI
 
 """
 .. include:: ../README.md
 """
 
-__version__ = "0.0.9"
+__version__ = "0.0.10"
 
 from multiprocessing import current_process
 from urllib.parse import urlsplit
@@ -21,17 +21,25 @@ import pyonms.dao.info
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
 import pyonms.dao.udl
-from pyonms.models.event import Event, EventParameter
+from pyonms.models.event import Event
 from pyonms.models.exceptions import InvalidValueError
 
 
 class PyONMS:
-    def __init__(self, hostname: str, username: str, password: str, name: str = None):
+    def __init__(
+        self,
+        hostname: str,
+        username: str,
+        password: str,
+        name: str = None,
+        verify_ssl: bool = True,
+    ):
         """Attributes:
             hostname (str): OpenNMS URL
             username (str): Username
             password (str): Password
-            name (str): Instance name. Defaults to hostname if omitted.
+            name (str): Instance name. Defaults to hostname.
+            verify_ssl (bool): Verify SSL certificate. Defaults to True.
         Returns:
             `PyONMS` object
         """
@@ -40,6 +48,7 @@ class PyONMS:
             "hostname": hostname,
             "username": username,
             "password": password,
+            "verify_ssl": verify_ssl,
         }
         if name:
             self.name = name
@@ -82,15 +91,16 @@ class PyONMS:
         Attributes:
             name (str): Daemon name
         """
-        if name.lower() not in self.server_status.enabled_services:
+        if (
+            self.server_status.enabled_services
+            and name.lower() not in self.server_status.enabled_services
+        ):
             raise InvalidValueError(
                 name="name", value=name, valid=self.server_status.enabled_services
             )
         reload_event = Event(
             uei="uei.opennms.org/internal/reloadDaemonConfig", source="pyonms"
         )
-        reload_event.parameters.append(
-            EventParameter(name="daemonName", value=name, type="string")
-        )
+        reload_event.set_parameter(name="daemonName", value=name, type="string")
         self.events.send_event(reload_event)
         print(f"Sending event to trigger reload of the {name} daemon.")

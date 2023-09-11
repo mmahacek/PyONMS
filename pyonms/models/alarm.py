@@ -42,11 +42,11 @@ class Alarm:
     managedObjectInstance: str = None
     managedObjectType: str = None
     label: str = None
-    firstEvent: Optional[Event] = field(default_factory=dict)
-    lastEvent: Optional[Event] = field(default_factory=dict)
+    firstEvent: Optional[Event] = None
+    lastEvent: Optional[Event] = None
     parameters: List[Optional[EventParameter]] = field(default_factory=list)
     relatedAlarms: Optional[List["Alarm"]] = field(default_factory=list)
-    serviceType: ServiceType = field(default_factory=dict)
+    serviceType: ServiceType = None
 
     def __post_init__(self):
         self.suppressedUntil = convert_time(self.suppressedUntil)

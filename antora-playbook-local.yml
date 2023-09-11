@@ -2,22 +2,22 @@ site:
   title: opennms.py
 content:
   sources:
-  - url: .
-    branches: HEAD
-    start_path: docs
+    - url: .
+      branches: HEAD
+      start_path: docs
 ui:
   bundle:
-    url: https://github.com/opennms-forge/antora-ui-opennms/releases/download/v3.0.1/ui-bundle.zip
+    url: https://github.com/opennms-forge/antora-ui-opennms/releases/download/v3.1.0/ui-bundle.zip
   supplemental_files:
-  - path: ui.yml
-    contents: |
-      static_files:
-      - .nojekyll
-      - index.html
-  - path: .nojekyll
-  - path: index.html
-    contents: |
-      <html><head><meta http-equiv="refresh" content="0; url='opennms.py/0.0.7/index.html'" /></head></html>
+    - path: ui.yml
+      contents: |
+        static_files:
+        - .nojekyll
+        - index.html
+    - path: .nojekyll
+    - path: index.html
+      contents: |
+        <html><head><meta http-equiv="refresh" content="0; url='opennms.py/0.0.10/index.html'" /></head></html>
 asciidoc:
   attributes:
     experimental: true
@@ -25,5 +25,5 @@ output:
   clean: true
   dir: ./public
   destinations:
-  - provider: fs
-  - provider: archive
+    - provider: fs
+    - provider: archive

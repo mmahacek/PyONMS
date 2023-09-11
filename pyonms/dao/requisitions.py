@@ -14,6 +14,14 @@ class RequisitionsAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v1 + "requisitions"
 
+    def get_requisition_names(self) -> List[str]:
+        names = self._get(
+            uri=f"{self.base_v1}/requisitionNames",
+            endpoint="requisitionNames",
+            headers=self.headers,
+        )
+        return names["foreign-source"]
+
     def get_requisition(
         self, name: str
     ) -> Union[pyonms.models.requisition.Requisition, None]:
@@ -83,7 +91,12 @@ class RequisitionsAPI(Endpoint):
         params: dict = {},
     ) -> requests.Response:
         response = requests.put(
-            uri, auth=self.auth, headers=self.headers, data=data, params=params
+            uri,
+            auth=self.auth,
+            headers=self.headers,
+            data=data,
+            params=params,
+            verify=self.verify_ssl,
         )
         return response
 
@@ -91,5 +104,20 @@ class RequisitionsAPI(Endpoint):
         """Post an entire requisition to create or overwrite."""
         response = self._post(
             uri=self.url, headers=self.headers, json=requisition._to_dict()
+        )
+        return response
+
+    def update_node(
+        self,
+        requisition: Union[str, pyonms.models.requisition.Requisition],
+        node: pyonms.models.requisition.RequisitionNode,
+    ):
+        """Post a single node to create or overwrite."""
+        if isinstance(requisition, pyonms.models.requisition.Requisition):
+            requisition = requisition.foreign_source
+        response = self._post(
+            uri=f"{self.url}/{requisition}/nodes",
+            headers=self.headers,
+            json=node._to_dict(),
         )
         return response
