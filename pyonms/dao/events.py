@@ -20,14 +20,18 @@ class EventAPI(Endpoint):
             return None
 
     def get_events(
-        self, limit=100, batch_size=100
+        self, fiql: str = None, limit: int = 100, batch_size: int = 100
     ) -> List[Union[pyonms.models.event.Event, None]]:
         events = []
+        params = {}
+        if fiql:
+            params["_s"] = fiql
         records = self._get_batch(
             url=self.url,
             endpoint="event",
             limit=limit,
             batch_size=batch_size,
+            params=params,
         )
         if records == [None]:
             return [None]

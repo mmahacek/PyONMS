@@ -20,14 +20,18 @@ class AlarmAPI(Endpoint):
             return None
 
     def get_alarms(
-        self, limit: int = 100, batch_size: int = 100
+        self, fiql: str = None, limit: int = 100, batch_size: int = 100
     ) -> List[Optional[pyonms.models.alarm.Alarm]]:
         alarms = []
+        params = {}
+        if fiql:
+            params["_s"] = fiql
         records = self._get_batch(
             url=self.url,
             endpoint="alarm",
             limit=limit,
             batch_size=batch_size,
+            params=params,
         )
         if records == [None]:
             return [None]

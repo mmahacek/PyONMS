@@ -1,6 +1,6 @@
 # __init__.py
 
-
+# flake8: noqa W503
 # cSpell: ignore UDLAPI
 
 """

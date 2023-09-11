@@ -37,13 +37,16 @@ class NodeAPI(Endpoint):
 
     def get_nodes(
         self,
-        limit=100,
-        batch_size=100,
+        fiql: str = None,
+        limit: int = 100,
+        batch_size: int = 100,
         components: List[NodeComponents] = [],
         threads: int = 10,
     ) -> List[Optional[pyonms.models.node.Node]]:
         devices = []
         params = {}
+        if fiql:
+            params["_s"] = fiql
         records = self._get_batch(
             url=self.url,
             endpoint="node",
