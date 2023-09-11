@@ -8,7 +8,7 @@ from tqdm import tqdm
 from urllib3.exceptions import InsecureRequestWarning
 
 import pyonms.utils
-from pyonms.models.exceptions import AuthenticationError
+from pyonms.models.exceptions import AuthenticationError, InvalidValueError
 
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
@@ -91,6 +91,9 @@ class Endpoint:
                 return response.json()
         elif response.status_code == 401:
             raise AuthenticationError
+        elif response.status_code in [500]:
+            print(response.text)
+            raise InvalidValueError(name="get", value=uri)
         return {}
 
     def _get_v1(
