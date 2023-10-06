@@ -85,9 +85,9 @@ class Endpoint:
             uri, auth=self.auth, headers=headers, params=params, verify=self.verify_ssl
         )
         if response.status_code == 200:
-            if response.encoding in ("ISO-8859-1"):
+            if response.encoding in ("ISO-8859-1") or uri[-5:] in ["probe"]:
                 return response.text
-            if "was not found" not in response.text:
+            elif "was not found" not in response.text:
                 return response.json()
         elif response.status_code == 401:
             raise AuthenticationError
