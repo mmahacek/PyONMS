@@ -42,6 +42,7 @@ class Alarm:
     managedObjectInstance: str = None
     managedObjectType: str = None
     label: str = None
+    firstAutomationTime: datetime = None
     lastAutomationTime: datetime = None
     firstEvent: Optional[Event] = None
     lastEvent: Optional[Event] = None
@@ -54,6 +55,7 @@ class Alarm:
         self.suppressedTime = convert_time(self.suppressedTime)
         self.firstEventTime = convert_time(self.firstEventTime)
         self.lastEventTime = convert_time(self.lastEventTime)
+        self.firstAutomationTime = convert_time(self.firstAutomationTime)
         self.lastAutomationTime = convert_time(self.lastAutomationTime)
         self.ackTime = convert_time(self.ackTime)
         self.severity = Severity[self.severity]
