@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.11] 2023-11-29
+
+### What's Changed
+
+* Add lastAutomationTime and firstAutomationTime parameters to the Alarm model
+* Apply pylint suggestions
+* Add option to set a timeout for REST calls
+* Slightly improve error handling on some REST calls
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.10...v0.0.11
+
 ## [0.0.10] 2023-09-11
 
 ### Potentially Breaking Change
