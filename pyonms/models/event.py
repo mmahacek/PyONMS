@@ -115,7 +115,9 @@ class Event:
                 payload["parms"].append(parameter._to_dict())
         return payload
 
-    def set_parameter(self, name: str, value: str, type: str = "string") -> None:
+    def set_parameter(
+        self, name: str, value: str, type: str = "string"
+    ) -> None:  # noqa: W0622
         """Set or remove an `EventParameter`.
 
         Args:

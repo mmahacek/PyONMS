@@ -1,19 +1,24 @@
 # dao.__init__.py
 
+"""Base classes for DAO objects"""
+
 from typing import List
 
 import requests
 from requests.auth import HTTPBasicAuth
+from requests.packages import urllib3
 from tqdm import tqdm
 from urllib3.exceptions import InsecureRequestWarning
 
 import pyonms.utils
 from pyonms.models.exceptions import AuthenticationError, InvalidValueError
 
-requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+urllib3.disable_warnings(category=InsecureRequestWarning)
 
 
 class Endpoint:
+    """Base class for endpoint data access"""
+
     def __init__(
         self, hostname: str, username: str, password: str, name: str, **kwargs
     ):
@@ -24,6 +29,8 @@ class Endpoint:
         self.hostname = hostname
         self.username = username
         self.password = password
+        self.verify_ssl = True
+        self.timeout = 30
         self.name = name
         self.headers = {"Accept": "application/json"}
         self.auth = HTTPBasicAuth(self.username, self.password)
@@ -36,9 +43,11 @@ class Endpoint:
         endpoint: str,
         limit: int = 0,
         batch_size: int = 100,
-        params: dict = {},
+        params: dict = None,
         hide_progress: bool = False,
     ) -> List[dict]:
+        if not params:
+            params = {}
         with tqdm(
             total=limit,
             unit="record",
@@ -52,7 +61,10 @@ class Endpoint:
             else:
                 params["limit"] = limit
             records = self._get(
-                uri=url, params=params, endpoint=endpoint, headers=self.headers
+                uri=url,
+                params=params,
+                endpoint=endpoint,
+                headers=self.headers,
             )
             if records.get(endpoint, [None]) in [[None], []]:
                 return [None]
@@ -72,22 +84,31 @@ class Endpoint:
             return result
 
     def _get(
-        self, uri: str, headers: dict = {}, params: dict = {}, endpoint: str = None
+        self, uri: str, headers: dict = None, params: dict = None, endpoint: str = None
     ) -> dict:
         # if self.base_v1 in uri:
         #    return self._get_v1(
         #        uri=uri, headers=headers, params=params, endpoint=endpoint
         #    )
+        if not headers:
+            headers = {}
+        if not params:
+            params = {}
         if endpoint != "raw":
             for key, value in self.headers.items():
                 headers[key] = value
         response = requests.get(
-            uri, auth=self.auth, headers=headers, params=params, verify=self.verify_ssl
+            uri,
+            auth=self.auth,
+            headers=headers,
+            params=params,
+            verify=self.verify_ssl,
+            timeout=self.timeout,
         )
         if response.status_code == 200:
-            if response.encoding in ("ISO-8859-1"):
+            if response.encoding in ("ISO-8859-1") or uri[-5:] in ["probe"]:
                 return response.text
-            if "was not found" not in response.text:
+            elif "was not found" not in response.text:
                 return response.json()
         elif response.status_code == 401:
             raise AuthenticationError
@@ -97,10 +118,19 @@ class Endpoint:
         return {}
 
     def _get_v1(
-        self, uri: str, endpoint: str, headers: dict = {}, params: dict = {}
+        self, uri: str, endpoint: str, headers: dict = None, params: dict = None
     ) -> dict:
+        if not headers:
+            headers = {}
+        if not params:
+            params = {}
         response = requests.get(
-            uri, auth=self.auth, headers=headers, params=params, verify=self.verify_ssl
+            uri,
+            auth=self.auth,
+            headers=headers,
+            params=params,
+            verify=self.verify_ssl,
+            timeout=self.timeout,
         )
         if response.status_code == 200:
             if "Sign in to your account" in response.text:
@@ -118,11 +148,15 @@ class Endpoint:
     def _post(
         self,
         uri: str,
-        headers: dict = {},
+        headers: dict = None,
         data: dict = None,
         json: dict = None,
-        params: dict = {},
+        params: dict = None,
     ) -> requests.Response:
+        if not headers:
+            headers = {}
+        if not params:
+            params = {}
         if json:
             response = requests.post(
                 uri,
@@ -131,6 +165,7 @@ class Endpoint:
                 json=json,
                 params=params,
                 verify=self.verify_ssl,
+                timeout=self.timeout,
             )
         elif data:
             response = requests.post(
@@ -140,10 +175,15 @@ class Endpoint:
                 data=data,
                 params=params,
                 verify=self.verify_ssl,
+                timeout=self.timeout,
             )
         else:
             response = requests.post(
-                uri, auth=self.auth, headers=headers, verify=self.verify_ssl
+                uri,
+                auth=self.auth,
+                headers=headers,
+                verify=self.verify_ssl,
+                timeout=self.timeout,
             )
         return response
 
@@ -152,9 +192,13 @@ class Endpoint:
         uri: str,
         data: dict = None,
         json: dict = None,
-        headers: dict = {},
-        params: dict = {},
+        headers: dict = None,
+        params: dict = None,
     ) -> dict:
+        if not headers:
+            headers = {}
+        if not params:
+            params = {}
         if json:
             response = requests.put(
                 uri,
@@ -163,6 +207,7 @@ class Endpoint:
                 json=json,
                 params=params,
                 verify=self.verify_ssl,
+                timeout=self.timeout,
             )
         elif data:
             response = requests.put(
@@ -172,6 +217,7 @@ class Endpoint:
                 data=data,
                 params=params,
                 verify=self.verify_ssl,
+                timeout=self.timeout,
             )
         else:
             return None
@@ -194,7 +240,17 @@ class Endpoint:
                     v2_data[key] = [value["model_import"]]
         return v2_data
 
-    def _delete(self, uri: str, headers: dict = {}, params: dict = {}) -> dict:
+    def _delete(self, uri: str, headers: dict = None, params: dict = None) -> dict:
+        if not headers:
+            headers = {}
+        if not params:
+            params = {}
         headers["Accept"] = "application/json"
-        requests.delete(uri, auth=self.auth, headers=headers, verify=self.verify_ssl)
+        requests.delete(
+            uri,
+            auth=self.auth,
+            headers=headers,
+            verify=self.verify_ssl,
+            timeout=self.timeout,
+        )
         return {}

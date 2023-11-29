@@ -25,6 +25,7 @@ classifiers = [
 [project.urls]
 "Homepage" = "https://github.com/mmahacek/PyONMS"
 "Documentation" = "https://mmahacek.github.io/PyONMS/"
+"Changelog" = "https://github.com/mmahacek/PyONMS/blob/main/CHANGELOG.md"
 
 [tool.hatch.version]
 path = "pyonms/__init__.py"

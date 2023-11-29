@@ -7,7 +7,7 @@
 .. include:: ../README.md
 """
 
-__version__ = "0.0.10"
+__version__ = "0.0.11"
 
 from multiprocessing import current_process
 from urllib.parse import urlsplit
@@ -26,6 +26,8 @@ from pyonms.models.exceptions import InvalidValueError
 
 
 class PyONMS:
+    """Server instance class"""
+
     def __init__(
         self,
         hostname: str,
@@ -33,6 +35,7 @@ class PyONMS:
         password: str,
         name: str = None,
         verify_ssl: bool = True,
+        timeout: int = 30,
     ):
         """Attributes:
             hostname (str): OpenNMS URL
@@ -40,6 +43,7 @@ class PyONMS:
             password (str): Password
             name (str): Instance name. Defaults to hostname.
             verify_ssl (bool): Verify SSL certificate. Defaults to True.
+            timeout (int): Timeout for HTTP requests. Defaults to 30 seconds.
         Returns:
             `PyONMS` object
         """
@@ -49,6 +53,7 @@ class PyONMS:
             "username": username,
             "password": password,
             "verify_ssl": verify_ssl,
+            "timeout": timeout,
         }
         if name:
             self.name = name
