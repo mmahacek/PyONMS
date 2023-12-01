@@ -9,6 +9,8 @@ from pyonms.utils import convert_time
 
 
 class LabelSource(Enum):
+    """Source from how the `nodeLabel` was populated"""
+
     USER = "U"
     "User specified"
     NETBIOS = "N"
@@ -24,6 +26,8 @@ class LabelSource(Enum):
 
 
 class NodeType(Enum):
+    """Node status"""
+
     ACTIVE = "A"
     "Active"
     DELETED = "D"
@@ -33,6 +37,8 @@ class NodeType(Enum):
 
 
 class ManagedIP(Enum):
+    """IP management status"""
+
     MANAGED = "M"
     "Managed"
     UNMANAGED = "U"
@@ -50,6 +56,8 @@ class ManagedIP(Enum):
 
 
 class ServiceStatus(Enum):
+    """Service management status"""
+
     MANAGED = "A"
     UNMANAGED = "U"
     DELETED = "D"
@@ -61,12 +69,18 @@ class ServiceStatus(Enum):
 
 
 class PrimaryType(Enum):
+    """IP interface primary status"""
+
     PRIMARY = "P"
     "SNMP Primary"
     SECONDARY = "S"
     "SNMP Secondary"
     NOT_ELIGIBLE = "N"
     "No SNMP"
+
+    @classmethod
+    def list(self):
+        return list(map(lambda c: c.value, self))
 
 
 @dataclass
