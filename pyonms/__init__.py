@@ -18,6 +18,7 @@ import pyonms.dao.events
 import pyonms.dao.foreign_sources
 import pyonms.dao.health
 import pyonms.dao.info
+import pyonms.dao.ips
 import pyonms.dao.nodes
 import pyonms.dao.requisitions
 import pyonms.dao.udl
@@ -83,6 +84,8 @@ class PyONMS:
         """`pyonms.dao.foreign_sources.ForeignSourceAPI` endpoint"""
         self.nodes = pyonms.dao.nodes.NodeAPI(args)
         """`pyonms.dao.nodes.NodeAPI` endpoint"""
+        self.ips = pyonms.dao.ips.IPAPI(args)
+        """`pyonms.dao.ips.IPAPI` endpoint"""
         self.requisitions = pyonms.dao.requisitions.RequisitionsAPI(args)
         """`pyonms.dao.requisitions.RequisitionsAPI` endpoint"""
         self.udl = pyonms.dao.udl.UDLAPI(args)

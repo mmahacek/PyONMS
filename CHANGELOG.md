@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.12] 2023-11-30
+
+### What's Changed
+
+* Added IP Interface endpoint
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.11...v0.0.12
+
+
 ## [0.0.11] 2023-11-29
 
 ### What's Changed

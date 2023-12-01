@@ -10,6 +10,7 @@ It may work on older versions, but they haven't been tested yet.
 
 - [OpenNMS REST API documentation](https://docs.opennms.com/horizon/31/development/rest/rest-api.html)
 - [PyONMS documentation](https://mmahacek.github.io/PyONMS/)
+- [PyPi Library](https://pypi.org/project/pyonms/)
 
 ## Information
 
@@ -27,6 +28,7 @@ Currently supported endpoints include:
 * Foreign Sources (read-write)
 * Health (read-only)
 * Info (read-only)
+* IP Interfaces (read-only)
 * Nodes (read-only)
 * RequisitionNodes (read-only)
 * Requisitions (read-write)
