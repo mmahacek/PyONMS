@@ -1,14 +1,14 @@
 # Changelog
 
 
-
 ## [0.0.13] TBD
 
 ### What's Changed
 
 * Fixed `foreign_source` model for processing `parameter`s.
 * Updated `dao` and `model` module bases to allow importing within from the `pyonms` module
-* Deprecate cloud portal module
+* Remove deprecated cloud portal module
+* Remove deprecated Antora documentation
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.12...v0.0.13
 
