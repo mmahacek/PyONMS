@@ -5,7 +5,7 @@
 from typing import List, Union
 
 import pyonms.models.node
-from pyonms.dao import Endpoint
+from pyonms.dao.base import Endpoint
 from pyonms.models import exceptions
 
 

@@ -12,18 +12,7 @@ __version__ = "0.0.13"
 from multiprocessing import current_process
 from urllib.parse import urlsplit
 
-import pyonms.dao.alarms
-import pyonms.dao.business_services
-import pyonms.dao.events
-import pyonms.dao.foreign_sources
-import pyonms.dao.health
-import pyonms.dao.info
-import pyonms.dao.ips
-import pyonms.dao.nodes
-import pyonms.dao.requisitions
-import pyonms.dao.udl
-from pyonms.models.event import Event
-from pyonms.models.exceptions import InvalidValueError
+from pyonms import dao, models
 
 
 class PyONMS:
@@ -63,9 +52,9 @@ class PyONMS:
             self.name = urlsplit(hostname).netloc.split(":")[0]
             args["name"] = self.name
 
-        self.health = pyonms.dao.health.HealthAPI(args)
+        self.health = dao.health.HealthAPI(args)
         """`pyonms.dao.health.HealthAPI` endpoint"""
-        self.info = pyonms.dao.info.InfoAPI(args)
+        self.info = dao.info.InfoAPI(args)
         """`pyonms.dao.info.InfoAPI` endpoint"""
 
         if current_process().name == "MainProcess":
@@ -74,21 +63,21 @@ class PyONMS:
         self.server_status = self.info.get_info()
         args["version"] = self.server_status.version
 
-        self.alarms = pyonms.dao.alarms.AlarmAPI(args)
+        self.alarms = dao.alarms.AlarmAPI(args)
         """`pyonms.dao.alarms.AlarmAPI` endpoint"""
-        self.bsm = pyonms.dao.business_services.BSMAPI(args)
+        self.bsm = dao.business_services.BSMAPI(args)
         """`pyonms.dao.business_services.BSMAPI` endpoint"""
-        self.events = pyonms.dao.events.EventAPI(args)
+        self.events = dao.events.EventAPI(args)
         """`pyonms.dao.events.EventAPI` endpoint"""
-        self.fs = pyonms.dao.foreign_sources.ForeignSourceAPI(args)
+        self.fs = dao.foreign_sources.ForeignSourceAPI(args)
         """`pyonms.dao.foreign_sources.ForeignSourceAPI` endpoint"""
-        self.nodes = pyonms.dao.nodes.NodeAPI(args)
+        self.nodes = dao.nodes.NodeAPI(args)
         """`pyonms.dao.nodes.NodeAPI` endpoint"""
-        self.ips = pyonms.dao.ips.IPAPI(args)
+        self.ips = dao.ips.IPAPI(args)
         """`pyonms.dao.ips.IPAPI` endpoint"""
-        self.requisitions = pyonms.dao.requisitions.RequisitionsAPI(args)
+        self.requisitions = dao.requisitions.RequisitionsAPI(args)
         """`pyonms.dao.requisitions.RequisitionsAPI` endpoint"""
-        self.udl = pyonms.dao.udl.UDLAPI(args)
+        self.udl = dao.udl.UDLAPI(args)
         """`pyonms.dao.udl.UDLAPI` endpoint"""
 
     def __repr__(self):
@@ -103,10 +92,10 @@ class PyONMS:
             self.server_status.enabled_services
             and name.lower() not in self.server_status.enabled_services
         ):
-            raise InvalidValueError(
+            raise models.exceptions.InvalidValueError(
                 name="name", value=name, valid=self.server_status.enabled_services
             )
-        reload_event = Event(
+        reload_event = models.event.Event(
             uei="uei.opennms.org/internal/reloadDaemonConfig", source="pyonms"
         )
         reload_event.set_parameter(name="daemonName", value=name, type="string")

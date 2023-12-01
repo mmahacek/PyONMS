@@ -5,7 +5,7 @@ from typing import List, Union
 import requests
 
 import pyonms.models.requisition
-from pyonms.dao import Endpoint
+from pyonms.dao.base import Endpoint
 from pyonms.utils import normalize_dict
 
 
