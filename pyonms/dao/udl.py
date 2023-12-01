@@ -5,7 +5,7 @@
 from typing import List, Optional
 
 import pyonms.models.udl
-from pyonms.dao import Endpoint
+from pyonms.dao.base import Endpoint
 
 
 class UDLAPI(Endpoint):

@@ -8,7 +8,7 @@ from typing import List, Optional
 from tqdm import tqdm
 
 import pyonms.models.business_service
-from pyonms.dao import Endpoint
+from pyonms.dao.base import Endpoint
 
 
 class BSMAPI(Endpoint):

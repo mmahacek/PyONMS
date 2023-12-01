@@ -1,5 +1,17 @@
 # Changelog
 
+
+## [0.0.13] 2023-12-1
+
+### What's Changed
+
+* Fixed `foreign_source` model for processing `parameter`s.
+* Updated `dao` and `model` module bases to allow importing within from the `pyonms` module
+* Remove deprecated cloud portal module
+* Remove deprecated Antora documentation
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.12...v0.0.13
+
 ## [0.0.12] 2023-11-30
 
 ### What's Changed
@@ -7,7 +19,6 @@
 * Added IP Interface endpoint
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.11...v0.0.12
-
 
 ## [0.0.11] 2023-11-29
 
