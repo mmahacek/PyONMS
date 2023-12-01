@@ -2,7 +2,7 @@
 
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 
 @dataclass
@@ -66,10 +66,11 @@ class Info:
             self.ticketerConfig = TicketerConfig(**self.ticketerConfig)
         if isinstance(self.datetimeformatConfig, dict):
             self.datetimeformatConfig = DateFormat(**self.datetimeformatConfig)
-        services = []
-        for service, status in self.services.items():
-            services.append(Service(name=service, status=status))
-        self.services = services
+        if isinstance(self.services, dict):
+            services = []
+            for service, status in self.services.items():
+                services.append(Service(name=service, status=status))
+            self.services = services
         self.enabled_services = [service.name.lower() for service in self.services]
 
     def __repr__(self):

@@ -25,16 +25,16 @@ class Parameter:
 class Detector:
     name: str
     class_type: str
-    parameters: List[Optional[Parameter]] = field(default_factory=list)
+    parameter: List[Optional[Parameter]] = field(default_factory=list)
 
     def __post_init__(self):
-        parameters = []
-        for param in self.parameters:
+        parameter = []
+        for param in self.parameter:
             if isinstance(param, dict):
-                parameters.append(Parameter(**param))
+                parameter.append(Parameter(**param))
             elif isinstance(param, Parameter):
-                parameters.append(param)
-        self.parameters = parameters
+                parameter.append(param)
+        self.parameter = parameter
 
     def __repr__(self):
         return (
@@ -43,7 +43,7 @@ class Detector:
 
     def _to_dict(self) -> dict:
         payload = {"name": self.name, "class": self.class_type}
-        payload["parameter"] = [parameter._to_dict() for parameter in self.parameters]
+        payload["parameter"] = [parameter._to_dict() for parameter in self.parameter]
         return payload
 
 
@@ -51,23 +51,23 @@ class Detector:
 class Policy:
     name: str
     class_type: str
-    parameters: List[Optional[Parameter]] = field(default_factory=list)
+    parameter: List[Optional[Parameter]] = field(default_factory=list)
 
     def __post_init__(self):
-        parameters = []
-        for param in self.parameters:
+        parameter = []
+        for param in self.parameter:
             if isinstance(param, dict):
-                parameters.append(Parameter(**param))
+                parameter.append(Parameter(**param))
             elif isinstance(param, Parameter):
-                parameters.append(param)
-        self.parameters = parameters
+                parameter.append(param)
+        self.parameter = parameter
 
     def __repr__(self):
         return f"Policy(name={self.name}, class_type={self.class_type.split('.')[-1]})"
 
     def _to_dict(self) -> dict:
         payload = {"name": self.name, "class": self.class_type}
-        payload["parameter"] = [parameter._to_dict() for parameter in self.parameters]
+        payload["parameter"] = [parameter._to_dict() for parameter in self.parameter]
         return payload
 
 
