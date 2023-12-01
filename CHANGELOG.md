@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [0.0.13] TBD
+## [0.0.13] 2023-12-1
 
 ### What's Changed
 
