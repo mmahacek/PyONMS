@@ -5,7 +5,7 @@ from typing import List, Optional
 import requests
 
 import pyonms.models.foreign_source
-from pyonms.dao import Endpoint
+from pyonms.dao.base import Endpoint
 
 
 class ForeignSourceAPI(Endpoint):

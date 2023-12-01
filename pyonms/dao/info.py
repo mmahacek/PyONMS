@@ -1,7 +1,7 @@
 # dao.info.py
 
 import pyonms.models.info
-from pyonms.dao import Endpoint
+from pyonms.dao.base import Endpoint
 
 
 class InfoAPI(Endpoint):

@@ -4,7 +4,7 @@ from typing import List, Union
 
 import pyonms.models.event
 import pyonms.models.node
-from pyonms.dao import Endpoint
+from pyonms.dao.base import Endpoint
 
 
 class EventAPI(Endpoint):

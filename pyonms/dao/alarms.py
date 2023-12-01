@@ -3,7 +3,7 @@
 from typing import List, Optional
 
 import pyonms.models.alarm
-from pyonms.dao import Endpoint
+from pyonms.dao.base import Endpoint
 from pyonms.models import exceptions
 
 
