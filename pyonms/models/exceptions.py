@@ -50,3 +50,11 @@ class AuthenticationError(Exception):
     def __init__(self):
         self.message = "Verify login credentials are correct."
         super().__init__(self.message)
+
+
+class ApiPayloadError(Exception):
+    """API Payload error"""
+
+    def __init__(self, message: str):
+        self.message = message
+        super().__init__(self.message)
