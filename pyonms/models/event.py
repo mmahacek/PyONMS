@@ -1,5 +1,6 @@
 # models.event.py
 
+"""Event models"""
 
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -31,6 +32,8 @@ class Severity(Enum):
 
 @dataclass
 class EventParameter:
+    """Event Parameter"""
+
     name: str
     value: Union[int, str]
     type: str = "string"
@@ -45,6 +48,8 @@ class EventParameter:
 
 @dataclass(repr=False)
 class Event:
+    """OnmsEvent Model"""
+
     uei: str
     id: Optional[int] = None
     label: Optional[str] = None

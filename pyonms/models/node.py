@@ -1,5 +1,7 @@
 # models.node.py
 
+"""Node models"""
+
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
@@ -79,12 +81,15 @@ class PrimaryType(Enum):
     "No SNMP"
 
     @classmethod
-    def list(self):
-        return list(map(lambda c: c.value, self))
+    def list(cls):
+        """List possible enum values"""
+        return list(map(lambda c: c.value, cls))
 
 
 @dataclass
 class Metadata:
+    """Metadata record"""
+
     context: str
     key: str
     value: str
@@ -99,6 +104,8 @@ class Metadata:
 
 @dataclass(repr=False)
 class AssetRecord:
+    """Asset record"""
+
     id: int = None
     slot: Optional[str] = None
     port: Optional[str] = None
@@ -186,6 +193,8 @@ class AssetRecord:
 
 @dataclass
 class ServiceType:
+    """Service type"""
+
     id: int
     name: str
 
@@ -195,6 +204,8 @@ class ServiceType:
 
 @dataclass(repr=False)
 class Service:
+    """Monitored Service object"""
+
     id: int
     notify: str = None
     status: Union[ServiceStatus, str] = None
@@ -228,6 +239,8 @@ class Service:
 
 @dataclass(repr=False)
 class SnmpInterface:
+    """SNMP Interface object"""
+
     id: int
     hasFlows: bool = None
     hasIngressFlows: bool = None
@@ -272,6 +285,8 @@ class SnmpInterface:
 
 @dataclass(repr=False)
 class IPInterface:
+    """IP Interface Object"""
+
     id: Union[int, str]
     hostName: Optional[str] = None
     isDown: bool = None
@@ -313,6 +328,8 @@ class IPInterface:
 
 @dataclass
 class HardwareInventory:
+    """Hardware Inventory Record"""
+
     nodeId: Optional[int] = None
     entPhysicalIndex: Optional[int] = None
     entPhysicalName: Optional[str] = None
@@ -341,6 +358,8 @@ class HardwareInventory:
 
 @dataclass(repr=False)
 class Node:
+    """Node Object"""
+
     id: int
     type: Optional[Union[NodeType, str]] = None
     label: Optional[str] = None

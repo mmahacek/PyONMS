@@ -1,9 +1,13 @@
 # pyonms.models.exceptions.py
 
+"""Custom exception model"""
+
 from typing import List
 
 
 class StringLengthError(Exception):
+    """String length too long error"""
+
     def __init__(self, length: int, value: str = None):
         self.max_length = length
         self.value = value
@@ -14,6 +18,8 @@ class StringLengthError(Exception):
 
 
 class DuplicateEntityError(Exception):
+    """Duplicate object exists error"""
+
     def __init__(self, name: str, model):
         self.name = name
         self.model = model
@@ -26,6 +32,8 @@ class DuplicateEntityError(Exception):
 
 
 class InvalidValueError(Exception):
+    """Invalid value error"""
+
     def __init__(self, name: str, value: str, valid: List[str] = None):
         self.name = name
         self.value = value
@@ -37,12 +45,16 @@ class InvalidValueError(Exception):
 
 
 class AuthenticationError(Exception):
+    """Authentication failure error"""
+
     def __init__(self):
         self.message = "Verify login credentials are correct."
         super().__init__(self.message)
 
 
 class MethodNotImplemented(Exception):
+    """Placeholder for missing features"""
+
     def __init__(self):
         self.message = "The requested method is not yet implemented."
         super().__init__(self.message)
