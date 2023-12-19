@@ -1,13 +1,19 @@
 # Changelog
 
 
+## [0.1.1] TBD
 
-## [0.0.14] TBD
+### Breaking Change
+
+* Add `ApiPayloadError` exception when API returns HTTP 500-599. Previously many error responses were steamrolled over.
 
 ### What's Changed
 
+* Renamed internal `uri` parameters to be `url`.
 * Deprecate `MethodNotImplemented` exception.  Replaced with base `NotImplementedError`.
 * Docstring updates to satisfy pylint.
+* Prevent `Event.id` from being sent as part of the event payload when posting to the `events` endpoint.
+* Update `get_foreign_sources()` and `get_requisitions()` to no longer use custom `_get()` method.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
 

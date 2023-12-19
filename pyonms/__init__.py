@@ -7,7 +7,7 @@
 .. include:: ../README.md
 """
 
-__version__ = "0.0.14"
+__version__ = "0.1.1"
 
 from multiprocessing import current_process
 from urllib.parse import urlsplit
