@@ -107,7 +107,7 @@ class Event:
                 key = "operinstruct"
             elif key == "ipAddress":
                 key = "interface"
-            elif key in ["logMessage", "display"]:
+            elif key in ["logMessage", "display", "id"]:
                 continue
             if value:
                 payload[key.lower()] = value
