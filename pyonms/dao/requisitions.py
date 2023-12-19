@@ -16,7 +16,7 @@ class RequisitionsAPI(Endpoint):
 
     def get_requisition_names(self) -> List[str]:
         names = self._get(
-            uri=f"{self.base_v1}/requisitionNames",
+            url=f"{self.base_v1}/requisitionNames",
             endpoint="requisitionNames",
             headers=self.headers,
         )
@@ -26,7 +26,7 @@ class RequisitionsAPI(Endpoint):
         self, name: str
     ) -> Union[pyonms.models.requisition.Requisition, None]:
         record = self._get(
-            uri=f"{self.url}/{name}", endpoint="requisitions", headers=self.headers
+            url=f"{self.url}/{name}", endpoint="requisitions", headers=self.headers
         )
         if record is not None:
             return self._process_requisition(record)
@@ -35,21 +35,15 @@ class RequisitionsAPI(Endpoint):
 
     def get_requisitions(
         self,
-        limit=100,
-        batch_size=100,
     ) -> List[Union[pyonms.models.requisition.Requisition, None]]:
         requisitions = []
-        params = {}
-        records = self._get_batch(
+        records = self._get(
             url=self.url,
             endpoint="model-import",
-            limit=limit,
-            batch_size=batch_size,
-            params=params,
         )
         if records == [None]:
             return [None]
-        for record in records:
+        for record in records["model-import"]:
             requisitions.append(self._process_requisition(record))
         return requisitions
 
@@ -67,16 +61,16 @@ class RequisitionsAPI(Endpoint):
         return pyonms.models.requisition.Requisition(**data)
 
     def get_requisition_active_count(self) -> int:
-        count = self._get(uri=f"{self.url}/count", endpoint="raw")
+        count = self._get(url=f"{self.url}/count", endpoint="raw")
         return int(count)
 
     def get_requisition_deployed_count(self) -> int:
-        count = self._get(uri=f"{self.url}/deployed/count", endpoint="raw")
+        count = self._get(url=f"{self.url}/deployed/count", endpoint="raw")
         return int(count)
 
     def import_requisition(self, name: str, rescan: bool = False) -> bool:
         response = self._put(
-            uri=f"{self.url}/{name}/import",
+            url=f"{self.url}/{name}/import",
             params={"rescanExisting": rescan},
         )
         if response.status_code in [202, 204]:
@@ -84,26 +78,10 @@ class RequisitionsAPI(Endpoint):
         else:
             return False
 
-    def _put(
-        self,
-        uri: str,
-        data: dict = {},
-        params: dict = {},
-    ) -> requests.Response:
-        response = requests.put(
-            uri,
-            auth=self.auth,
-            headers=self.headers,
-            data=data,
-            params=params,
-            verify=self.verify_ssl,
-        )
-        return response
-
     def update_requisition(self, requisition: pyonms.models.requisition.Requisition):
         """Post an entire requisition to create or overwrite."""
         response = self._post(
-            uri=self.url, headers=self.headers, json=requisition._to_dict()
+            url=self.url, headers=self.headers, json=requisition._to_dict()
         )
         return response
 
@@ -116,7 +94,7 @@ class RequisitionsAPI(Endpoint):
         if isinstance(requisition, pyonms.models.requisition.Requisition):
             requisition = requisition.foreign_source
         response = self._post(
-            uri=f"{self.url}/{requisition}/nodes",
+            url=f"{self.url}/{requisition}/nodes",
             headers=self.headers,
             json=node._to_dict(),
         )
