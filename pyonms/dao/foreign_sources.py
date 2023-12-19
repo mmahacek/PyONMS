@@ -2,8 +2,6 @@
 
 from typing import List, Optional
 
-import requests
-
 import pyonms.models.foreign_source
 from pyonms.dao.base import Endpoint
 from pyonms.models.exceptions import ApiPayloadError
