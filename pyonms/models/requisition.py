@@ -239,13 +239,13 @@ class RequisitionNode:
             merge (bool, optional): Merge non-null attributes with existing interface in requisition. Set to `False` to overwrite entire node record. Defaults to `True`.
 
         Raises:
-            pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
+            `NotImplementedError`: If `merge` not set to `False`
         """  # noqa
         if merge:
             if interface.ip_addr not in self.interface.keys():
                 self.interface[interface.ip_addr] = interface
             else:
-                raise exceptions.MethodNotImplemented
+                raise NotImplementedError
         else:
             self.interface[interface.ip_addr] = interface
 
@@ -356,13 +356,13 @@ class Requisition:
             merge (bool, optional): Merge non-null attributes with existing node in requisition. Set to `False` to overwrite entire node record. Defaults to `True`.
 
         Raises:
-            pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
+            `NotImplementedError`: If `merge` not set to `False`
         """  # noqa
         if merge:
             if node.foreign_id not in self.node.keys():
                 self.node[node.foreign_id] = node
             else:
-                raise exceptions.MethodNotImplemented
+                raise NotImplementedError
         else:
             self.node[node.foreign_id] = node
 

@@ -1,6 +1,17 @@
 # Changelog
 
 
+
+## [0.0.14] TBD
+
+### What's Changed
+
+* Deprecate `MethodNotImplemented` exception.  Replaced with base `NotImplementedError`.
+* Docstring updates to satisfy pylint.
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
+
+
 ## [0.0.13] 2023-12-1
 
 ### What's Changed

@@ -50,11 +50,3 @@ class AuthenticationError(Exception):
     def __init__(self):
         self.message = "Verify login credentials are correct."
         super().__init__(self.message)
-
-
-class MethodNotImplemented(Exception):
-    """Placeholder for missing features"""
-
-    def __init__(self):
-        self.message = "The requested method is not yet implemented."
-        super().__init__(self.message)
