@@ -269,7 +269,7 @@ class RequisitionNode:
             self.interface[new_ip].ip_addr = new_ip
             del self.interface[old_ip]
         else:
-            raise exceptions.DuplicateEntityError(name="IP Address", value=new_ip)
+            raise exceptions.DuplicateEntityError(name="IP Address", model=type(new_ip))
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the node.

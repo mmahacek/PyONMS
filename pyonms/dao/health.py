@@ -10,7 +10,7 @@ class HealthAPI(Endpoint):
         self.url = self.base_v1 + "health"
 
     def get_health(self) -> str:
-        record = self._get(uri=f"{self.url}", endpoint="raw")
+        record = self._get(url=f"{self.url}", endpoint="raw")
         if record is not None:
             health = self._process_health(record)
             if health.healthy is True:
@@ -24,7 +24,7 @@ class HealthAPI(Endpoint):
             return None
 
     def probe(self) -> str:
-        return self._get(uri=f"{self.url}/probe", endpoint="raw")
+        return self._get(url=f"{self.url}/probe", endpoint="raw")
 
     def _process_health(self, data: dict) -> pyonms.models.health.Health:
         return pyonms.models.health.Health(**data)

@@ -24,7 +24,7 @@ class BSMAPI(Endpoint):
     def get_bsm(
         self, id: int
     ) -> Optional[pyonms.models.business_service.BusinessService]:
-        record = self._get(uri=f"{self.url}/{id}")
+        record = self._get(url=f"{self.url}/{id}")
         if record is not None:
             bsm = self._process_bsm(record)
             self.cache[bsm.id] = bsm
@@ -36,7 +36,7 @@ class BSMAPI(Endpoint):
     def _get_bsm_ids(
         self,
     ) -> dict:
-        response = self._get(uri=self.url)
+        response = self._get(url=self.url)
         if response.get("business-services"):
             return response
         else:
@@ -78,9 +78,9 @@ class BSMAPI(Endpoint):
         elif cache_only:
             return None
         else:
-            services = self._get(uri=self.url)
+            services = self._get(url=self.url)
             for service_url in services.get("business-services", []):
-                service_record = self._get(uri=f"{self.hostname}{service_url}")
+                service_record = self._get(url=f"{self.hostname}{service_url}")
                 if service_record["name"] == name:
                     return self._process_bsm(service_record)
         return None
@@ -106,19 +106,19 @@ class BSMAPI(Endpoint):
         return business_service
 
     def reload_bsm_daemon(self) -> None:
-        self._post(uri=f"{self.url}/daemon/reload", json={})
+        self._post(url=f"{self.url}/daemon/reload", json={})
 
     def create_bsm(
         self, bsm: pyonms.models.business_service.BusinessServiceRequest
     ) -> None:
-        response = self._post(uri=self.url, json=bsm.to_dict())
+        response = self._post(url=self.url, json=bsm.to_dict())
         if "constraint [bsm_service_name_key]" in response.text:
             raise pyonms.models.exceptions.DuplicateEntityError(bsm.name, bsm)
 
     def update_bsm(
         self, id: int, bsm: pyonms.models.business_service.BusinessServiceRequest
     ):
-        self._put(uri=f"{self.url}/{id}", json=bsm.to_dict())  # noqa: W0612
+        self._put(url=f"{self.url}/{id}", json=bsm.to_dict())  # noqa: W0612
 
     def _merge_bsm_request(
         self,
@@ -146,7 +146,7 @@ class BSMAPI(Endpoint):
         return new_request
 
     def delete_bsm(self, bsm: pyonms.models.business_service.BusinessService) -> None:
-        self._delete(uri=f"{self.url}/{bsm.id}")
+        self._delete(url=f"{self.url}/{bsm.id}")
         if self.cache.get(bsm.id):
             del self.cache[bsm.id]
         if self.cache_name.get(bsm.name):

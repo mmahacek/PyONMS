@@ -13,7 +13,7 @@ class EventAPI(Endpoint):
         self.url = self.base_v2 + "events"
 
     def get_event(self, id: int) -> Union[pyonms.models.event.Event, None]:
-        record = self._get(uri=f"{self.url}/{id}")
+        record = self._get(url=f"{self.url}/{id}")
         if record is not None:
             return self._process_event(record)
         else:
@@ -43,7 +43,7 @@ class EventAPI(Endpoint):
         return pyonms.models.event.Event(**data)
 
     def send_event(self, event: pyonms.models.event.Event) -> bool:
-        result = self._post(uri=self.url, json=event._to_dict())
+        result = self._post(url=self.url, json=event._to_dict())
         if result.status_code == 204:
             return True
         else:
