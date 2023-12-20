@@ -201,14 +201,18 @@ class ServiceType:
     def __hash__(self):
         return hash((self.id))
 
+    def _to_dict(self) -> dict:
+        payload = {"name": self.name}
+        return payload
+
 
 @dataclass(repr=False)
 class Service:
     """Monitored Service object"""
 
-    id: int
+    id: int = None
     notify: str = None
-    status: Union[ServiceStatus, str] = None
+    status: Union[ServiceStatus, str] = ServiceStatus.MANAGED
     qualifier: str = None
     down: bool = None
     source: str = None
@@ -236,12 +240,19 @@ class Service:
     def __hash__(self):
         return hash((self.id))
 
+    def _to_dict(self) -> dict:
+        payload = {
+            "serviceType": self.serviceType._to_dict(),
+            "status": self.status.value,
+        }
+        return payload
+
 
 @dataclass(repr=False)
 class SnmpInterface:
     """SNMP Interface object"""
 
-    id: int
+    id: int = None
     hasFlows: bool = None
     hasIngressFlows: bool = None
     hasEgressFlows: bool = None
@@ -282,12 +293,34 @@ class SnmpInterface:
     def __hash__(self):
         return hash((self.id))
 
+    def _to_dict(self) -> dict:
+        payload = {"ifIndex": self.ifIndex}
+        if self.id:
+            payload["id"] = self.id
+        if self.ifType:
+            payload["ifType"] = self.ifType
+        if self.ifAlias:
+            payload["ifAlias"] = self.ifAlias
+        if self.ifDescr:
+            payload["ifDescr"] = self.ifDescr
+        if self.ifName:
+            payload["ifName"] = self.ifName
+        if self.physAddr:
+            payload["physAddr"] = self.physAddr
+        if self.ifSpeed:
+            payload["ifSpeed"] = self.ifSpeed
+        if self.collectFlag:
+            payload["collectFlag"] = self.collectFlag
+        if self.pollFlag:
+            payload["pollFlag"] = self.pollFlag
+        return payload
+
 
 @dataclass(repr=False)
 class IPInterface:
     """IP Interface Object"""
 
-    id: Union[int, str]
+    id: int = None
     hostName: Optional[str] = None
     isDown: bool = None
     nodeId: int = None
@@ -295,8 +328,8 @@ class IPInterface:
     lastEgressFlow: Union[datetime, int] = None
     lastIngressFlow: Union[datetime, int] = None
     ipAddress: str = None
-    snmpPrimary: Union[PrimaryType, str] = None
-    isManaged: Union[ManagedIP, str] = None
+    snmpPrimary: Union[PrimaryType, str] = PrimaryType.NOT_ELIGIBLE
+    isManaged: Union[ManagedIP, str] = ManagedIP.MANAGED
     monitoredServiceCount: Optional[int] = None
     lastCapsdPoll: Optional[Union[datetime, int]] = None
     snmpInterface: Optional[Union[SnmpInterface, dict]] = field(default_factory=dict)
@@ -324,6 +357,22 @@ class IPInterface:
 
     def __hash__(self):
         return hash((self.id))
+
+    def _to_dict(self) -> dict:
+        payload = {
+            "ipAddress": self.ipAddress,
+            "snmpPrimary": self.snmpPrimary.value,
+            "isManaged": self.isManaged.value,
+        }
+        if self.id:
+            payload["id"] = self.id
+        if self.ifIndex:
+            payload["ifIndex"] = self.ifIndex
+        if self.snmpInterface:
+            payload["snmpInterface"] = self.snmpInterface
+        if self.hostName:
+            payload["hostName"] = self.hostName
+        return payload
 
 
 @dataclass
@@ -419,39 +468,33 @@ class Node:
     def remove_category(self, category: str):
         self.categories = [cat for cat in self.categories if cat != category]
 
-    def node_xml(self) -> str:
-        """@private"""
-        payload = "<node "
+    def _to_dict(self) -> dict:
+        payload = {}
         if self.foreignId:
-            payload += f'foreignId="{self.foreignId}" '
+            payload["foreignId"] = self.foreignId
         if self.foreignSource:
-            payload += f'foreignSource="{self.foreignSource}" '
+            payload["foreignSource"] = self.foreignSource
         if self.label:
-            payload += f'label="{self.label}" '
-        if self.id:
-            payload += f'id="{self.id}" '
+            payload["label"] = self.label
         if self.nodeType:
-            payload += f'type="{self.nodeType.value}" '
-        payload += ">\n"
+            payload["type"] = self.nodeType.value
         if self.assetRecord:
-            payload += "   <assetRecord>\n"
+            payload["assetRecord"] = {}
             for record in self.assetRecord.__dir__():
                 if record[0] != "_" and getattr(self.assetRecord, record):
-                    payload += f"      <{record}>{getattr(self.assetRecord, record)}</{record}>\n"
-            payload += "   </assetRecord>\n"
+                    payload["assetRecord"][record] = getattr(self.assetRecord, record)
         if self.location:
-            payload += f"   <location>{self.location}</location>\n"
+            payload["location"] = self.location
         if self.labelSource:
-            payload += f"   <labelSource>{self.labelSource.value}</labelSource>\n"
+            payload["labelSource"] = self.labelSource.value
         if self.sysContact:
-            payload += f"   <sysContact>{self.sysContact}</sysContact>\n"
+            payload["sysContact"] = self.sysContact
         if self.sysDescription:
-            payload += f"   <sysDescription>{self.sysDescription}</sysDescription>\n"
+            payload["sysDescription"] = self.sysDescription
         if self.sysLocation:
-            payload += f"   <sysLocation>{self.sysLocation}</sysLocation>\n"
+            payload["sysLocation"] = self.sysLocation
         if self.sysName:
-            payload += f"   <sysName>{self.sysName}</sysName>\n"
+            payload["sysName"] = self.sysName
         if self.sysObjectId:
-            payload += f"   <sysObjectId>{self.sysObjectId}</sysObjectId>\n"
-        payload += "</node>"
+            payload["sysObjectId"] = self.sysObjectId
         return payload

@@ -227,7 +227,21 @@ class NodeAPI(Endpoint):
 
         return node
 
-    def update_node(self, node: pyonms.models.node.Node):
-        headers = {"Content-Type": "application/xml"}
-        response = self._post(url=self.url, data=node.to_xml(), headers=headers)
-        print(response.headers["Location"])
+    def update_node(self, node: pyonms.models.node.Node) -> int:
+        response = self._post(url=self.url, json=node._to_dict())
+        if response.status_code in [201]:
+            node.id = int(response.headers["Location"].rsplit("/", 1)[1])
+            self.update_categories(node)
+            print(f"Created new node ID {node.id}")
+            return node.id
+
+    def update_categories(self, node: pyonms.models.node.Node):
+        existing_node = self.get_node(id=node.id, components=[NodeComponents.NONE])
+        for category in node.categories:
+            if category not in existing_node.categories:
+                self._post(url=f"{self.base_v1}/nodes/{node.id}/categories/{category}")
+        for category in existing_node.categories:
+            if category not in node.categories:
+                self._delete(
+                    url=f"{self.base_v1}/nodes/{node.id}/categories/{category}"
+                )
