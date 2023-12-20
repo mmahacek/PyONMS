@@ -1,0 +1,168 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+      authorization:
+      - REDACTED
+    method: GET
+    uri: http://localhost:8980/opennms/rest/health
+  response:
+    body:
+      string: '{"healthy":true,"responses":[{"description":"Karaf extender","message":"5
+        non-KAR features installed. ","status":"Success"},{"description":"Verifying
+        installed bundles","status":"Success"},{"description":"Connecting to ElasticSearch
+        ReST API (Flows)","status":"Success"},{"description":"Number of active alarms
+        stored in Elasticsearch (Alarm History)","message":"Found 26 alarms.","status":"Success"}]}'
+    headers:
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '402'
+      Content-Security-Policy:
+      - 'default-src ''none'' ; frame-src ''self'' ; manifest-src ''self'' ; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; font-src ''self'' https://fonts.googleapis.com  https://fonts.gstatic.com;
+        connect-src ''self'' ; style-src ''self'' ''unsafe-inline'' https://fonts.googleapis.com;
+        base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
+        https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 19 Dec 2023 23:17:53 GMT
+      Health:
+      - Everything is awesome
+      Permissions-Policy:
+      - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
+        cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
+        execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(),
+        geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(),
+        midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(),
+        screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+      authorization:
+      - REDACTED
+    method: GET
+    uri: http://localhost:8980/opennms/rest/info
+  response:
+    body:
+      string: '{"displayVersion":"32.0.5","version":"32.0.5","packageName":"opennms","packageDescription":"OpenNMS","ticketerConfig":{"plugin":null,"enabled":false},"datetimeformatConfig":{"zoneId":"America/Los_Angeles","datetimeformat":"yyyy-MM-dd''T''HH:mm:ssxxx"},"services":{}}'
+    headers:
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '264'
+      Content-Security-Policy:
+      - 'default-src ''none'' ; frame-src ''self'' ; manifest-src ''self'' ; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; font-src ''self'' https://fonts.googleapis.com  https://fonts.gstatic.com;
+        connect-src ''self'' ; style-src ''self'' ''unsafe-inline'' https://fonts.googleapis.com;
+        base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
+        https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 19 Dec 2023 23:17:56 GMT
+      Permissions-Policy:
+      - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
+        cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
+        execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(),
+        geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(),
+        midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(),
+        screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+      authorization:
+      - REDACTED
+    method: GET
+    uri: http://localhost:8980/opennms/rest/requisitions
+  response:
+    body:
+      string: '{"count":7,"totalCount":7,"offset":0,"model-import":[{"node":[{"interface":[{"monitored-service":[{"category":[],"meta-data":[],"service-name":"ICMP"}],"category":[],"meta-data":[],"descr":null,"ip-addr":"127.0.0.1","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1685734356786","node-label":"pending","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.62","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1688670072617","node-label":"m","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.1","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1688670081522","node-label":"g","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.160","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Test"}],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1688670054235","node-label":"t","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[{"category":[],"meta-data":[],"service-name":"ICMP"}],"category":[],"meta-data":[],"descr":null,"ip-addr":"127.0.0.1","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[{"context":"requisition","key":"key1","value":"value1"},{"context":"requisition","key":"key2","value":"value2"}],"location":null,"building":null,"city":null,"foreign-id":"2345352","node-label":"missing","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null}],"date-stamp":1699309241605,"foreign-source":"Blank","last-import":1703026842174},{"node":[{"interface":[{"monitored-service":[{"category":[],"meta-data":[{"context":"requisition","key":"key","value":"value"}],"service-name":"SNMP"},{"category":[],"meta-data":[],"service-name":"UWM"},{"category":[],"meta-data":[],"service-name":"USPTO"},{"category":[],"meta-data":[],"service-name":"DeviceConfig-Running"}],"category":[],"meta-data":[],"descr":null,"ip-addr":"127.7.8.9","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Test"}],"asset":[{"name":"region","value":"Blarg"}],"meta-data":[{"context":"requisition","key":"key","value":"new_value"},{"context":"requisition","key":"hello","value":"there"}],"location":null,"building":null,"city":null,"foreign-id":"py","node-label":"texts","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[{"category":[],"meta-data":[{"context":"requisition","key":"grafana-user","value":"${scv:grafana:username}"},{"context":"requisition","key":"grafana-pass","value":"${scv:grafana:password}"},{"context":"requisition","key":"grafana-port","value":"3000"},{"context":"requisition","key":"grafana-dashboard","value":"/d/4VzDCAlVz/gc-details?orgId=1"},{"context":"requisition","key":"grafana-basic","value":"${scv:grafana:basic}"}],"service-name":"Grafana-Login"}],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.160","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Test"}],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1687817957574","node-label":"graf","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[],"category":[],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"two","node-label":"text2","parent-foreign-source":"Main","parent-foreign-id":"1643248845160","parent-node-label":null}],"date-stamp":1698860871226,"foreign-source":"Example","last-import":1703026830618},{"node":[{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"10.0.0.1","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1654096238897","node-label":"xFi","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.167","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Personal"},{"name":"Printers"}],"asset":[{"name":"region","value":"Doncaster"}],"meta-data":[{"context":"requisition","key":"cust_name","value":"Mahacek"},{"context":"requisition","key":"f5_hostname","value":"hp_laserjet"},{"context":"requisition","key":"f5_timezone","value":"-7"},{"context":"requisition","key":"ra_fqdn","value":"252dw.mshome.net"}],"location":null,"building":null,"city":null,"foreign-id":"1649884247173","node-label":"252dw","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":"nest"},{"interface":[{"monitored-service":[{"category":[],"meta-data":[{"context":"requisition","key":"khfky","value":"xvcbxvbc"}],"service-name":"SNMP"},{"category":[],"meta-data":[{"context":"requisition","key":"gdjj5","value":"3w5t5"}],"service-name":"WS-Man"}],"category":[],"meta-data":[{"context":"requisition","key":"shsj","value":"ewtwrt"}],"descr":null,"ip-addr":"192.168.86.29","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Personal"},{"name":"Workstation"}],"asset":[{"name":"region","value":"Doncaster"}],"meta-data":[{"context":"requisition","key":"sgfh","value":"shsjk"},{"context":"requisition","key":"cust_name","value":"Mahacek"},{"context":"requisition","key":"f5_hostname","value":"j1sd13i"},{"context":"requisition","key":"f5_timezone","value":"-7"},{"context":"requisition","key":"ra_fqdn","value":"j1sd13i.mshome.net"}],"location":null,"building":null,"city":null,"foreign-id":"1643248845160","node-label":"j1sd13i","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":"nest"},{"interface":[{"monitored-service":[{"category":[],"meta-data":[],"service-name":"StrafePing"}],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.1","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Routers"},{"name":"Personal"}],"asset":[{"name":"maintContractExpiration","value":"2020-01-01"}],"meta-data":[{"context":"requisition","key":"cust_name","value":"Mahacek"},{"context":"requisition","key":"f5_hostname","value":"router"},{"context":"requisition","key":"f5_timezone","value":"-7"},{"context":"requisition","key":"ra_fqdn","value":"host.home.local"}],"location":null,"building":null,"city":null,"foreign-id":"1646945751662","node-label":"nest","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":"xFi"},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.57","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1674795263595","node-label":"pi03","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.56","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[{"context":"requisition","key":"cust_name","value":"Mahacek"},{"context":"requisition","key":"f5_hostname","value":"pi2"},{"context":"requisition","key":"f5_timezone","value":"-7"},{"context":"requisition","key":"ra_fqdn","value":"pi2.mshome.net"}],"location":null,"building":null,"city":null,"foreign-id":"56","node-label":"pi02","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[{"category":[],"meta-data":[{"context":"requisition","key":"Grafana-basic","value":"YWRtaW46ZTlhVmdILlFNZXR4TnJBbg=="}],"service-name":"Grafana-Login"}],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.55","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[{"context":"requisition","key":"cust_name","value":"Mahacek"},{"context":"requisition","key":"f5_hostname","value":"pi"},{"context":"requisition","key":"f5_timezone","value":"-7"},{"context":"requisition","key":"ra_fqdn","value":"pi.mshome.net"}],"location":null,"building":null,"city":null,"foreign-id":"1662489846469","node-label":"pi01","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[{"category":[],"meta-data":[{"context":"requisition","key":"service","value":"snmp"}],"service-name":"SNMP"},{"category":[],"meta-data":[],"service-name":"Postgres"},{"category":[],"meta-data":[],"service-name":"PostgreSQL"},{"category":[],"meta-data":[],"service-name":"Docker-Desktop"}],"category":[],"meta-data":[{"context":"requisition","key":"ip","value":"160"}],"descr":null,"ip-addr":"192.168.86.160","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Business"},{"name":"Workstation"},{"name":"Power"}],"asset":[{"name":"maintContractExpiration","value":"2030-12-31"}],"meta-data":[{"context":"requisition","key":"key","value":"value"},{"context":"requisition","key":"cust_name","value":"OpenNMS"},{"context":"requisition","key":"f5_hostname","value":"j1sd13i.nanthealth.com"},{"context":"requisition","key":"f5_timezone","value":"-7"},{"context":"requisition","key":"ra_fqdn","value":"remwmmaha2.mshome.net"}],"location":null,"building":null,"city":null,"foreign-id":"1643248808837","node-label":"remwmmaha2","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":"nest"},{"interface":[{"monitored-service":[{"category":[],"meta-data":[],"service-name":"Docker-Desktop"}],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.62","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Workstation"},{"name":"Business"}],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1688566577388","node-label":"remmmaha
+        mac","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[{"category":[],"meta-data":[{"context":"requisition","key":"dcb:script-file","value":"zyxel-run"},{"context":"requisition","key":"dcb:config-type","value":"tech-support"}],"service-name":"DeviceConfig-Running"}],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.60","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Switches"},{"name":"Personal"},{"name":"Status:Production"}],"asset":[{"name":"manufacturer","value":"Zyxel"},{"name":"modelNumber","value":"GS1900-16"}],"meta-data":[{"context":"requisition","key":"dcb:password","value":"${scv:zyxel:password}"},{"context":"requisition","key":"dcb:username","value":"${scv:zyxel:username}"},{"context":"requisition","key":"dcb:schedule","value":"0
+        0 0 * * 1"}],"location":null,"building":null,"city":null,"foreign-id":"1694910929911","node-label":"zSwitch
+        1","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.69","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1698861180647","node-label":"pi04","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":"j1sd13i"},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.22","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1698861495847","node-label":"stream8","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":"j1sd13i"},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"192.168.86.52","managed":null,"status":1,"snmp-primary":"P"}],"category":[{"name":"Personal"},{"name":"Workstation"}],"asset":[{"name":"region","value":"Doncaster"}],"meta-data":[{"context":"requisition","key":"real","value":"thing"}],"location":null,"building":null,"city":null,"foreign-id":"1667507058974","node-label":"0g8gal7","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":"j1sd13i"}],"date-stamp":1701297826225,"foreign-source":"Main","last-import":1703026814136},{"node":[],"date-stamp":1678373844825,"foreign-source":"Minions","last-import":1703026823631},{"node":[],"date-stamp":1697729444686,"foreign-source":"NCR","last-import":1703026826426},{"node":[],"date-stamp":1697136565506,"foreign-source":"RA","last-import":1703026828653},{"node":[{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"127.0.0.2","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[{"name":"additionalhardware","value":"additionalhardware"},{"name":"address1","value":"address1"},{"name":"address2","value":"address2"},{"name":"admin","value":"admin"},{"name":"assetNumber","value":"assetNumber"},{"name":"autoenable","value":"Y"},{"name":"building","value":"building"},{"name":"category","value":"category"},{"name":"circuitId","value":"circuitId"},{"name":"city","value":"city"},{"name":"comment","value":"comment"},{"name":"connection","value":"connection"},{"name":"country","value":"country"},{"name":"cpu","value":"cpu"},{"name":"dateInstalled","value":"2022-10-12"},{"name":"department","value":"department"},{"name":"description","value":"description"},{"name":"displayCategory","value":"displayCategory"},{"name":"division","value":"division"},{"name":"enable","value":"enable"},{"name":"floor","value":"floor"},{"name":"hdd1","value":"hdd1"},{"name":"hdd2","value":"hdd2"},{"name":"hdd3","value":"hdd3"},{"name":"hdd4","value":"hdd4"},{"name":"hdd5","value":"hdd5"},{"name":"hdd6","value":"hdd6"},{"name":"inputpower","value":"Y"},{"name":"lastModifiedBy","value":"lastModifiedBy"},{"name":"latitude","value":"35.8494264"},{"name":"lease","value":"lease"},{"name":"leaseExpires","value":"leaseExpires"},{"name":"longitude","value":"-78.7970546"},{"name":"maintContractExpiration","value":"2030-12-31"},{"name":"maintContractNumber","value":"maintContractNumber"},{"name":"maintcontract","value":"maintcontract"},{"name":"managedObjectInstance","value":"managedObjectInstance"},{"name":"managedObjectType","value":"managedObjectType"},{"name":"manufacturer","value":"manufacturer"},{"name":"modelNumber","value":"modelNumber"},{"name":"notifyCategory","value":"notifyCategory"},{"name":"numpowersupplies","value":"1"},{"name":"operatingSystem","value":"operatingSystem"},{"name":"password","value":"password"},{"name":"pollerCategory","value":"pollerCategory"},{"name":"port","value":"port"},{"name":"rack","value":"rack"},{"name":"rackunitheight","value":"42"},{"name":"ram","value":"ram"},{"name":"region","value":"region"},{"name":"room","value":"room"},{"name":"serialNumber","value":"serialNumber"},{"name":"slot","value":"slot"},{"name":"snmpcommunity","value":"P"},{"name":"state","value":"state"},{"name":"storagectrl","value":"storagectrl"},{"name":"supportPhone","value":"supportPhone"},{"name":"thresholdCategory","value":"thresholdCategory"},{"name":"username","value":"username"},{"name":"vendor","value":"vendor"},{"name":"vendorAssetNumber","value":"vendorAssetNumber"},{"name":"vendorFax","value":"vendorFax"},{"name":"vendorPhone","value":"vendorPhone"},{"name":"zip","value":"zip"}],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1665528308672","node-label":"asset_test","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":"disc-if","ip-addr":"127.0.0.1","managed":true,"status":1,"snmp-primary":"P"}],"category":[],"asset":[],"meta-data":[],"location":null,"building":"selfmonitor","city":null,"foreign-id":"1","node-label":"localhost","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null}],"date-stamp":1702926287362,"foreign-source":"selfmonitor","last-import":1699658263758}]}'
+    headers:
+      Cache-Control:
+      - no-store
+      Content-Encoding:
+      - gzip
+      Content-Security-Policy:
+      - 'default-src ''none'' ; frame-src ''self'' ; manifest-src ''self'' ; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; font-src ''self'' https://fonts.googleapis.com  https://fonts.gstatic.com;
+        connect-src ''self'' ; style-src ''self'' ''unsafe-inline'' https://fonts.googleapis.com;
+        base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
+        https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 19 Dec 2023 23:18:21 GMT
+      Permissions-Policy:
+      - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
+        cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
+        execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(),
+        geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(),
+        midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(),
+        screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+    status:
+      code: 200
+      message: OK
+version: 1

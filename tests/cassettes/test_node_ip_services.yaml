@@ -1,0 +1,173 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+      authorization:
+      - DUMMY
+    method: GET
+    uri: http://localhost:8980/opennms/rest/health
+  response:
+    body:
+      string: '{"healthy":true,"responses":[{"description":"Karaf extender","message":"5
+        non-KAR features installed. ","status":"Success"},{"description":"Verifying
+        installed bundles","status":"Success"},{"description":"Connecting to ElasticSearch
+        ReST API (Flows)","status":"Success"},{"description":"Number of active alarms
+        stored in Elasticsearch (Alarm History)","message":"Found 32 alarms.","status":"Success"}]}'
+    headers:
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '402'
+      Content-Security-Policy:
+      - 'default-src ''none'' ; frame-src ''self'' ; manifest-src ''self'' ; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; font-src ''self'' https://fonts.googleapis.com  https://fonts.gstatic.com;
+        connect-src ''self'' ; style-src ''self'' ''unsafe-inline'' https://fonts.googleapis.com;
+        base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
+        https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 19 Dec 2023 23:02:37 GMT
+      Health:
+      - Everything is awesome
+      Permissions-Policy:
+      - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
+        cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
+        execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(),
+        geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(),
+        midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(),
+        screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+      authorization:
+      - DUMMY
+    method: GET
+    uri: http://localhost:8980/opennms/rest/info
+  response:
+    body:
+      string: '{"displayVersion":"32.0.5","version":"32.0.5","packageName":"opennms","packageDescription":"OpenNMS","ticketerConfig":{"plugin":null,"enabled":false},"datetimeformatConfig":{"zoneId":"America/Los_Angeles","datetimeformat":"yyyy-MM-dd''T''HH:mm:ssxxx"},"services":{}}'
+    headers:
+      Cache-Control:
+      - no-store
+      Content-Length:
+      - '264'
+      Content-Security-Policy:
+      - 'default-src ''none'' ; frame-src ''self'' ; manifest-src ''self'' ; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; font-src ''self'' https://fonts.googleapis.com  https://fonts.gstatic.com;
+        connect-src ''self'' ; style-src ''self'' ''unsafe-inline'' https://fonts.googleapis.com;
+        base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
+        https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 19 Dec 2023 23:02:39 GMT
+      Permissions-Policy:
+      - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
+        cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
+        execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(),
+        geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(),
+        midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(),
+        screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.31.0
+      authorization:
+      - DUMMY
+    method: GET
+    uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services?offset=0&limit=0
+  response:
+    body:
+      string: '{"count":15,"totalCount":15,"offset":0,"service":[{"serviceType":{"id":6,"name":"SNMP"},"lastGood":1703026814820,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":9},{"serviceType":{"id":6,"name":"SNMP"},"lastGood":1703026814820,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":9},{"serviceType":{"id":6,"name":"SNMP"},"lastGood":1703026814820,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":9},{"serviceType":{"id":10,"name":"Postgres"},"lastGood":1703026814963,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":10},{"serviceType":{"id":10,"name":"Postgres"},"lastGood":1703026814963,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":10},{"serviceType":{"id":10,"name":"Postgres"},"lastGood":1703026814963,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":10},{"serviceType":{"id":11,"name":"PostgreSQL"},"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":11},{"serviceType":{"id":11,"name":"PostgreSQL"},"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":11},{"serviceType":{"id":11,"name":"PostgreSQL"},"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":11},{"serviceType":{"id":12,"name":"Docker-Desktop"},"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":12},{"serviceType":{"id":12,"name":"Docker-Desktop"},"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":12},{"serviceType":{"id":12,"name":"Docker-Desktop"},"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":12},{"serviceType":{"id":4,"name":"ICMP"},"lastGood":1703026945891,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":82},{"serviceType":{"id":4,"name":"ICMP"},"lastGood":1703026945891,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":82},{"serviceType":{"id":4,"name":"ICMP"},"lastGood":1703026945891,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":82}]}'
+    headers:
+      Cache-Control:
+      - no-store
+      Content-Encoding:
+      - gzip
+      Content-Range:
+      - items 0-14/15
+      Content-Security-Policy:
+      - 'default-src ''none'' ; frame-src ''self'' ; manifest-src ''self'' ; script-src
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; font-src ''self'' https://fonts.googleapis.com  https://fonts.gstatic.com;
+        connect-src ''self'' ; style-src ''self'' ''unsafe-inline'' https://fonts.googleapis.com;
+        base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
+        https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 19 Dec 2023 23:02:39 GMT
+      Permissions-Policy:
+      - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
+        cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
+        execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(),
+        geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(),
+        midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(),
+        screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=()
+      Pragma:
+      - no-cache
+      Referrer-Policy:
+      - no-referrer
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+    status:
+      code: 200
+      message: OK
+version: 1
