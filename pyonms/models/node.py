@@ -479,10 +479,7 @@ class Node:
         if self.nodeType:
             payload["type"] = self.nodeType.value
         if self.assetRecord:
-            payload["assetRecord"] = {}
-            for record in self.assetRecord.__dir__():
-                if record[0] != "_" and getattr(self.assetRecord, record):
-                    payload["assetRecord"][record] = getattr(self.assetRecord, record)
+            payload["assetRecord"] = self.assetRecord._to_dict()
         if self.location:
             payload["location"] = self.location
         if self.labelSource:
