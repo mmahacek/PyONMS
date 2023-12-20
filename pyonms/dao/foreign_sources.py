@@ -2,9 +2,10 @@
 
 from typing import List, Optional
 
+from requests import Response
+
 import pyonms.models.foreign_source
 from pyonms.dao.base import Endpoint
-from pyonms.models.exceptions import ApiPayloadError
 
 
 class ForeignSourceAPI(Endpoint):
@@ -56,7 +57,7 @@ class ForeignSourceAPI(Endpoint):
 
     def update_foreign_source(
         self, foreign_source: pyonms.models.foreign_source.ForeignSource
-    ):
+    ) -> Response:
         response = self._post(
             url=self.url, headers=self.headers, json=foreign_source._to_dict()
         )

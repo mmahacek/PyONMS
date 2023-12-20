@@ -2,6 +2,8 @@
 
 from typing import List, Union
 
+from requests import Response
+
 import pyonms.models.requisition
 from pyonms.dao.base import Endpoint
 from pyonms.utils import normalize_dict
@@ -76,7 +78,9 @@ class RequisitionsAPI(Endpoint):
         else:
             return False
 
-    def update_requisition(self, requisition: pyonms.models.requisition.Requisition):
+    def update_requisition(
+        self, requisition: pyonms.models.requisition.Requisition
+    ) -> Response:
         """Post an entire requisition to create or overwrite."""
         response = self._post(
             url=self.url, headers=self.headers, json=requisition._to_dict()
@@ -87,7 +91,7 @@ class RequisitionsAPI(Endpoint):
         self,
         requisition: Union[str, pyonms.models.requisition.Requisition],
         node: pyonms.models.requisition.RequisitionNode,
-    ):
+    ) -> Response:
         """Post a single node to create or overwrite."""
         if isinstance(requisition, pyonms.models.requisition.Requisition):
             requisition = requisition.foreign_source

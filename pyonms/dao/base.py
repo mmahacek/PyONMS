@@ -89,7 +89,7 @@ class Endpoint:
 
     def _get(
         self, url: str, headers: dict = None, params: dict = None, endpoint: str = None
-    ) -> dict:
+    ):
         # if self.base_v1 in url:
         #    return self._get_v1(
         #        url=url, headers=headers, params=params, endpoint=endpoint
@@ -199,7 +199,7 @@ class Endpoint:
         json: dict = None,
         headers: dict = None,
         params: dict = None,
-    ) -> dict:
+    ) -> requests.Response:
         if not headers:
             headers = {}
         if not params:
@@ -225,10 +225,17 @@ class Endpoint:
                 timeout=self.timeout,
             )
         else:
-            return None
+            response = requests.put(
+                url,
+                auth=self.auth,
+                headers=headers,
+                params=params,
+                verify=self.verify_ssl,
+                timeout=self.timeout,
+            )
         if response.status_code >= 500:
             raise ApiPayloadError(message=response.text)
-        return response.text
+        return response
 
     def _convert_v1_to_v2(self, endpoint: str, data: dict) -> dict:
         v2_data = {}
