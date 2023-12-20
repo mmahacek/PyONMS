@@ -19,6 +19,7 @@ class NodeComponents(Enum):
     SERVICES = "IpServices"
     METADATA = "MetaData"
     HARDWARE = "HardwareInventory"
+    NONE = None
 
 
 class NodeAPI(Endpoint):
