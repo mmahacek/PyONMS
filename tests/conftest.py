@@ -8,8 +8,8 @@ from pyonms import PyONMS
 @pytest.fixture(scope="module")
 def vcr_config():
     return {
-        # Replace the Authorization request header with "DUMMY" in cassettes
-        "filter_headers": [("authorization", "REDACTED")],
+        # Replace the Authorization request header with S"DUMMY" in cassettes
+        "filter_headers": ["authorization"],
         "record_mode": "new_episodes",
         "record_on_exception": False,
     }
