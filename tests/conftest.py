@@ -11,6 +11,7 @@ def vcr_config():
         # Replace the Authorization request header with "DUMMY" in cassettes
         "filter_headers": [("authorization", "REDACTED")],
         "record_mode": "new_episodes",
+        "record_on_exception": False,
     }
 
 
