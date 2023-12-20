@@ -5,6 +5,7 @@ from datetime import datetime
 import pytest
 
 from pyonms import PyONMS
+from pyonms.dao.nodes import NodeComponents
 from pyonms.models.node import (
     IPInterface,
     LabelSource,
@@ -27,19 +28,21 @@ def test_node_one(test_instance: PyONMS):
     assert test_node.type == NodeType.ACTIVE
     assert isinstance(test_node.lastCapsdPoll, datetime)
     assert test_node.ipInterfaces[0].ifIndex == 30
-    assert test_node.snmpInterfaces[1].ifType == 24
+    assert test_node.snmpInterfaces[1].ifType == 6
 
 
 @pytest.mark.vcr()
 def test_node_all(test_instance: PyONMS):
-    nodes = test_instance.nodes.get_nodes(limit=0)
-    assert len(nodes) == 22
+    nodes = test_instance.nodes.get_nodes(limit=0, components=[NodeComponents.NONE])
+    assert len(nodes) == 23
     assert nodes[0].id == 7
 
 
 @pytest.mark.vcr()
 def test_node_batch(test_instance: PyONMS):
-    nodes = test_instance.nodes.get_nodes(limit=10, batch_size=3)
+    nodes = test_instance.nodes.get_nodes(
+        limit=10, batch_size=3, components=[NodeComponents.NONE]
+    )
     assert len(nodes) == 10
     assert nodes[0].id == 7
 
@@ -49,7 +52,7 @@ def test_node_snmp(test_instance: PyONMS):
     test_interfaces = test_instance.nodes._get_node_snmpinterfaces(2)
     assert len(test_interfaces) == 68
     assert isinstance(test_interfaces[0], SnmpInterface)
-    assert test_interfaces[0].id == 117
+    assert test_interfaces[0].id == 195
 
 
 @pytest.mark.vcr()
@@ -67,7 +70,7 @@ def test_node_ip_services(test_instance: PyONMS):
     assert isinstance(test_services[0], Service)
     assert len(test_services) == 5
     assert test_services[0].id == 9
-    assert test_services[0].lastGood == datetime(2023, 12, 19, 15, 0, 14, 820000)
+    assert test_services[0].lastGood == datetime(2023, 12, 19, 17, 15, 44, 121000)
     assert test_services[0].serviceType.id == 6
 
 
