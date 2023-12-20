@@ -196,6 +196,9 @@ class NodeAPI(Endpoint):
         return pyonms.models.node.HardwareInventory(**record)
 
     def _process_node(self, data: dict, components: list) -> pyonms.models.node.Node:
+        if "type" in data.keys():
+            data["nodeType"] = data["type"]
+            del data["type"]
         node = pyonms.models.node.Node(**data)
         if NodeComponents.ALL in components:
             node.ipInterfaces = self._get_node_ip_addresses(
@@ -223,3 +226,8 @@ class NodeAPI(Endpoint):
             node.hardwareInventory = self._get_node_hardware(node.id)
 
         return node
+
+    def update_node(self, node: pyonms.models.node.Node):
+        headers = {"Content-Type": "application/xml"}
+        response = self._post(url=self.url, data=node.to_xml(), headers=headers)
+        print(response.headers["Location"])

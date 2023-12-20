@@ -360,12 +360,12 @@ class HardwareInventory:
 class Node:
     """Node Object"""
 
-    id: int
-    type: Optional[Union[NodeType, str]] = None
+    id: Optional[int] = None
+    nodeType: Optional[Union[NodeType, str]] = NodeType.ACTIVE
     label: Optional[str] = None
     location: Optional[str] = None
     createTime: Optional[Union[datetime, int]] = None
-    labelSource: Optional[Union[LabelSource, str]] = None
+    labelSource: Optional[Union[LabelSource, str]] = LabelSource.USER
     foreignId: Optional[str] = None
     foreignSource: Optional[str] = None
     lastIngressFlow: Optional[Union[datetime, int]] = None
@@ -399,8 +399,8 @@ class Node:
             self.lastCapsdPoll = convert_time(self.lastCapsdPoll)
         if isinstance(self.labelSource, str):
             self.labelSource = LabelSource(self.labelSource)
-        if isinstance(self.type, str):
-            self.type = NodeType(self.type)
+        if isinstance(self.nodeType, str):
+            self.nodeType = NodeType(self.nodeType)
         if self.assetRecord and isinstance(self.assetRecord, dict):
             self.assetRecord = AssetRecord(**self.assetRecord)
         if self.categories:
@@ -411,3 +411,47 @@ class Node:
 
     def __hash__(self):
         return hash((self.id))
+
+    def add_category(self, category: str):
+        if category not in self.categories:
+            self.categories.append(category)
+
+    def remove_category(self, category: str):
+        self.categories = [cat for cat in self.categories if cat != category]
+
+    def node_xml(self) -> str:
+        """@private"""
+        payload = "<node "
+        if self.foreignId:
+            payload += f'foreignId="{self.foreignId}" '
+        if self.foreignSource:
+            payload += f'foreignSource="{self.foreignSource}" '
+        if self.label:
+            payload += f'label="{self.label}" '
+        if self.id:
+            payload += f'id="{self.id}" '
+        if self.nodeType:
+            payload += f'type="{self.nodeType.value}" '
+        payload += ">\n"
+        if self.assetRecord:
+            payload += "   <assetRecord>\n"
+            for record in self.assetRecord.__dir__():
+                if record[0] != "_" and getattr(self.assetRecord, record):
+                    payload += f"      <{record}>{getattr(self.assetRecord, record)}</{record}>\n"
+            payload += "   </assetRecord>\n"
+        if self.location:
+            payload += f"   <location>{self.location}</location>\n"
+        if self.labelSource:
+            payload += f"   <labelSource>{self.labelSource.value}</labelSource>\n"
+        if self.sysContact:
+            payload += f"   <sysContact>{self.sysContact}</sysContact>\n"
+        if self.sysDescription:
+            payload += f"   <sysDescription>{self.sysDescription}</sysDescription>\n"
+        if self.sysLocation:
+            payload += f"   <sysLocation>{self.sysLocation}</sysLocation>\n"
+        if self.sysName:
+            payload += f"   <sysName>{self.sysName}</sysName>\n"
+        if self.sysObjectId:
+            payload += f"   <sysObjectId>{self.sysObjectId}</sysObjectId>\n"
+        payload += "</node>"
+        return payload

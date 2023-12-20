@@ -17,6 +17,7 @@
 * `Endpoint._put()` method now returns the `Requests.Response` object instead of null.
 * Tweaks to testing framework settings.
 * Added `NodeComponents.NONE` option.
+* Add `Node` methods to add/remove categories.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
 
