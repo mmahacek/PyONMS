@@ -152,7 +152,7 @@ class Endpoint:
         self,
         url: str,
         headers: dict = None,
-        data: dict = None,
+        data: str = None,
         json: dict = None,
         params: dict = None,
     ) -> requests.Response:

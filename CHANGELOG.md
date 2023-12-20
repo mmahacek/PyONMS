@@ -17,6 +17,7 @@
 * `Endpoint._put()` method now returns the `Requests.Response` object instead of null.
 * Tweaks to testing framework settings.
 * Added `NodeComponents.NONE` option.
+* Fix type hint on `Endpoint_post.data` attribute.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
 
