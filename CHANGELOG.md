@@ -15,6 +15,7 @@
 * Prevent `Event.id` from being sent as part of the event payload when posting to the `events` endpoint.
 * Update `get_foreign_sources()` and `get_requisitions()` to no longer use custom `_get()` method.
 * `Endpoint._put()` method now returns the `Requests.Response` object instead of null.
+* Tweaks to testing framework settings.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
 
