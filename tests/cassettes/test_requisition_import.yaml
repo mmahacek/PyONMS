@@ -10,8 +10,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/health
   response:
@@ -35,7 +33,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 19 Dec 2023 23:20:00 GMT
+      - Wed, 20 Dec 2023 01:21:11 GMT
       Health:
       - Everything is awesome
       Permissions-Policy:
@@ -67,8 +65,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/info
   response:
@@ -88,7 +84,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 19 Dec 2023 23:20:02 GMT
+      - Wed, 20 Dec 2023 01:21:13 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -120,8 +116,6 @@ interactions:
       - '0'
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: PUT
     uri: http://localhost:8980/opennms/rest/requisitions/selfmonitor/import?rescanExisting=True
   response:
@@ -139,7 +133,7 @@ interactions:
         base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
         https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
       Date:
-      - Tue, 19 Dec 2023 23:23:04 GMT
+      - Wed, 20 Dec 2023 01:21:13 GMT
       Location:
       - http://localhost:8980/opennms/rest/requisitions/selfmonitor
       Permissions-Policy:

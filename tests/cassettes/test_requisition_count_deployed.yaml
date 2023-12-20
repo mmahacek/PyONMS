@@ -10,8 +10,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/health
   response:
@@ -35,7 +33,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 19 Dec 2023 23:19:42 GMT
+      - Wed, 20 Dec 2023 01:21:08 GMT
       Health:
       - Everything is awesome
       Permissions-Policy:
@@ -67,8 +65,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/info
   response:
@@ -88,7 +84,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 19 Dec 2023 23:19:46 GMT
+      - Wed, 20 Dec 2023 01:21:11 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -118,8 +114,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/requisitions/deployed/count
   response:
@@ -139,7 +133,7 @@ interactions:
       Content-Type:
       - text/plain
       Date:
-      - Tue, 19 Dec 2023 23:19:46 GMT
+      - Wed, 20 Dec 2023 01:21:11 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),

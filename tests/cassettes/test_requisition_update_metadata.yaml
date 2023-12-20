@@ -10,8 +10,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/health
   response:
@@ -20,7 +18,7 @@ interactions:
         non-KAR features installed. ","status":"Success"},{"description":"Verifying
         installed bundles","status":"Success"},{"description":"Connecting to ElasticSearch
         ReST API (Flows)","status":"Success"},{"description":"Number of active alarms
-        stored in Elasticsearch (Alarm History)","message":"Found 29 alarms.","status":"Success"}]}'
+        stored in Elasticsearch (Alarm History)","message":"Found 26 alarms.","status":"Success"}]}'
     headers:
       Cache-Control:
       - no-store
@@ -35,7 +33,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 19 Dec 2023 23:30:10 GMT
+      - Wed, 20 Dec 2023 01:21:15 GMT
       Health:
       - Everything is awesome
       Permissions-Policy:
@@ -67,8 +65,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/info
   response:
@@ -88,7 +84,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 19 Dec 2023 23:30:12 GMT
+      - Wed, 20 Dec 2023 01:21:18 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -118,13 +114,11 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/requisitions/selfmonitor
   response:
     body:
-      string: '{"node":[{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"127.0.0.2","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[{"name":"additionalhardware","value":"additionalhardware"},{"name":"address1","value":"address1"},{"name":"address2","value":"address2"},{"name":"admin","value":"admin"},{"name":"assetNumber","value":"assetNumber"},{"name":"autoenable","value":"Y"},{"name":"building","value":"building"},{"name":"category","value":"category"},{"name":"circuitId","value":"circuitId"},{"name":"city","value":"city"},{"name":"comment","value":"comment"},{"name":"connection","value":"connection"},{"name":"country","value":"country"},{"name":"cpu","value":"cpu"},{"name":"dateInstalled","value":"2022-10-12"},{"name":"department","value":"department"},{"name":"description","value":"description"},{"name":"displayCategory","value":"displayCategory"},{"name":"division","value":"division"},{"name":"enable","value":"enable"},{"name":"floor","value":"floor"},{"name":"hdd1","value":"hdd1"},{"name":"hdd2","value":"hdd2"},{"name":"hdd3","value":"hdd3"},{"name":"hdd4","value":"hdd4"},{"name":"hdd5","value":"hdd5"},{"name":"hdd6","value":"hdd6"},{"name":"inputpower","value":"Y"},{"name":"lastModifiedBy","value":"lastModifiedBy"},{"name":"latitude","value":"35.8494264"},{"name":"lease","value":"lease"},{"name":"leaseExpires","value":"leaseExpires"},{"name":"longitude","value":"-78.7970546"},{"name":"maintContractExpiration","value":"2030-12-31"},{"name":"maintContractNumber","value":"maintContractNumber"},{"name":"maintcontract","value":"maintcontract"},{"name":"managedObjectInstance","value":"managedObjectInstance"},{"name":"managedObjectType","value":"managedObjectType"},{"name":"manufacturer","value":"manufacturer"},{"name":"modelNumber","value":"modelNumber"},{"name":"notifyCategory","value":"notifyCategory"},{"name":"numpowersupplies","value":"1"},{"name":"operatingSystem","value":"operatingSystem"},{"name":"password","value":"password"},{"name":"pollerCategory","value":"pollerCategory"},{"name":"port","value":"port"},{"name":"rack","value":"rack"},{"name":"rackunitheight","value":"42"},{"name":"ram","value":"ram"},{"name":"region","value":"region"},{"name":"room","value":"room"},{"name":"serialNumber","value":"serialNumber"},{"name":"slot","value":"slot"},{"name":"snmpcommunity","value":"P"},{"name":"state","value":"state"},{"name":"storagectrl","value":"storagectrl"},{"name":"supportPhone","value":"supportPhone"},{"name":"thresholdCategory","value":"thresholdCategory"},{"name":"username","value":"username"},{"name":"vendor","value":"vendor"},{"name":"vendorAssetNumber","value":"vendorAssetNumber"},{"name":"vendorFax","value":"vendorFax"},{"name":"vendorPhone","value":"vendorPhone"},{"name":"zip","value":"zip"}],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1665528308672","node-label":"asset_test","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":"disc-if","ip-addr":"127.0.0.1","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[{"name":"region","value":"test"}],"meta-data":[{"context":"requisition","key":"test","value":"test"}],"location":null,"building":"selfmonitor","city":null,"foreign-id":"1","node-label":"localhost","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null}],"date-stamp":1703028560054,"foreign-source":"selfmonitor","last-import":1703028564532}'
+      string: '{"node":[{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":null,"ip-addr":"127.0.0.2","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[{"name":"additionalhardware","value":"additionalhardware"},{"name":"address1","value":"address1"},{"name":"address2","value":"address2"},{"name":"admin","value":"admin"},{"name":"assetNumber","value":"assetNumber"},{"name":"autoenable","value":"Y"},{"name":"building","value":"building"},{"name":"category","value":"category"},{"name":"circuitId","value":"circuitId"},{"name":"city","value":"city"},{"name":"comment","value":"comment"},{"name":"connection","value":"connection"},{"name":"country","value":"country"},{"name":"cpu","value":"cpu"},{"name":"dateInstalled","value":"2022-10-12"},{"name":"department","value":"department"},{"name":"description","value":"description"},{"name":"displayCategory","value":"displayCategory"},{"name":"division","value":"division"},{"name":"enable","value":"enable"},{"name":"floor","value":"floor"},{"name":"hdd1","value":"hdd1"},{"name":"hdd2","value":"hdd2"},{"name":"hdd3","value":"hdd3"},{"name":"hdd4","value":"hdd4"},{"name":"hdd5","value":"hdd5"},{"name":"hdd6","value":"hdd6"},{"name":"inputpower","value":"Y"},{"name":"lastModifiedBy","value":"lastModifiedBy"},{"name":"latitude","value":"35.8494264"},{"name":"lease","value":"lease"},{"name":"leaseExpires","value":"leaseExpires"},{"name":"longitude","value":"-78.7970546"},{"name":"maintContractExpiration","value":"2030-12-31"},{"name":"maintContractNumber","value":"maintContractNumber"},{"name":"maintcontract","value":"maintcontract"},{"name":"managedObjectInstance","value":"managedObjectInstance"},{"name":"managedObjectType","value":"managedObjectType"},{"name":"manufacturer","value":"manufacturer"},{"name":"modelNumber","value":"modelNumber"},{"name":"notifyCategory","value":"notifyCategory"},{"name":"numpowersupplies","value":"1"},{"name":"operatingSystem","value":"operatingSystem"},{"name":"password","value":"password"},{"name":"pollerCategory","value":"pollerCategory"},{"name":"port","value":"port"},{"name":"rack","value":"rack"},{"name":"rackunitheight","value":"42"},{"name":"ram","value":"ram"},{"name":"region","value":"region"},{"name":"room","value":"room"},{"name":"serialNumber","value":"serialNumber"},{"name":"slot","value":"slot"},{"name":"snmpcommunity","value":"P"},{"name":"state","value":"state"},{"name":"storagectrl","value":"storagectrl"},{"name":"supportPhone","value":"supportPhone"},{"name":"thresholdCategory","value":"thresholdCategory"},{"name":"username","value":"username"},{"name":"vendor","value":"vendor"},{"name":"vendorAssetNumber","value":"vendorAssetNumber"},{"name":"vendorFax","value":"vendorFax"},{"name":"vendorPhone","value":"vendorPhone"},{"name":"zip","value":"zip"}],"meta-data":[],"location":null,"building":null,"city":null,"foreign-id":"1665528308672","node-label":"asset_test","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null},{"interface":[{"monitored-service":[],"category":[],"meta-data":[],"descr":"disc-if","ip-addr":"127.0.0.1","managed":null,"status":1,"snmp-primary":"P"}],"category":[],"asset":[{"name":"region","value":"test"}],"meta-data":[{"context":"requisition","key":"test","value":"test"}],"location":null,"building":"selfmonitor","city":null,"foreign-id":"1","node-label":"localhost","parent-foreign-source":null,"parent-foreign-id":null,"parent-node-label":null}],"date-stamp":1703028560054,"foreign-source":"selfmonitor","last-import":1703035273606}'
     headers:
       Cache-Control:
       - no-store
@@ -139,7 +133,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 19 Dec 2023 23:30:12 GMT
+      - Wed, 20 Dec 2023 01:21:18 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),

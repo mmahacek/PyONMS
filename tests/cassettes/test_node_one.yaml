@@ -10,8 +10,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/health
   response:
@@ -20,7 +18,7 @@ interactions:
         non-KAR features installed. ","status":"Success"},{"description":"Verifying
         installed bundles","status":"Success"},{"description":"Connecting to ElasticSearch
         ReST API (Flows)","status":"Success"},{"description":"Number of active alarms
-        stored in Elasticsearch (Alarm History)","message":"Found 26 alarms.","status":"Success"}]}'
+        stored in Elasticsearch (Alarm History)","message":"Found 29 alarms.","status":"Success"}]}'
     headers:
       Cache-Control:
       - no-store
@@ -35,7 +33,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:47 GMT
+      - Wed, 20 Dec 2023 01:17:28 GMT
       Health:
       - Everything is awesome
       Permissions-Policy:
@@ -67,8 +65,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/rest/info
   response:
@@ -88,7 +84,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:32 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -118,15 +114,13 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2
   response:
     body:
-      string: '{"location":"Default","categories":[{"id":9,"authorizedGroups":[],"name":"Workstation"},{"id":11,"authorizedGroups":[],"name":"Power"},{"id":10,"authorizedGroups":[],"name":"Business"}],"label":"remwmmaha2","foreignSource":"Main","assetRecord":{"category":"Unspecified","password":null,"port":null,"id":14,"operatingSystem":null,"description":null,"username":null,"vendor":null,"modelNumber":null,"manufacturer":null,"serialNumber":null,"circuitId":null,"assetNumber":null,"rack":null,"slot":null,"division":null,"department":null,"building":null,"floor":null,"room":null,"vendorPhone":null,"vendorFax":null,"vendorAssetNumber":null,"lastModifiedBy":"","lastModifiedDate":1703030448250,"dateInstalled":null,"lease":null,"leaseExpires":null,"supportPhone":null,"maintcontract":null,"maintContractNumber":null,"maintContractExpiration":"2030-12-31","displayCategory":null,"notifyCategory":null,"pollerCategory":null,"thresholdCategory":null,"managedObjectType":null,"managedObjectInstance":null,"enable":null,"connection":null,"autoenable":null,"cpu":null,"ram":null,"snmpcommunity":null,"rackunitheight":null,"admin":null,"additionalhardware":null,"inputpower":null,"numpowersupplies":null,"hdd6":null,"hdd5":null,"hdd4":null,"hdd3":null,"hdd2":null,"hdd1":null,"storagectrl":null,"region":null,"comment":null},"foreignId":"1643248808837","createTime":1703026814257,"sysObjectId":".1.3.6.1.4.1.311.1.1.3.1.1","sysName":"REMWMMAHA2.nh.corp","lastIngressFlow":null,"lastEgressFlow":null,"sysDescription":"Hardware:
+      string: '{"location":"Default","categories":[{"id":9,"authorizedGroups":[],"name":"Workstation"},{"id":11,"authorizedGroups":[],"name":"Power"},{"id":10,"authorizedGroups":[],"name":"Business"}],"label":"remwmmaha2","foreignSource":"Main","assetRecord":{"id":14,"category":"Unspecified","password":null,"port":null,"operatingSystem":null,"description":null,"username":null,"vendor":null,"modelNumber":null,"manufacturer":null,"serialNumber":null,"circuitId":null,"assetNumber":null,"rack":null,"slot":null,"division":null,"department":null,"building":null,"floor":null,"room":null,"vendorPhone":null,"vendorFax":null,"vendorAssetNumber":null,"lastModifiedBy":"","lastModifiedDate":1703032241905,"dateInstalled":null,"lease":null,"leaseExpires":null,"supportPhone":null,"maintcontract":null,"maintContractNumber":null,"maintContractExpiration":"2030-12-31","displayCategory":null,"notifyCategory":null,"pollerCategory":null,"thresholdCategory":null,"managedObjectType":null,"managedObjectInstance":null,"enable":null,"connection":null,"autoenable":null,"cpu":null,"ram":null,"snmpcommunity":null,"rackunitheight":null,"admin":null,"additionalhardware":null,"inputpower":null,"numpowersupplies":null,"hdd6":null,"hdd5":null,"hdd4":null,"hdd3":null,"hdd2":null,"hdd1":null,"storagectrl":null,"region":null,"comment":null},"foreignId":"1643248808837","createTime":1703026814257,"sysObjectId":".1.3.6.1.4.1.311.1.1.3.1.1","sysName":"REMWMMAHA2.nh.corp","lastIngressFlow":null,"lastEgressFlow":null,"sysDescription":"Hardware:
         Intel64 Family 6 Model 165 Stepping 2 AT/AT COMPATIBLE - Software: Windows
-        Version 6.3 (Build 22621 Multiprocessor Free)","sysLocation":"Home Office","sysContact":"MMahacek","labelSource":"U","lastCapsdPoll":1703026822761,"type":"A","id":"2"}'
+        Version 6.3 (Build 22621 Multiprocessor Free)","sysLocation":"Home Office","sysContact":"MMahacek","labelSource":"U","lastCapsdPoll":1703032241773,"type":"A","id":"2"}'
     headers:
       Cache-Control:
       - no-store
@@ -141,7 +135,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -175,21 +169,19 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces?offset=0&limit=0
   response:
     body:
       string: '{"count":4,"totalCount":4,"offset":0,"ipInterface":[{"isManaged":"M","snmpPrimary":"P","snmpInterface":{"id":13,"ifType":6,"ifAlias":"vEthernet
-        (Bridge)","ifIndex":30,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #3.","ifName":"ethernet_32779","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},"ipAddress":"192.168.86.160","monitoredServiceCount":5,"ifIndex":30,"lastIngressFlow":null,"lastEgressFlow":null,"id":"8","hostName":"192.168.86.160","lastCapsdPoll":1703026822761,"isDown":false,"nodeId":2},{"isManaged":"M","snmpPrimary":"N","snmpInterface":{"id":186,"ifType":6,"ifAlias":"vEthernet
-        (Default Switch)","ifIndex":29,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter.","ifName":"ethernet_32771","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},"ipAddress":"172.23.96.1","monitoredServiceCount":0,"ifIndex":29,"lastIngressFlow":null,"lastEgressFlow":null,"id":"319","hostName":"172.23.96.1","lastCapsdPoll":1703026822761,"isDown":true,"nodeId":2},{"isManaged":"M","snmpPrimary":"N","snmpInterface":{"id":232,"ifType":6,"ifAlias":"vEthernet
-        (WSL (Hyper-V firewall))","ifIndex":65,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #2.","ifName":"ethernet_32777","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},"ipAddress":"172.25.96.1","monitoredServiceCount":0,"ifIndex":65,"lastIngressFlow":null,"lastEgressFlow":null,"id":"323","hostName":"172.25.96.1","lastCapsdPoll":1703026822761,"isDown":true,"nodeId":2},{"isManaged":"M","snmpPrimary":"N","snmpInterface":{"id":126,"ifType":53,"ifAlias":"Local
-        Area Connection","ifIndex":4,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"TAP-Windows
-        Adapter V9 for OpenVPN Connect.","ifName":"iftype53_32768","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},"ipAddress":"172.27.235.108","monitoredServiceCount":0,"ifIndex":4,"lastIngressFlow":null,"lastEgressFlow":null,"id":"331","hostName":"172.27.235.108","lastCapsdPoll":1703026822761,"isDown":true,"nodeId":2}]}'
+        (Bridge)","ifIndex":30,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #3.","ifName":"ethernet_32779","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},"ipAddress":"192.168.86.160","monitoredServiceCount":5,"ifIndex":30,"lastIngressFlow":null,"lastEgressFlow":null,"id":"8","hostName":"192.168.86.160","lastCapsdPoll":1703032241773,"isDown":false,"nodeId":2},{"isManaged":"M","snmpPrimary":"N","snmpInterface":{"id":186,"ifType":6,"ifAlias":"vEthernet
+        (Default Switch)","ifIndex":29,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter.","ifName":"ethernet_32771","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},"ipAddress":"172.23.96.1","monitoredServiceCount":0,"ifIndex":29,"lastIngressFlow":null,"lastEgressFlow":null,"id":"319","hostName":"172.23.96.1","lastCapsdPoll":1703032241773,"isDown":true,"nodeId":2},{"isManaged":"M","snmpPrimary":"N","snmpInterface":{"id":232,"ifType":6,"ifAlias":"vEthernet
+        (WSL (Hyper-V firewall))","ifIndex":65,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #2.","ifName":"ethernet_32777","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},"ipAddress":"172.25.96.1","monitoredServiceCount":0,"ifIndex":65,"lastIngressFlow":null,"lastEgressFlow":null,"id":"323","hostName":"172.25.96.1","lastCapsdPoll":1703032241773,"isDown":true,"nodeId":2},{"isManaged":"M","snmpPrimary":"N","snmpInterface":{"id":126,"ifType":53,"ifAlias":"Local
+        Area Connection","ifIndex":4,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"TAP-Windows
+        Adapter V9 for OpenVPN Connect.","ifName":"iftype53_32768","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},"ipAddress":"172.27.235.108","monitoredServiceCount":0,"ifIndex":4,"lastIngressFlow":null,"lastEgressFlow":null,"id":"331","hostName":"172.27.235.108","lastCapsdPoll":1703032241773,"isDown":true,"nodeId":2}]}'
     headers:
       Cache-Control:
       - no-store
@@ -206,7 +198,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -240,19 +232,17 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services?offset=0&limit=0
   response:
     body:
-      string: '{"count":15,"totalCount":15,"offset":0,"service":[{"serviceType":{"id":6,"name":"SNMP"},"lastGood":1703031918903,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":9},{"serviceType":{"id":6,"name":"SNMP"},"lastGood":1703031918903,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":9},{"serviceType":{"id":6,"name":"SNMP"},"lastGood":1703031918903,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":9},{"serviceType":{"id":10,"name":"Postgres"},"lastGood":1703031919901,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":10},{"serviceType":{"id":10,"name":"Postgres"},"lastGood":1703031919901,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":10},{"serviceType":{"id":10,"name":"Postgres"},"lastGood":1703031919901,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":10},{"serviceType":{"id":11,"name":"PostgreSQL"},"lastGood":null,"lastFail":null,"statusLong":"Not
-        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":11},{"serviceType":{"id":11,"name":"PostgreSQL"},"lastGood":null,"lastFail":null,"statusLong":"Not
-        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":11},{"serviceType":{"id":11,"name":"PostgreSQL"},"lastGood":null,"lastFail":null,"statusLong":"Not
-        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":11},{"serviceType":{"id":12,"name":"Docker-Desktop"},"lastGood":null,"lastFail":null,"statusLong":"Not
-        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":12},{"serviceType":{"id":12,"name":"Docker-Desktop"},"lastGood":null,"lastFail":null,"statusLong":"Not
-        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":12},{"serviceType":{"id":12,"name":"Docker-Desktop"},"lastGood":null,"lastFail":null,"statusLong":"Not
-        Monitored","ipInterfaceId":8,"qualifier":null,"status":"N","notify":null,"down":false,"source":null,"id":12},{"serviceType":{"id":4,"name":"ICMP"},"lastGood":1703032010937,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":82},{"serviceType":{"id":4,"name":"ICMP"},"lastGood":1703032010937,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":82},{"serviceType":{"id":4,"name":"ICMP"},"lastGood":1703032010937,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"qualifier":null,"status":"A","notify":null,"down":false,"source":null,"id":82}]}'
+      string: '{"count":15,"totalCount":15,"offset":0,"service":[{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034944121,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":6,"name":"SNMP"},"source":null,"id":9},{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034944121,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":6,"name":"SNMP"},"source":null,"id":9},{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034944121,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":6,"name":"SNMP"},"source":null,"id":9},{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034944172,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":10,"name":"Postgres"},"source":null,"id":10},{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034944172,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":10,"name":"Postgres"},"source":null,"id":10},{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034944172,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":10,"name":"Postgres"},"source":null,"id":10},{"qualifier":null,"status":"N","notify":null,"down":false,"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"serviceType":{"id":11,"name":"PostgreSQL"},"source":null,"id":11},{"qualifier":null,"status":"N","notify":null,"down":false,"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"serviceType":{"id":11,"name":"PostgreSQL"},"source":null,"id":11},{"qualifier":null,"status":"N","notify":null,"down":false,"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"serviceType":{"id":11,"name":"PostgreSQL"},"source":null,"id":11},{"qualifier":null,"status":"N","notify":null,"down":false,"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"serviceType":{"id":12,"name":"Docker-Desktop"},"source":null,"id":12},{"qualifier":null,"status":"N","notify":null,"down":false,"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"serviceType":{"id":12,"name":"Docker-Desktop"},"source":null,"id":12},{"qualifier":null,"status":"N","notify":null,"down":false,"lastGood":null,"lastFail":null,"statusLong":"Not
+        Monitored","ipInterfaceId":8,"serviceType":{"id":12,"name":"Docker-Desktop"},"source":null,"id":12},{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034995108,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":4,"name":"ICMP"},"source":null,"id":82},{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034995108,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":4,"name":"ICMP"},"source":null,"id":82},{"qualifier":null,"status":"A","notify":null,"down":false,"lastGood":1703034995108,"lastFail":null,"statusLong":"Managed","ipInterfaceId":8,"serviceType":{"id":4,"name":"ICMP"},"source":null,"id":82}]}'
     headers:
       Cache-Control:
       - no-store
@@ -269,7 +259,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -303,8 +293,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/SNMP/metadata?offset=0&limit=0
   response:
@@ -324,7 +312,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -354,8 +342,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/SNMP/metadata?offset=0&limit=0
   response:
@@ -375,7 +361,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -405,8 +391,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/SNMP/metadata?offset=0&limit=0
   response:
@@ -426,7 +410,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -456,8 +440,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/Postgres/metadata?offset=0&limit=0
   response:
@@ -477,7 +459,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -507,8 +489,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/Postgres/metadata?offset=0&limit=0
   response:
@@ -528,7 +508,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -558,8 +538,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/Postgres/metadata?offset=0&limit=0
   response:
@@ -579,7 +557,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -609,8 +587,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/PostgreSQL/metadata?offset=0&limit=0
   response:
@@ -630,7 +606,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -660,8 +636,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/PostgreSQL/metadata?offset=0&limit=0
   response:
@@ -681,7 +655,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:52 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -711,8 +685,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/PostgreSQL/metadata?offset=0&limit=0
   response:
@@ -732,7 +704,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -762,8 +734,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/Docker-Desktop/metadata?offset=0&limit=0
   response:
@@ -783,7 +753,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -813,8 +783,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/Docker-Desktop/metadata?offset=0&limit=0
   response:
@@ -834,7 +802,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -864,8 +832,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/Docker-Desktop/metadata?offset=0&limit=0
   response:
@@ -885,7 +851,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -915,8 +881,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/ICMP/metadata?offset=0&limit=0
   response:
@@ -936,7 +900,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -966,8 +930,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/ICMP/metadata?offset=0&limit=0
   response:
@@ -987,7 +949,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:33 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1017,8 +979,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/services/ICMP/metadata?offset=0&limit=0
   response:
@@ -1038,7 +998,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1068,8 +1028,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/192.168.86.160/metadata?offset=0&limit=0
   response:
@@ -1089,7 +1047,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1119,8 +1077,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/172.23.96.1/services?offset=0&limit=0
   response:
@@ -1136,7 +1092,7 @@ interactions:
         base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
         https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1166,8 +1122,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/172.23.96.1/metadata?offset=0&limit=0
   response:
@@ -1187,7 +1141,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1217,8 +1171,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/172.25.96.1/services?offset=0&limit=0
   response:
@@ -1234,7 +1186,7 @@ interactions:
         base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
         https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1264,8 +1216,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/172.25.96.1/metadata?offset=0&limit=0
   response:
@@ -1285,7 +1235,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1315,8 +1265,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/172.27.235.108/services?offset=0&limit=0
   response:
@@ -1332,7 +1280,7 @@ interactions:
         base-uri ''self'' ; form-action ''self'' ; img-src ''self'' https://tiles.opennms.org
         https://*.tile.openstreetmap.org https://*.tile.opentopomap.org data:'
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1362,8 +1310,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/ipinterfaces/172.27.235.108/metadata?offset=0&limit=0
   response:
@@ -1383,7 +1329,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1413,146 +1359,144 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/snmpinterfaces?offset=0&limit=0
   response:
     body:
-      string: '{"count":68,"totalCount":68,"offset":0,"snmpInterface":[{"id":128,"ifType":6,"ifAlias":"vSwitch
-        (Bridge)","ifIndex":5,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Switch Extension Adapter #3.","ifName":"ethernet_32778","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":117,"ifType":24,"ifAlias":"Loopback
-        Pseudo-Interface 1","ifIndex":1,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Software
-        Loopback Interface 1.","ifName":"loopback_0","physAddr":null,"ifSpeed":1073741824,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":122,"ifType":131,"ifAlias":"6to4
-        Adapter","ifIndex":2,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        6to4 Adapter.","ifName":"tunnel_32514","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":126,"ifType":53,"ifAlias":"Local
-        Area Connection","ifIndex":4,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"TAP-Windows
-        Adapter V9 for OpenVPN Connect.","ifName":"iftype53_32768","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":131,"ifType":71,"ifAlias":"Local
-        Area Connection* 3","ifIndex":6,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Wi-Fi Direct Virtual Adapter #3.","ifName":"wireless_32771","physAddr":"e02be9bd0b01","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":135,"ifType":131,"ifAlias":"Microsoft
-        IP-HTTPS Platform Interface","ifIndex":7,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        IP-HTTPS Platform Adapter.","ifName":"tunnel_32513","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":143,"ifType":71,"ifAlias":"Local
-        Area Connection* 13","ifIndex":10,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Wi-Fi Direct Virtual Adapter #4.","ifName":"wireless_32772","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":145,"ifType":131,"ifAlias":"Local
-        Area Connection* 6","ifIndex":11,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (L2TP).","ifName":"tunnel_32770","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":147,"ifType":131,"ifAlias":"Local
-        Area Connection* 5","ifIndex":12,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (IKEv2).","ifName":"tunnel_32769","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":149,"ifType":131,"ifAlias":"Local
-        Area Connection* 4","ifIndex":13,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (SSTP).","ifName":"tunnel_32768","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":154,"ifType":71,"ifAlias":"Local
-        Area Connection* 2","ifIndex":15,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Wi-Fi Direct Virtual Adapter #2.","ifName":"wireless_32770","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":140,"ifType":6,"ifAlias":"Loopback","ifIndex":9,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        KM-TEST Loopback Adapter.","ifName":"ethernet_32780","physAddr":"02004c4f4f50","ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"P","collect":false,"poll":true,"nodeId":2},{"id":124,"ifType":6,"ifAlias":"Bluetooth
-        Network Connection","ifIndex":3,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Bluetooth
-        Device (Personal Area Network).","ifName":"ethernet_32770","physAddr":"e02be9bd0b04","ifSpeed":3000000,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":138,"ifType":6,"ifAlias":"Ethernet","ifIndex":8,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Cisco
-        AnyConnect Secure Mobility Client Virtual Miniport Adapter for Windows x64.","ifName":"ethernet_32772","physAddr":"00059a3c7a00","ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"P","collect":false,"poll":true,"nodeId":2},{"id":151,"ifType":6,"ifAlias":"Local
-        Area Connection* 9","ifIndex":14,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (IP).","ifName":"ethernet_32773","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":164,"ifType":53,"ifAlias":"OpenVPN
-        Connect DCO Adapter","ifIndex":21,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"OpenVPN
-        Data Channel Offload.","ifName":"iftype53_32769","physAddr":null,"ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":175,"ifType":71,"ifAlias":"Wi-Fi","ifIndex":25,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Intel(R)
-        Wi-Fi 6 AX201 160MHz.","ifName":"wireless_32768","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":195,"ifType":71,"ifAlias":"Local
-        Area Connection* 3-WFP 802.3 MAC Layer LightWeight Filter-","ifIndex":38,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
+      string: '{"count":68,"totalCount":68,"offset":0,"snmpInterface":[{"id":195,"ifType":71,"ifAlias":"Local
+        Area Connection* 3-WFP 802.3 MAC Layer LightWeight Filter-","ifIndex":38,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
         Wi-Fi Direct Virtual Adapter #3-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"wireless_9","physAddr":"e02be9bd0b01","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":157,"ifType":6,"ifAlias":"Ethernet
-        2","ifIndex":17,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Lenovo
-        USB Ethernet.","ifName":"ethernet_32781","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":162,"ifType":6,"ifAlias":"vSwitch
-        (Default Switch)","ifIndex":19,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Switch Extension Adapter.","ifName":"ethernet_32769","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":156,"ifType":23,"ifAlias":"Local
-        Area Connection* 12","ifIndex":16,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"F5
-        Networks VPN Adapter.","ifName":"ppp_32769","physAddr":"463500000031","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":203,"ifType":53,"ifAlias":"Local
-        Area Connection-QoS Packet Scheduler-0000","ifIndex":44,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"TAP-Windows
-        Adapter V9 for OpenVPN Connect-QoS Packet Scheduler-0000.","ifName":"iftype53_1","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":201,"ifType":6,"ifAlias":"vSwitch
-        (Bridge)-sFlow packet sampling filter-0000","ifIndex":42,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Switch Extension Adapter #3-sFlow packet sampling filter-0000.","ifName":"ethernet_4","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":207,"ifType":6,"ifAlias":"vEthernet
-        (Bridge)-WFP 802.3 MAC Layer LightWeight Filter-0000","ifIndex":48,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #3-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"ethernet_13","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":213,"ifType":6,"ifAlias":"vSwitch
-        (Default Switch)-Hyper-V Virtual Switch Extension Filter","ifIndex":53,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Switch Extension Adapter-Hyper-V Virtual Switch Extension Filter-0000.","ifName":"ethernet_9","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":220,"ifType":6,"ifAlias":"Local
-        Area Connection* 11-WFP Native MAC Layer LightWeight Filte","ifIndex":60,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (Network Monitor)-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_17","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938583,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":159,"ifType":6,"ifAlias":"Local
-        Area Connection* 11","ifIndex":18,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (Network Monitor).","ifName":"ethernet_32775","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":172,"ifType":71,"ifAlias":"Local
-        Area Connection* 13-WFP Native MAC Layer LightWeight Filte","ifIndex":24,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Wi-Fi Direct Virtual Adapter #4-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"wireless_5","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":179,"ifType":131,"ifAlias":"Local
-        Area Connection* 7","ifIndex":27,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (PPTP).","ifName":"tunnel_32771","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":193,"ifType":71,"ifAlias":"Local
-        Area Connection* 3-Native WiFi Filter Driver-0000","ifIndex":36,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Wi-Fi Direct Virtual Adapter #3-Native WiFi Filter Driver-0000.","ifName":"wireless_7","physAddr":"e02be9bd0b01","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":190,"ifType":6,"ifAlias":"vEthernet
-        (WSL (Hyper-V firewall))-WFP Native MAC Layer LightWei","ifIndex":33,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #2-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_3","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":218,"ifType":6,"ifAlias":"Local
-        Area Connection* 10-WFP Native MAC Layer LightWeight Filte","ifIndex":58,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (IPv6)-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_15","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938583,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":232,"ifType":6,"ifAlias":"vEthernet
-        (WSL (Hyper-V firewall))","ifIndex":65,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #2.","ifName":"ethernet_32777","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":13,"ifType":6,"ifAlias":"vEthernet
-        (Bridge)","ifIndex":30,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #3.","ifName":"ethernet_32779","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":169,"ifType":131,"ifAlias":"Teredo
-        Tunneling Pseudo-Interface","ifIndex":23,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Teredo Tunneling Adapter.","ifName":"tunnel_32512","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":192,"ifType":71,"ifAlias":"Local
-        Area Connection* 3-WFP Native MAC Layer LightWeight Filter","ifIndex":35,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Wi-Fi Direct Virtual Adapter #3-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"wireless_6","physAddr":"e02be9bd0b01","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":199,"ifType":71,"ifAlias":"Wi-Fi-Native
-        WiFi Filter Driver-0000","ifIndex":40,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Intel(R)
-        Wi-Fi 6 AX201 160MHz-Native WiFi Filter Driver-0000.","ifName":"wireless_2","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":210,"ifType":71,"ifAlias":"Wi-Fi-WFP
-        802.3 MAC Layer LightWeight Filter-0000","ifIndex":51,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Intel(R)
-        Wi-Fi 6 AX201 160MHz-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"wireless_4","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":215,"ifType":71,"ifAlias":"Local
-        Area Connection* 13-Native WiFi Filter Driver-0000","ifIndex":55,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Wi-Fi Direct Virtual Adapter #4-Native WiFi Filter Driver-0000.","ifName":"wireless_10","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":230,"ifType":71,"ifAlias":"Local
-        Area Connection* 13-WFP 802.3 MAC Layer LightWeight Filter","ifIndex":64,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Wi-Fi Direct Virtual Adapter #4-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"wireless_12","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":236,"ifType":6,"ifAlias":"vEthernet
-        (Default Switch)-WFP 802.3 MAC Layer LightWeight Filte","ifIndex":68,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"ethernet_20","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":163,"ifType":6,"ifAlias":"Local
-        Area Connection* 10","ifIndex":20,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (IPv6).","ifName":"ethernet_32774","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":182,"ifType":6,"ifAlias":"Ethernet
-        (Kernel Debugger)","ifIndex":28,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
-        Kernel Debug Network Adapter.","ifName":"ethernet_32768","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"P","collect":false,"poll":true,"nodeId":2},{"id":191,"ifType":6,"ifAlias":"vEthernet
-        (WSL (Hyper-V firewall))-WFP 802.3 MAC Layer LightWeig","ifIndex":34,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #2-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"ethernet_2","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":200,"ifType":6,"ifAlias":"vSwitch
-        (Bridge)-Hyper-V Virtual Switch Extension Filter-0000","ifIndex":41,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Switch Extension Adapter #3-Hyper-V Virtual Switch Extension Filter-0000.","ifName":"ethernet_0","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":206,"ifType":6,"ifAlias":"vEthernet
-        (Bridge)-QoS Packet Scheduler-0000","ifIndex":47,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #3-QoS Packet Scheduler-0000.","ifName":"ethernet_12","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":212,"ifType":6,"ifAlias":"vSwitch
-        (WSL (Hyper-V firewall))-Hyper-V Virtual Switch Extensio","ifIndex":52,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Switch Extension Adapter #2-Hyper-V Virtual Switch Extension Filter-0000.","ifName":"ethernet_5","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":219,"ifType":6,"ifAlias":"Local
-        Area Connection* 10-QoS Packet Scheduler-0000","ifIndex":59,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (IPv6)-QoS Packet Scheduler-0000.","ifName":"ethernet_16","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938583,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":217,"ifType":6,"ifAlias":"Local
-        Area Connection* 9-QoS Packet Scheduler-0000","ifIndex":57,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (IP)-QoS Packet Scheduler-0000.","ifName":"ethernet_8","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":224,"ifType":6,"ifAlias":"vSwitch
-        (WSL (Hyper-V firewall))","ifIndex":62,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Switch Extension Adapter #2.","ifName":"ethernet_32776","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938583,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":233,"ifType":6,"ifAlias":"vEthernet
-        (Default Switch)-WFP Native MAC Layer LightWeight Filt","ifIndex":66,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_6","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":186,"ifType":6,"ifAlias":"vEthernet
-        (Default Switch)","ifIndex":29,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter.","ifName":"ethernet_32771","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":165,"ifType":71,"ifAlias":"Wi-Fi-WFP
-        Native MAC Layer LightWeight Filter-0000","ifIndex":22,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Intel(R)
+        2","ifIndex":17,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Lenovo
+        USB Ethernet.","ifName":"ethernet_32781","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":162,"ifType":6,"ifAlias":"vSwitch
+        (Default Switch)","ifIndex":19,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Switch Extension Adapter.","ifName":"ethernet_32769","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":164,"ifType":53,"ifAlias":"OpenVPN
+        Connect DCO Adapter","ifIndex":21,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"OpenVPN
+        Data Channel Offload.","ifName":"iftype53_32769","physAddr":null,"ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":175,"ifType":71,"ifAlias":"Wi-Fi","ifIndex":25,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Intel(R)
+        Wi-Fi 6 AX201 160MHz.","ifName":"wireless_32768","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":128,"ifType":6,"ifAlias":"vSwitch
+        (Bridge)","ifIndex":5,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Switch Extension Adapter #3.","ifName":"ethernet_32778","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":165,"ifType":71,"ifAlias":"Wi-Fi-WFP
+        Native MAC Layer LightWeight Filter-0000","ifIndex":22,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Intel(R)
         Wi-Fi 6 AX201 160MHz-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"wireless_0","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":204,"ifType":53,"ifAlias":"Local
-        Area Connection-WFP 802.3 MAC Layer LightWeight Filter-000","ifIndex":45,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"TAP-Windows
+        Area Connection-WFP 802.3 MAC Layer LightWeight Filter-000","ifIndex":45,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"TAP-Windows
         Adapter V9 for OpenVPN Connect-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"iftype53_2","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":209,"ifType":71,"ifAlias":"Wi-Fi-QoS
-        Packet Scheduler-0000","ifIndex":50,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Intel(R)
+        Packet Scheduler-0000","ifIndex":50,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Intel(R)
         Wi-Fi 6 AX201 160MHz-QoS Packet Scheduler-0000.","ifName":"wireless_3","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":227,"ifType":71,"ifAlias":"Local
-        Area Connection* 13-QoS Packet Scheduler-0000","ifIndex":63,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
+        Area Connection* 13-QoS Packet Scheduler-0000","ifIndex":63,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
         Wi-Fi Direct Virtual Adapter #4-QoS Packet Scheduler-0000.","ifName":"wireless_11","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":216,"ifType":6,"ifAlias":"Local
-        Area Connection* 9-WFP Native MAC Layer LightWeight Filter","ifIndex":56,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (IP)-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_7","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":177,"ifType":23,"ifAlias":"Local
-        Area Connection* 8","ifIndex":26,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (PPPOE).","ifName":"ppp_32768","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":187,"ifType":71,"ifAlias":"Local
-        Area Connection* 1","ifIndex":31,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
+        Area Connection* 9-WFP Native MAC Layer LightWeight Filter","ifIndex":56,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (IP)-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_7","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":177,"ifType":23,"ifAlias":"Local
+        Area Connection* 8","ifIndex":26,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (PPPOE).","ifName":"ppp_32768","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":189,"ifType":6,"ifAlias":"vEthernet
+        (WSL (Hyper-V firewall))-QoS Packet Scheduler-0000","ifIndex":32,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #2-QoS Packet Scheduler-0000.","ifName":"ethernet_1","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":187,"ifType":71,"ifAlias":"Local
+        Area Connection* 1","ifIndex":31,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
         Wi-Fi Direct Virtual Adapter.","ifName":"wireless_32769","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":194,"ifType":71,"ifAlias":"Local
-        Area Connection* 3-QoS Packet Scheduler-0000","ifIndex":37,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Microsoft
+        Area Connection* 3-QoS Packet Scheduler-0000","ifIndex":37,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
         Wi-Fi Direct Virtual Adapter #3-QoS Packet Scheduler-0000.","ifName":"wireless_8","physAddr":"e02be9bd0b01","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":197,"ifType":71,"ifAlias":"Wi-Fi-Virtual
-        WiFi Filter Driver-0000","ifIndex":39,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Intel(R)
-        Wi-Fi 6 AX201 160MHz-Virtual WiFi Filter Driver-0000.","ifName":"wireless_1","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":189,"ifType":6,"ifAlias":"vEthernet
-        (WSL (Hyper-V firewall))-QoS Packet Scheduler-0000","ifIndex":32,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #2-QoS Packet Scheduler-0000.","ifName":"ethernet_1","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938504,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":202,"ifType":53,"ifAlias":"Local
-        Area Connection-WFP Native MAC Layer LightWeight Filter-00","ifIndex":43,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"TAP-Windows
-        Adapter V9 for OpenVPN Connect-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"iftype53_0","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":208,"ifType":6,"ifAlias":"Ethernet
-        2-WFP Native MAC Layer LightWeight Filter-0000","ifIndex":49,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Lenovo
-        USB Ethernet-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_14","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":214,"ifType":6,"ifAlias":"vSwitch
-        (WSL (Hyper-V firewall))-Virtual Filtering Platform VMSw","ifIndex":54,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Switch Extension Adapter #2-Virtual Filtering Platform VMSwitch Extension-0000.","ifName":"ethernet_10","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":223,"ifType":6,"ifAlias":"Local
-        Area Connection* 11-QoS Packet Scheduler-0000","ifIndex":61,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"WAN
-        Miniport (Network Monitor)-QoS Packet Scheduler-0000.","ifName":"ethernet_18","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938583,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":235,"ifType":6,"ifAlias":"vEthernet
-        (Default Switch)-QoS Packet Scheduler-0000","ifIndex":67,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter-QoS Packet Scheduler-0000.","ifName":"ethernet_19","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938451,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":205,"ifType":6,"ifAlias":"vEthernet
-        (Bridge)-WFP Native MAC Layer LightWeight Filter-0000","ifIndex":46,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703026822761,"ifDescr":"Hyper-V
-        Virtual Ethernet Adapter #3-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_11","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703031938543,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2}]}'
+        WiFi Filter Driver-0000","ifIndex":39,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Intel(R)
+        Wi-Fi 6 AX201 160MHz-Virtual WiFi Filter Driver-0000.","ifName":"wireless_1","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":202,"ifType":53,"ifAlias":"Local
+        Area Connection-WFP Native MAC Layer LightWeight Filter-00","ifIndex":43,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"TAP-Windows
+        Adapter V9 for OpenVPN Connect-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"iftype53_0","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":201,"ifType":6,"ifAlias":"vSwitch
+        (Bridge)-sFlow packet sampling filter-0000","ifIndex":42,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Switch Extension Adapter #3-sFlow packet sampling filter-0000.","ifName":"ethernet_4","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":124,"ifType":6,"ifAlias":"Bluetooth
+        Network Connection","ifIndex":3,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Bluetooth
+        Device (Personal Area Network).","ifName":"ethernet_32770","physAddr":"e02be9bd0b04","ifSpeed":3000000,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":138,"ifType":6,"ifAlias":"Ethernet","ifIndex":8,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Cisco
+        AnyConnect Secure Mobility Client Virtual Miniport Adapter for Windows x64.","ifName":"ethernet_32772","physAddr":"00059a3c7a00","ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"P","collect":false,"poll":true,"nodeId":2},{"id":163,"ifType":6,"ifAlias":"Local
+        Area Connection* 10","ifIndex":20,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (IPv6).","ifName":"ethernet_32774","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":117,"ifType":24,"ifAlias":"Loopback
+        Pseudo-Interface 1","ifIndex":1,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Software
+        Loopback Interface 1.","ifName":"loopback_0","physAddr":null,"ifSpeed":1073741824,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":122,"ifType":131,"ifAlias":"6to4
+        Adapter","ifIndex":2,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        6to4 Adapter.","ifName":"tunnel_32514","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":131,"ifType":71,"ifAlias":"Local
+        Area Connection* 3","ifIndex":6,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Wi-Fi Direct Virtual Adapter #3.","ifName":"wireless_32771","physAddr":"e02be9bd0b01","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":147,"ifType":131,"ifAlias":"Local
+        Area Connection* 5","ifIndex":12,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (IKEv2).","ifName":"tunnel_32769","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":169,"ifType":131,"ifAlias":"Teredo
+        Tunneling Pseudo-Interface","ifIndex":23,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Teredo Tunneling Adapter.","ifName":"tunnel_32512","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":172,"ifType":71,"ifAlias":"Local
+        Area Connection* 13-WFP Native MAC Layer LightWeight Filte","ifIndex":24,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Wi-Fi Direct Virtual Adapter #4-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"wireless_5","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":182,"ifType":6,"ifAlias":"Ethernet
+        (Kernel Debugger)","ifIndex":28,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Kernel Debug Network Adapter.","ifName":"ethernet_32768","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"P","collect":false,"poll":true,"nodeId":2},{"id":13,"ifType":6,"ifAlias":"vEthernet
+        (Bridge)","ifIndex":30,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #3.","ifName":"ethernet_32779","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":151,"ifType":6,"ifAlias":"Local
+        Area Connection* 9","ifIndex":14,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (IP).","ifName":"ethernet_32773","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":159,"ifType":6,"ifAlias":"Local
+        Area Connection* 11","ifIndex":18,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (Network Monitor).","ifName":"ethernet_32775","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":186,"ifType":6,"ifAlias":"vEthernet
+        (Default Switch)","ifIndex":29,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter.","ifName":"ethernet_32771","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":126,"ifType":53,"ifAlias":"Local
+        Area Connection","ifIndex":4,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"TAP-Windows
+        Adapter V9 for OpenVPN Connect.","ifName":"iftype53_32768","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":190,"ifType":6,"ifAlias":"vEthernet
+        (WSL (Hyper-V firewall))-WFP Native MAC Layer LightWei","ifIndex":33,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #2-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_3","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":135,"ifType":131,"ifAlias":"Microsoft
+        IP-HTTPS Platform Interface","ifIndex":7,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        IP-HTTPS Platform Adapter.","ifName":"tunnel_32513","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":143,"ifType":71,"ifAlias":"Local
+        Area Connection* 13","ifIndex":10,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Wi-Fi Direct Virtual Adapter #4.","ifName":"wireless_32772","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":145,"ifType":131,"ifAlias":"Local
+        Area Connection* 6","ifIndex":11,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (L2TP).","ifName":"tunnel_32770","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":149,"ifType":131,"ifAlias":"Local
+        Area Connection* 4","ifIndex":13,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (SSTP).","ifName":"tunnel_32768","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":154,"ifType":71,"ifAlias":"Local
+        Area Connection* 2","ifIndex":15,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Wi-Fi Direct Virtual Adapter #2.","ifName":"wireless_32770","physAddr":null,"ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"N","collect":false,"poll":false,"nodeId":2},{"id":156,"ifType":23,"ifAlias":"Local
+        Area Connection* 12","ifIndex":16,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"F5
+        Networks VPN Adapter.","ifName":"ppp_32769","physAddr":"463500000031","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":191,"ifType":6,"ifAlias":"vEthernet
+        (WSL (Hyper-V firewall))-WFP 802.3 MAC Layer LightWeig","ifIndex":34,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #2-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"ethernet_2","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":205,"ifType":6,"ifAlias":"vEthernet
+        (Bridge)-WFP Native MAC Layer LightWeight Filter-0000","ifIndex":46,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #3-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_11","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":179,"ifType":131,"ifAlias":"Local
+        Area Connection* 7","ifIndex":27,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (PPTP).","ifName":"tunnel_32771","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":192,"ifType":71,"ifAlias":"Local
+        Area Connection* 3-WFP Native MAC Layer LightWeight Filter","ifIndex":35,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Wi-Fi Direct Virtual Adapter #3-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"wireless_6","physAddr":"e02be9bd0b01","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":199,"ifType":71,"ifAlias":"Wi-Fi-Native
+        WiFi Filter Driver-0000","ifIndex":40,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Intel(R)
+        Wi-Fi 6 AX201 160MHz-Native WiFi Filter Driver-0000.","ifName":"wireless_2","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":203,"ifType":53,"ifAlias":"Local
+        Area Connection-QoS Packet Scheduler-0000","ifIndex":44,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"TAP-Windows
+        Adapter V9 for OpenVPN Connect-QoS Packet Scheduler-0000.","ifName":"iftype53_1","physAddr":"00ff15782e76","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":210,"ifType":71,"ifAlias":"Wi-Fi-WFP
+        802.3 MAC Layer LightWeight Filter-0000","ifIndex":51,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Intel(R)
+        Wi-Fi 6 AX201 160MHz-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"wireless_4","physAddr":"e02be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":208,"ifType":6,"ifAlias":"Ethernet
+        2-WFP Native MAC Layer LightWeight Filter-0000","ifIndex":49,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Lenovo
+        USB Ethernet-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_14","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":212,"ifType":6,"ifAlias":"vSwitch
+        (WSL (Hyper-V firewall))-Hyper-V Virtual Switch Extensio","ifIndex":52,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Switch Extension Adapter #2-Hyper-V Virtual Switch Extension Filter-0000.","ifName":"ethernet_5","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":213,"ifType":6,"ifAlias":"vSwitch
+        (Default Switch)-Hyper-V Virtual Switch Extension Filter","ifIndex":53,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Switch Extension Adapter-Hyper-V Virtual Switch Extension Filter-0000.","ifName":"ethernet_9","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":217,"ifType":6,"ifAlias":"Local
+        Area Connection* 9-QoS Packet Scheduler-0000","ifIndex":57,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (IP)-QoS Packet Scheduler-0000.","ifName":"ethernet_8","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":140,"ifType":6,"ifAlias":"Loopback","ifIndex":9,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        KM-TEST Loopback Adapter.","ifName":"ethernet_32780","physAddr":"02004c4f4f50","ifSpeed":0,"ifAdminStatus":2,"ifOperStatus":6,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":false,"hasIngressFlows":false,"collectFlag":"N","pollFlag":"P","collect":false,"poll":true,"nodeId":2},{"id":193,"ifType":71,"ifAlias":"Local
+        Area Connection* 3-Native WiFi Filter Driver-0000","ifIndex":36,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Wi-Fi Direct Virtual Adapter #3-Native WiFi Filter Driver-0000.","ifName":"wireless_7","physAddr":"e02be9bd0b01","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":215,"ifType":71,"ifAlias":"Local
+        Area Connection* 13-Native WiFi Filter Driver-0000","ifIndex":55,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Wi-Fi Direct Virtual Adapter #4-Native WiFi Filter Driver-0000.","ifName":"wireless_10","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":236,"ifType":6,"ifAlias":"vEthernet
+        (Default Switch)-WFP 802.3 MAC Layer LightWeight Filte","ifIndex":68,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"ethernet_20","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":200,"ifType":6,"ifAlias":"vSwitch
+        (Bridge)-Hyper-V Virtual Switch Extension Filter-0000","ifIndex":41,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Switch Extension Adapter #3-Hyper-V Virtual Switch Extension Filter-0000.","ifName":"ethernet_0","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952101,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":207,"ifType":6,"ifAlias":"vEthernet
+        (Bridge)-WFP 802.3 MAC Layer LightWeight Filter-0000","ifIndex":48,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #3-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"ethernet_13","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":218,"ifType":6,"ifAlias":"Local
+        Area Connection* 10-WFP Native MAC Layer LightWeight Filte","ifIndex":58,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (IPv6)-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_15","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952147,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":223,"ifType":6,"ifAlias":"Local
+        Area Connection* 11-QoS Packet Scheduler-0000","ifIndex":61,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (Network Monitor)-QoS Packet Scheduler-0000.","ifName":"ethernet_18","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952147,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":206,"ifType":6,"ifAlias":"vEthernet
+        (Bridge)-QoS Packet Scheduler-0000","ifIndex":47,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #3-QoS Packet Scheduler-0000.","ifName":"ethernet_12","physAddr":"5cff35de9e90","ifSpeed":1000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":224,"ifType":6,"ifAlias":"vSwitch
+        (WSL (Hyper-V firewall))","ifIndex":62,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Switch Extension Adapter #2.","ifName":"ethernet_32776","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952147,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":235,"ifType":6,"ifAlias":"vEthernet
+        (Default Switch)-QoS Packet Scheduler-0000","ifIndex":67,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter-QoS Packet Scheduler-0000.","ifName":"ethernet_19","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":233,"ifType":6,"ifAlias":"vEthernet
+        (Default Switch)-WFP Native MAC Layer LightWeight Filt","ifIndex":66,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_6","physAddr":"00155d289082","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":214,"ifType":6,"ifAlias":"vSwitch
+        (WSL (Hyper-V firewall))-Virtual Filtering Platform VMSw","ifIndex":54,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Switch Extension Adapter #2-Virtual Filtering Platform VMSwitch Extension-0000.","ifName":"ethernet_10","physAddr":null,"ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952122,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":230,"ifType":71,"ifAlias":"Local
+        Area Connection* 13-WFP 802.3 MAC Layer LightWeight Filter","ifIndex":64,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Microsoft
+        Wi-Fi Direct Virtual Adapter #4-WFP 802.3 MAC Layer LightWeight Filter-0000.","ifName":"wireless_12","physAddr":"e22be9bd0b00","ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":2,"lastSnmpPoll":null,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"N","collect":true,"poll":false,"nodeId":2},{"id":232,"ifType":6,"ifAlias":"vEthernet
+        (WSL (Hyper-V firewall))","ifIndex":65,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"Hyper-V
+        Virtual Ethernet Adapter #2.","ifName":"ethernet_32777","physAddr":"00155d39000e","ifSpeed":10000000000,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952065,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":219,"ifType":6,"ifAlias":"Local
+        Area Connection* 10-QoS Packet Scheduler-0000","ifIndex":59,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (IPv6)-QoS Packet Scheduler-0000.","ifName":"ethernet_16","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952147,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2},{"id":220,"ifType":6,"ifAlias":"Local
+        Area Connection* 11-WFP Native MAC Layer LightWeight Filte","ifIndex":60,"hasFlows":false,"hasEgressFlows":false,"lastIngressFlow":null,"lastEgressFlow":null,"lastCapsdPoll":1703032241773,"ifDescr":"WAN
+        Miniport (Network Monitor)-WFP Native MAC Layer LightWeight Filter-0000.","ifName":"ethernet_17","physAddr":null,"ifSpeed":0,"ifAdminStatus":1,"ifOperStatus":1,"lastSnmpPoll":1703034952147,"collectionUserSpecified":false,"collectionPolicySpecified":true,"hasIngressFlows":false,"collectFlag":"PC","pollFlag":"P","collect":true,"poll":true,"nodeId":2}]}'
     headers:
       Cache-Control:
       - no-store
@@ -1569,7 +1513,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1603,8 +1547,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/metadata?offset=0&limit=0
   response:
@@ -1624,7 +1566,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
@@ -1654,8 +1596,6 @@ interactions:
       - keep-alive
       User-Agent:
       - python-requests/2.31.0
-      authorization:
-      - REDACTED
     method: GET
     uri: http://localhost:8980/opennms/api/v2/nodes/2/hardwareInventory
   response:
@@ -1675,7 +1615,7 @@ interactions:
       Content-Type:
       - text/plain
       Date:
-      - Wed, 20 Dec 2023 00:26:53 GMT
+      - Wed, 20 Dec 2023 01:17:34 GMT
       Permissions-Policy:
       - accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(),
         cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(),
