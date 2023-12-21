@@ -1,6 +1,12 @@
 # Changelog
 
 
+## [0.1.2] 2023-12-21
+
+### Breaking Change
+
+* Updated `ApiPayloadError` exception to trigger when API returns HTTP 400+.
+
 ## [0.1.1] 2023-12-21
 
 ### Breaking Change
