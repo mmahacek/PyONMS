@@ -4,7 +4,7 @@
 
 import concurrent.futures
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 
 from tqdm import tqdm
 
@@ -223,3 +223,93 @@ class NodeAPI(Endpoint):
             node.hardwareInventory = self._get_node_hardware(node.id)
 
         return node
+
+    def set_node_metadata(
+        self,
+        node: Union[int, pyonms.models.node.Node],
+        metadata: pyonms.models.node.Metadata,
+    ):
+        if isinstance(node, int):
+            node_id = node
+        elif isinstance(node, pyonms.models.node.Node):
+            node_id = node.id
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
+        self._post(url=f"{self.url}/{node_id}/metadata", json=metadata._to_dict())
+
+    def remove_node_metadata(
+        self, node: Union[int, pyonms.models.node.Node], context: str, key: str
+    ):
+        if isinstance(node, int):
+            node_id = node
+        elif isinstance(node, pyonms.models.node.Node):
+            node_id = node.id
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
+        self._delete(url=f"{self.url}/{node_id}/metadata/{context}/{key}")
+
+    def set_ip_metadata(
+        self,
+        node: Union[int, pyonms.models.node.Node],
+        ip: str,
+        metadata: pyonms.models.node.Metadata,
+    ):
+        if isinstance(node, int):
+            node_id = node
+        elif isinstance(node, pyonms.models.node.Node):
+            node_id = node.id
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
+        self._post(
+            url=f"{self.url}/{node_id}/ipinterfaces/{ip}/metadata",
+            json=metadata._to_dict(),
+        )
+
+    def remove_ip_metadata(
+        self, node: Union[int, pyonms.models.node.Node], ip: str, context: str, key: str
+    ):
+        if isinstance(node, int):
+            node_id = node
+        elif isinstance(node, pyonms.models.node.Node):
+            node_id = node.id
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
+        self._delete(
+            url=f"{self.url}/{node_id}/ipinterfaces/{ip}/metadata/{context}/{key}"
+        )
+
+    def set_service_metadata(
+        self,
+        node: Union[int, pyonms.models.node.Node],
+        ip: str,
+        service: str,
+        metadata: pyonms.models.node.Metadata,
+    ):
+        if isinstance(node, int):
+            node_id = node
+        elif isinstance(node, pyonms.models.node.Node):
+            node_id = node.id
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
+        self._post(
+            url=f"{self.url}/{node_id}/ipinterfaces/{ip}/services/{service}/metadata",
+            json=metadata._to_dict(),
+        )
+
+    def remove_service_metadata(
+        self,
+        node: Union[int, pyonms.models.node.Node],
+        ip: str,
+        service: str,
+        context: str,
+        key: str,
+    ):
+        if isinstance(node, int):
+            node_id = node
+        elif isinstance(node, pyonms.models.node.Node):
+            node_id = node.id
+        else:
+            raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
+        self._delete(
+            url=f"{self.url}/{node_id}/ipinterfaces/{ip}/services/{service}/metadata/{context}/{key}"
+        )
