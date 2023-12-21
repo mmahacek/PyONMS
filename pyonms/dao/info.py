@@ -10,7 +10,7 @@ class InfoAPI(Endpoint):
         self.url = self.base_v1 + "info"
 
     def get_info(self) -> pyonms.models.info.Info:
-        record = self._get(uri=f"{self.url}", endpoint="raw")
+        record = self._get(url=f"{self.url}", endpoint="raw")
         if record is not None:
             return self._process_info(record)
         else:

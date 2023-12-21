@@ -122,10 +122,10 @@ class ForeignSource:
             merge (bool, optional): Merge non-null attributes with existing detector in requisition. Set to `False` to overwrite entire detector record. Defaults to `True`.
 
         Raises:
-            pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
+            `NotImplementedError`: If `merge` not set to `False`
         """  # noqa
         if merge:
-            raise exceptions.MethodNotImplemented
+            raise NotImplementedError
         else:
             self.detectors[detector.name] = detector
 
@@ -143,10 +143,10 @@ class ForeignSource:
             merge (bool, optional): Merge non-null attributes with existing policy in requisition. Set to `False` to overwrite entire policy record. Defaults to `True`.
 
         Raises:
-            pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
+            `NotImplementedError`: If `merge` not set to `False`
         """  # noqa
         if merge:
-            raise exceptions.MethodNotImplemented
+            raise NotImplementedError
         else:
             self.policies[policy.name] = policy
 

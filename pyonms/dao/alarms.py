@@ -13,7 +13,7 @@ class AlarmAPI(Endpoint):
         self.url = self.base_v2 + "alarms"
 
     def get_alarm(self, id: int) -> Optional[pyonms.models.alarm.Alarm]:
-        record = self._get(uri=f"{self.url}/{id}")
+        record = self._get(url=f"{self.url}/{id}")
         if record is not None:
             return self._process_alarm(record)
         else:
@@ -48,15 +48,15 @@ class AlarmAPI(Endpoint):
                 name="ack", value=ack, valid="[True, False]"
             )
         params = {"ack": ack}
-        self._put(uri=f"{self.url}/{id}", params=params, data=params)
+        self._put(url=f"{self.url}/{id}", params=params, data=params)
         return
 
     def clear_alarm(self, id: int):
         params = {"clear": True}
-        self._put(uri=f"{self.url}/{id}", params=params, data=params)
+        self._put(url=f"{self.url}/{id}", params=params, data=params)
         return
 
     def escalate_alarm(self, id: int):
         params = {"escalate": True}
-        self._put(uri=f"{self.url}/{id}", params=params, data=params)
+        self._put(url=f"{self.url}/{id}", params=params, data=params)
         return

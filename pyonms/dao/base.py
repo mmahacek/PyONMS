@@ -11,7 +11,11 @@ from tqdm import tqdm
 from urllib3.exceptions import InsecureRequestWarning
 
 import pyonms.utils
-from pyonms.models.exceptions import AuthenticationError, InvalidValueError
+from pyonms.models.exceptions import (
+    ApiPayloadError,
+    AuthenticationError,
+    InvalidValueError,
+)
 
 urllib3.disable_warnings(category=InsecureRequestWarning)
 
@@ -61,7 +65,7 @@ class Endpoint:
             else:
                 params["limit"] = limit
             records = self._get(
-                uri=url,
+                url=url,
                 params=params,
                 endpoint=endpoint,
                 headers=self.headers,
@@ -80,15 +84,15 @@ class Endpoint:
                     pbar.update(1)
                     if params["offset"] >= target_count:
                         return result
-                records = self._get(uri=url, params=params, endpoint=endpoint)
+                records = self._get(url=url, params=params, endpoint=endpoint)
             return result
 
     def _get(
-        self, uri: str, headers: dict = None, params: dict = None, endpoint: str = None
-    ) -> dict:
-        # if self.base_v1 in uri:
+        self, url: str, headers: dict = None, params: dict = None, endpoint: str = None
+    ):
+        # if self.base_v1 in url:
         #    return self._get_v1(
-        #        uri=uri, headers=headers, params=params, endpoint=endpoint
+        #        url=url, headers=headers, params=params, endpoint=endpoint
         #    )
         if not headers:
             headers = {}
@@ -98,7 +102,7 @@ class Endpoint:
             for key, value in self.headers.items():
                 headers[key] = value
         response = requests.get(
-            uri,
+            url,
             auth=self.auth,
             headers=headers,
             params=params,
@@ -106,26 +110,25 @@ class Endpoint:
             timeout=self.timeout,
         )
         if response.status_code == 200:
-            if response.encoding in ("ISO-8859-1") or uri[-5:] in ["probe"]:
+            if response.encoding in ("ISO-8859-1") or url[-5:] in ["probe"]:
                 return response.text
             elif "was not found" not in response.text:
                 return response.json()
         elif response.status_code == 401:
             raise AuthenticationError
-        elif response.status_code in [500]:
-            print(response.text)
-            raise InvalidValueError(name="get", value=uri)
+        elif response.status_code >= 500:
+            raise ApiPayloadError(message=response.text)
         return {}
 
     def _get_v1(
-        self, uri: str, endpoint: str, headers: dict = None, params: dict = None
+        self, url: str, endpoint: str, headers: dict = None, params: dict = None
     ) -> dict:
         if not headers:
             headers = {}
         if not params:
             params = {}
         response = requests.get(
-            uri,
+            url,
             auth=self.auth,
             headers=headers,
             params=params,
@@ -141,15 +144,15 @@ class Endpoint:
                 else:
                     xml_data = pyonms.utils.convert_xml(response.text)
                     return self._convert_v1_to_v2(endpoint, xml_data)
-        elif response.status_code == 599:
-            return response.text
+        elif response.status_code >= 500:
+            raise ApiPayloadError(message=response.text)
         return {}
 
     def _post(
         self,
-        uri: str,
+        url: str,
         headers: dict = None,
-        data: dict = None,
+        data: str = None,
         json: dict = None,
         params: dict = None,
     ) -> requests.Response:
@@ -159,7 +162,7 @@ class Endpoint:
             params = {}
         if json:
             response = requests.post(
-                uri,
+                url,
                 auth=self.auth,
                 headers=headers,
                 json=json,
@@ -169,7 +172,7 @@ class Endpoint:
             )
         elif data:
             response = requests.post(
-                uri,
+                url,
                 auth=self.auth,
                 headers=headers,
                 data=data,
@@ -179,29 +182,31 @@ class Endpoint:
             )
         else:
             response = requests.post(
-                uri,
+                url,
                 auth=self.auth,
                 headers=headers,
                 verify=self.verify_ssl,
                 timeout=self.timeout,
             )
+        if response.status_code >= 500:
+            raise ApiPayloadError(message=response.text)
         return response
 
     def _put(
         self,
-        uri: str,
+        url: str,
         data: dict = None,
         json: dict = None,
         headers: dict = None,
         params: dict = None,
-    ) -> dict:
+    ) -> requests.Response:
         if not headers:
             headers = {}
         if not params:
             params = {}
         if json:
             response = requests.put(
-                uri,
+                url,
                 auth=self.auth,
                 headers=headers,
                 json=json,
@@ -211,7 +216,7 @@ class Endpoint:
             )
         elif data:
             response = requests.put(
-                uri,
+                url,
                 auth=self.auth,
                 headers=headers,
                 data=data,
@@ -220,8 +225,17 @@ class Endpoint:
                 timeout=self.timeout,
             )
         else:
-            return None
-        return response.text
+            response = requests.put(
+                url,
+                auth=self.auth,
+                headers=headers,
+                params=params,
+                verify=self.verify_ssl,
+                timeout=self.timeout,
+            )
+        if response.status_code >= 500:
+            raise ApiPayloadError(message=response.text)
+        return response
 
     def _convert_v1_to_v2(self, endpoint: str, data: dict) -> dict:
         v2_data = {}
@@ -240,17 +254,19 @@ class Endpoint:
                     v2_data[key] = [value["model_import"]]
         return v2_data
 
-    def _delete(self, uri: str, headers: dict = None, params: dict = None) -> dict:
+    def _delete(self, url: str, headers: dict = None, params: dict = None) -> dict:
         if not headers:
             headers = {}
         if not params:
             params = {}
         headers["Accept"] = "application/json"
-        requests.delete(
-            uri,
+        response = requests.delete(
+            url,
             auth=self.auth,
             headers=headers,
             verify=self.verify_ssl,
             timeout=self.timeout,
         )
+        if response.status_code >= 500:
+            raise ApiPayloadError(message=response.text)
         return {}

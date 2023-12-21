@@ -5,7 +5,7 @@
 
 A Python library for accessing the OpenNMS REST API.
 
-This is being developed with Python 3.10 and OpenNMS 31.
+This is being developed with Python 3.11 and OpenNMS 32.
 It may work on older versions, but they haven't been tested yet.
 
 - [OpenNMS REST API documentation](https://docs.opennms.com/horizon/31/development/rest/rest-api.html)
@@ -29,7 +29,7 @@ Currently supported endpoints include:
 * Health (read-only)
 * Info (read-only)
 * IP Interfaces (read-only)
-* Nodes (read-only)
+* Nodes (read, metadata modify requires Horizon 32.0.6+ or Meridian 2023.1.11+)
 * RequisitionNodes (read-only)
 * Requisitions (read-write)
 * User Defined Links (read-write)

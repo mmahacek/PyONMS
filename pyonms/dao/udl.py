@@ -14,7 +14,7 @@ class UDLAPI(Endpoint):
         self.url = self.base_v2 + "userdefinedlinks"
 
     def get_link(self, id: int) -> Optional[pyonms.models.udl.UserDefinedLink]:
-        record = self._get(uri=f"{self.url}/{id}")
+        record = self._get(url=f"{self.url}/{id}")
         if record not in [None, {}]:
             return self._process_udl(record)
         else:
@@ -47,11 +47,11 @@ class UDLAPI(Endpoint):
         return pyonms.models.udl.UserDefinedLink(**clean_data)
 
     def delete_link(self, id: int) -> bool:
-        x = self._delete(uri=f"{self.url}/{id}")
+        x = self._delete(url=f"{self.url}/{id}")
         return x
 
     def create_link(self, link: pyonms.models.udl.UserDefinedLink) -> bool:
-        x = self._post(uri=self.url, json=link._to_dict())
+        x = self._post(url=self.url, json=link._to_dict())
         if x.status_code == 201:
             return True
         else:

@@ -239,13 +239,13 @@ class RequisitionNode:
             merge (bool, optional): Merge non-null attributes with existing interface in requisition. Set to `False` to overwrite entire node record. Defaults to `True`.
 
         Raises:
-            pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
+            `NotImplementedError`: If `merge` not set to `False`
         """  # noqa
         if merge:
             if interface.ip_addr not in self.interface.keys():
                 self.interface[interface.ip_addr] = interface
             else:
-                raise exceptions.MethodNotImplemented
+                raise NotImplementedError
         else:
             self.interface[interface.ip_addr] = interface
 
@@ -269,7 +269,7 @@ class RequisitionNode:
             self.interface[new_ip].ip_addr = new_ip
             del self.interface[old_ip]
         else:
-            raise exceptions.DuplicateEntityError(name="IP Address", value=new_ip)
+            raise exceptions.DuplicateEntityError(name="IP Address", model=type(new_ip))
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the node.
@@ -356,13 +356,13 @@ class Requisition:
             merge (bool, optional): Merge non-null attributes with existing node in requisition. Set to `False` to overwrite entire node record. Defaults to `True`.
 
         Raises:
-            pyonms.models.exceptions.MethodNotImplemented: If `merge` not set to `False`
+            `NotImplementedError`: If `merge` not set to `False`
         """  # noqa
         if merge:
             if node.foreign_id not in self.node.keys():
                 self.node[node.foreign_id] = node
             else:
-                raise exceptions.MethodNotImplemented
+                raise NotImplementedError
         else:
             self.node[node.foreign_id] = node
 

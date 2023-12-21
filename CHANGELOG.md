@@ -1,6 +1,28 @@
 # Changelog
 
 
+## [0.1.1] 2023-12-21
+
+### Breaking Change
+
+* Add `ApiPayloadError` exception when API returns HTTP 500-599. Previously many error responses were steamrolled over.
+
+### What's Changed
+
+* Renamed internal `uri` parameters to be `url`.
+* Deprecate `MethodNotImplemented` exception.  Replaced with base `NotImplementedError`.
+* Docstring updates to satisfy pylint.
+* Prevent `Event.id` from being sent as part of the event payload when posting to the `events` endpoint.
+* Update `get_foreign_sources()` and `get_requisitions()` to no longer use custom `_get()` method.
+* `Endpoint._put()` method now returns the `Requests.Response` object instead of null.
+* Tweaks to testing framework settings.
+* Added `NodeComponents.NONE` option.
+* Fix type hint on `Endpoint_post.data` attribute.
+* Add Node/IP/Service metadata modification to the `Nodes` endpoint.
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
+
+
 ## [0.0.13] 2023-12-1
 
 ### What's Changed

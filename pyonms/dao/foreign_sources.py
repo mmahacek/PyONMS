@@ -2,7 +2,7 @@
 
 from typing import List, Optional
 
-import requests
+from requests import Response
 
 import pyonms.models.foreign_source
 from pyonms.dao.base import Endpoint
@@ -16,7 +16,7 @@ class ForeignSourceAPI(Endpoint):
     def get_foreign_source(
         self, name: str
     ) -> Optional[pyonms.models.foreign_source.ForeignSource]:
-        record = self._get(uri=f"{self.url}/{name}", endpoint="foreignSources")
+        record = self._get(url=f"{self.url}/{name}", endpoint="foreignSources")
         if record is not None:
             return self._process_foreign_source(record)
         else:
@@ -24,11 +24,12 @@ class ForeignSourceAPI(Endpoint):
 
     def get_foreign_sources(
         self,
-        limit=100,
-        batch_size=100,
     ) -> List[Optional[pyonms.models.foreign_source.ForeignSource]]:
         foreign_sources = []
-        records = self._get(uri=f"{self.url}", endpoint="foreignSources")
+        records = self._get(
+            url=self.url,
+            endpoint="foreignSources",
+        )
         if records == [None]:
             return [None]
         for record in records["foreignSources"]:
@@ -54,22 +55,10 @@ class ForeignSourceAPI(Endpoint):
                 del entry["class"]
         return pyonms.models.foreign_source.ForeignSource(**data)
 
-    def _get(
-        self, uri: str, headers: dict = {}, params: dict = {}, endpoint: str = ""
-    ) -> dict:
-        headers["Accept"] = "application/json"
-        response = requests.get(
-            uri, auth=self.auth, headers=headers, params=params, verify=self.verify_ssl
-        )
-        if response.status_code == 200:
-            if "was not found" not in response.text:
-                return response.json()
-        return {}
-
     def update_foreign_source(
         self, foreign_source: pyonms.models.foreign_source.ForeignSource
-    ):
+    ) -> Response:
         response = self._post(
-            uri=self.url, headers=self.headers, json=foreign_source._to_dict()
+            url=self.url, headers=self.headers, json=foreign_source._to_dict()
         )
         return response

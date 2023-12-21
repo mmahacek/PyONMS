@@ -52,9 +52,9 @@ class AuthenticationError(Exception):
         super().__init__(self.message)
 
 
-class MethodNotImplemented(Exception):
-    """Placeholder for missing features"""
+class ApiPayloadError(Exception):
+    """API Payload error"""
 
-    def __init__(self):
-        self.message = "The requested method is not yet implemented."
+    def __init__(self, message: str):
+        self.message = message
         super().__init__(self.message)
