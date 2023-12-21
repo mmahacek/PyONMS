@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [0.1.1] TBD
+## [0.1.1] 2023-12-21
 
 ### Breaking Change
 
