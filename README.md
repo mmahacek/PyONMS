@@ -29,7 +29,7 @@ Currently supported endpoints include:
 * Health (read-only)
 * Info (read-only)
 * IP Interfaces (read-only)
-* Nodes (read-only)
+* Nodes (read, metadata modify requires Horizon 32.0.6+ or Meridian 2023.1.11+)
 * RequisitionNodes (read-only)
 * Requisitions (read-write)
 * User Defined Links (read-write)
