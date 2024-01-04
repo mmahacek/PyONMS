@@ -116,7 +116,7 @@ class Endpoint:
                 return response.json()
         elif response.status_code == 401:
             raise AuthenticationError
-        elif response.status_code >= 500:
+        elif response.status_code >= 400:
             raise ApiPayloadError(message=response.text)
         return {}
 
@@ -144,7 +144,7 @@ class Endpoint:
                 else:
                     xml_data = pyonms.utils.convert_xml(response.text)
                     return self._convert_v1_to_v2(endpoint, xml_data)
-        elif response.status_code >= 500:
+        elif response.status_code >= 400:
             raise ApiPayloadError(message=response.text)
         return {}
 
@@ -152,7 +152,7 @@ class Endpoint:
         self,
         url: str,
         headers: dict = None,
-        data: dict = None,
+        data: str = None,
         json: dict = None,
         params: dict = None,
     ) -> requests.Response:
@@ -188,7 +188,7 @@ class Endpoint:
                 verify=self.verify_ssl,
                 timeout=self.timeout,
             )
-        if response.status_code >= 500:
+        if response.status_code >= 400:
             raise ApiPayloadError(message=response.text)
         return response
 
@@ -233,7 +233,7 @@ class Endpoint:
                 verify=self.verify_ssl,
                 timeout=self.timeout,
             )
-        if response.status_code >= 500:
+        if response.status_code >= 400:
             raise ApiPayloadError(message=response.text)
         return response
 
@@ -267,6 +267,6 @@ class Endpoint:
             verify=self.verify_ssl,
             timeout=self.timeout,
         )
-        if response.status_code >= 500:
+        if response.status_code >= 400:
             raise ApiPayloadError(message=response.text)
         return {}

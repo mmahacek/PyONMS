@@ -1,7 +1,13 @@
 # Changelog
 
 
-## [0.1.1] TBD
+## [0.1.2] 2023-12-21
+
+### Breaking Change
+
+* Updated `ApiPayloadError` exception to trigger when API returns HTTP 400+.
+
+## [0.1.1] 2023-12-21
 
 ### Breaking Change
 
@@ -17,6 +23,8 @@
 * `Endpoint._put()` method now returns the `Requests.Response` object instead of null.
 * Tweaks to testing framework settings.
 * Added `NodeComponents.NONE` option.
+* Fix type hint on `Endpoint_post.data` attribute.
+* Add Node/IP/Service metadata modification to the `Nodes` endpoint.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
 
