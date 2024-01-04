@@ -31,7 +31,7 @@ class NodeAPI(Endpoint):
         self, id: int, components: List[NodeComponents] = None
     ) -> Optional[pyonms.models.node.Node]:
         if not components:
-            components = [NodeComponents.ALL]
+            components = [NodeComponents.NONE]
         record = self._get(url=f"{self.url}/{id}")
         if record is not None:
             return self._process_node(record, components=components)
@@ -47,7 +47,7 @@ class NodeAPI(Endpoint):
         threads: int = 10,
     ) -> List[Optional[pyonms.models.node.Node]]:
         if not components:
-            components = [NodeComponents.ALL]
+            components = [NodeComponents.NONE]
         devices = []
         params = {}
         if fiql:
