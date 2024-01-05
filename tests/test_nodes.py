@@ -5,6 +5,7 @@
 from datetime import datetime
 
 import pytest
+import pytz
 
 from pyonms import PyONMS
 from pyonms.dao.nodes import NodeComponents
@@ -74,7 +75,9 @@ def test_node_ip_services(test_instance: PyONMS):
     assert isinstance(test_services[0], Service)
     assert len(test_services) == 5
     assert test_services[0].id == 9
-    assert test_services[0].lastGood == datetime(2024, 1, 4, 17, 45, 5, 647000)
+    assert test_services[0].lastGood == datetime(2024, 1, 4, 17, 45, 5, 647000).replace(
+        tzinfo=pytz.timezone("US/Pacific")
+    )
     assert test_services[0].serviceType.id == 6
 
 
