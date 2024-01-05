@@ -1,11 +1,22 @@
 # Changelog
 
 
+## [0.1.3] TBD
+
+### What's Changed
+
+* Revert nodes get functions to default components to `NodeComponents.NONE` instead of `ALL`.
+* Update testing/linting configuration.
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.2...v0.1.3
+
 ## [0.1.2] 2023-12-21
 
 ### Breaking Change
 
 * Updated `ApiPayloadError` exception to trigger when API returns HTTP 400+.
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.1...v0.1.2
 
 ## [0.1.1] 2023-12-21
 
@@ -26,7 +37,7 @@
 * Fix type hint on `Endpoint_post.data` attribute.
 * Add Node/IP/Service metadata modification to the `Nodes` endpoint.
 
-**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.1.1
 
 
 ## [0.0.13] 2023-12-1
