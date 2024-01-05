@@ -1,5 +1,7 @@
 # tests.test_requisitions.py
 
+# pylint: disable=C0114,C0116,W0621,W0212
+
 import pytest
 
 from pyonms import PyONMS

@@ -1,5 +1,7 @@
 # tests.test_events.py
 
+# pylint: disable=C0114,C0116,W0621
+
 from datetime import datetime
 
 import pytest

@@ -1,5 +1,7 @@
 # tests.test_nodes.py
 
+# pylint: disable=C0114,C0116,W0621,W0212
+
 from datetime import datetime
 
 import pytest
@@ -19,7 +21,9 @@ from pyonms.models.node import (
 
 @pytest.mark.vcr()
 def test_node_one(test_instance: PyONMS):
-    test_node = test_instance.nodes.get_node(id=2)
+    test_node = test_instance.nodes.get_node(
+        id=2, components=[NodeComponents.IP, NodeComponents.SNMP, NodeComponents.SNMP]
+    )
     assert isinstance(test_node, Node)
     assert test_node.id == 2
     assert test_node.label == "remwmmaha2"
