@@ -10,6 +10,9 @@ jobs:
         python-version: ["3.11"]
 
     steps:
+      - uses: szenius/set-timezone@v1.2
+        with:
+          timezoneLinux: "Americas/Los_Angeles"
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
