@@ -74,7 +74,7 @@ def test_node_ip_services(test_instance: PyONMS):
     assert isinstance(test_services[0], Service)
     assert len(test_services) == 5
     assert test_services[0].id == 9
-    assert test_services[0].lastGood == datetime(2023, 12, 19, 17, 15, 44, 121000)
+    assert test_services[0].lastGood == datetime(2024, 1, 4, 17, 45, 5, 647000)
     assert test_services[0].serviceType.id == 6
 
 
