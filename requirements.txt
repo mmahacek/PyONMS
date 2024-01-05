@@ -2,7 +2,6 @@ requests
 python-dotenv
 pytest
 pytest-vcr
-pytz
 xmltodict
 tqdm
 pdoc
