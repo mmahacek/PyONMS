@@ -67,6 +67,8 @@ class PyONMS:
         """`pyonms.dao.alarms.AlarmAPI` endpoint"""
         self.bsm = dao.business_services.BSMAPI(args)
         """`pyonms.dao.business_services.BSMAPI` endpoint"""
+        self.enlinkd = dao.enlinkd.EnlinkdAPI(args)
+        """`pyonms.dao.enlinkd.EnlinkdAPI` endpoint"""
         self.events = dao.events.EventAPI(args)
         """`pyonms.dao.events.EventAPI` endpoint"""
         self.fs = dao.foreign_sources.ForeignSourceAPI(args)

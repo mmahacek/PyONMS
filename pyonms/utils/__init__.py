@@ -3,20 +3,38 @@
 """Helper Utilities"""
 
 from collections import OrderedDict
-from datetime import datetime  # , timezone
+from datetime import datetime, timezone
 from typing import Union
 
+import pytz
 import xmltodict
 
 
-def convert_time(time: int) -> datetime:
+def convert_time(time: int, zone: str = None) -> datetime:
     """Convert epoch to `datetime`"""
     if isinstance(time, int):
         time_stamp = datetime.fromtimestamp(time / 1000)
-        # time_stamp.replace(tzinfo=timezone.utc)
+        if isinstance(zone, str):
+            time_stamp.replace(tzinfo=pytz.timezone(zone))
+        elif isinstance(zone, timezone):
+            time_stamp.replace(tzinfo=zone)
         return time_stamp
     else:
-        return None
+        raise ValueError
+
+
+def convert_link_time(time: str, zone: Union[str, timezone] = None) -> datetime:
+    """Convert enlinkd time to `datetime`"""
+    if isinstance(time, str):
+        pattern = "%m/%d/%y, %I:%M:%S %p"
+        link_time = datetime.strptime(time, pattern)
+        if isinstance(zone, str):
+            link_time.replace(tzinfo=pytz.timezone(zone))
+        elif isinstance(zone, timezone):
+            link_time.replace(tzinfo=zone)
+        return link_time
+    else:
+        raise ValueError
 
 
 def convert_xml(data: str) -> dict:

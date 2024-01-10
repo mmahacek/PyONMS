@@ -1,5 +1,6 @@
 requests
 python-dotenv
+pytz
 pytest
 pytest-vcr
 xmltodict

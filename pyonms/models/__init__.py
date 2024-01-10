@@ -3,6 +3,7 @@
 from pyonms.models import (
     alarm,
     business_service,
+    enlinkd,
     event,
     exceptions,
     foreign_source,

@@ -27,6 +27,7 @@ Currently supported endpoints include:
 
 * Alarms (read-write)
 * Business Services (read-write)
+* Enlinkd (read-only)
 * Events (read, send)
 * Foreign Sources (read-write)
 * Health (read-only)

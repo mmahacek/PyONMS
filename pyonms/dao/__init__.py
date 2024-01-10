@@ -3,6 +3,7 @@
 from pyonms.dao import (
     alarms,
     business_services,
+    enlinkd,
     events,
     foreign_sources,
     health,
