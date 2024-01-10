@@ -3,11 +3,13 @@
 """Helper Utilities"""
 
 from collections import OrderedDict
-from datetime import datetime, timezone
+from datetime import datetime, timezone, tzinfo
 from typing import Union
 
 import pytz
 import xmltodict
+
+LINK_TIME_PATTERN = "%m/%d/%y, %I:%M:%S %p"
 
 
 def convert_time(time: int, zone: str = None) -> datetime:
@@ -18,11 +20,13 @@ def convert_time(time: int, zone: str = None) -> datetime:
         time_stamp = datetime.fromtimestamp(time / 1000)
         if isinstance(zone, str):
             time_stamp.replace(tzinfo=pytz.timezone(zone))
-        elif isinstance(zone, timezone):
+        elif isinstance(zone, Union[timezone, tzinfo]):
             time_stamp.replace(tzinfo=zone)
+        elif zone:
+            raise ValueError("Timezone is not a valid type")
         return time_stamp
     else:
-        raise ValueError
+        raise ValueError("Time value not an integer")
 
 
 def convert_link_time(time: str, zone: Union[str, timezone] = None) -> datetime:
@@ -30,15 +34,18 @@ def convert_link_time(time: str, zone: Union[str, timezone] = None) -> datetime:
     if not time:
         return None
     if isinstance(time, str):
-        pattern = "%m/%d/%y, %I:%M:%S %p"
-        link_time = datetime.strptime(time, pattern)
+        link_time = datetime.strptime(time, LINK_TIME_PATTERN)
         if isinstance(zone, str):
             link_time.replace(tzinfo=pytz.timezone(zone))
-        elif isinstance(zone, timezone):
+        elif isinstance(zone, Union[timezone, tzinfo]):
             link_time.replace(tzinfo=zone)
+        elif zone:
+            raise ValueError("Timezone is not a valid type")
         return link_time
     else:
-        raise ValueError
+        raise ValueError(
+            f"time data '{time}' does not match format '{LINK_TIME_PATTERN}'"
+        )
 
 
 def convert_xml(data: str) -> dict:

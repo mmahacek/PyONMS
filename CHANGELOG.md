@@ -8,6 +8,7 @@
 * Revert nodes get functions to default components to `NodeComponents.NONE` instead of `ALL`.
 * Added `Enlkind` endpoint and models.
 * Update testing/linting configuration.
+* Add testing for `utils` methods.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.2...v0.1.3
 
