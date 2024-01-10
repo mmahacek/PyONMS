@@ -12,6 +12,8 @@ import xmltodict
 
 def convert_time(time: int, zone: str = None) -> datetime:
     """Convert epoch to `datetime`"""
+    if not time:
+        return None
     if isinstance(time, int):
         time_stamp = datetime.fromtimestamp(time / 1000)
         if isinstance(zone, str):
@@ -25,6 +27,8 @@ def convert_time(time: int, zone: str = None) -> datetime:
 
 def convert_link_time(time: str, zone: Union[str, timezone] = None) -> datetime:
     """Convert enlinkd time to `datetime`"""
+    if not time:
+        return None
     if isinstance(time, str):
         pattern = "%m/%d/%y, %I:%M:%S %p"
         link_time = datetime.strptime(time, pattern)
