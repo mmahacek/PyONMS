@@ -12,16 +12,21 @@ import pytz
 from pyonms import utils
 
 
-def test_convert_time_null():
-    assert utils.convert_time(time=None) == None
+def test_convert_time():
+    # Test if value is `None`
+    assert utils.convert_time(time=None) is None
 
-
-def test_convert_time_valid():
+    # Test if value is valid millisecond timestamp
     converted_time = utils.convert_time(time=1704904715000)
     assert isinstance(converted_time, datetime)
 
+    # Test if value is not a valid data type
+    with pytest.raises(ValueError, match="Time value not an integer"):
+        utils.convert_time(time="now")
 
-def test_convert_time_with_zone_valid():
+
+def test_convert_time_with_zone():
+    # Test for valid parameters
     converted_time = utils.convert_time(time=1704904715000, zone="US/Eastern")
     assert isinstance(converted_time, datetime)
     converted_time = utils.convert_time(
@@ -29,47 +34,22 @@ def test_convert_time_with_zone_valid():
     )
     assert isinstance(converted_time, datetime)
 
-
-def test_convert_time_with_zone_invalid():
-    with pytest.raises(pytz.exceptions.UnknownTimeZoneError, match="'Neverland'"):
-        utils.convert_time(time=1704904715000, zone="Neverland")
+    # Test for invalid timezone
+    with pytest.raises(pytz.exceptions.UnknownTimeZoneError, match="'Apex'"):
+        utils.convert_time(time=1704904715000, zone="Apex")
     with pytest.raises(ValueError, match="Timezone is not a valid type"):
         utils.convert_time(time=1704904715000, zone=1245)
 
 
-def test_convert_time_invalid():
-    with pytest.raises(ValueError, match="Time value not an integer"):
-        utils.convert_time(time="now")
+def test_convert_link_time():
+    # Test if value is `None`
+    assert utils.convert_link_time(time=None) is None
 
-
-def test_convert_link_time_null():
-    assert utils.convert_link_time(time=None) == None
-
-
-def test_convert_link_time_valid():
+    # Test if value is valid enlinkd time string
     converted_time = utils.convert_link_time(time="01/01/24, 12:00:00 am")
     assert isinstance(converted_time, datetime)
 
-
-def test_convert_link_time_with_zone_valid():
-    converted_time = utils.convert_link_time(
-        time="01/01/24, 12:00:00 am", zone="US/Eastern"
-    )
-    assert isinstance(converted_time, datetime)
-    converted_time = utils.convert_link_time(
-        time="01/01/24, 12:00:00 am", zone=pytz.timezone("US/Eastern")
-    )
-    assert isinstance(converted_time, datetime)
-
-
-def test_convert_link_time_with_zone_invalid():
-    with pytest.raises(pytz.exceptions.UnknownTimeZoneError, match="'Neverland'"):
-        utils.convert_link_time(time="01/01/24, 12:00:00 am", zone="Neverland")
-    with pytest.raises(ValueError, match="Timezone is not a valid type"):
-        utils.convert_link_time(time="01/01/24, 12:00:00 am", zone=12345)
-
-
-def test_convert_link_time_invalid():
+    # Test if value is not valid enlinkd time string
     time_values = ["now", 1704904715000]
     for time_value in time_values:
         with pytest.raises(
@@ -79,8 +59,34 @@ def test_convert_link_time_invalid():
             utils.convert_link_time(time=time_value)
 
 
-def test_convert_xml_valid():
-    source = '<nodes><node label="name"><interface>int1</interface><interface>int2</interface></node><node label="name2"></node></nodes>'
+def test_convert_link_time_with_zone():
+    # Test for valid parameters
+    converted_time = utils.convert_link_time(
+        time="01/01/24, 12:00:00 am", zone="US/Eastern"
+    )
+    assert isinstance(converted_time, datetime)
+    converted_time = utils.convert_link_time(
+        time="01/01/24, 12:00:00 am", zone=pytz.timezone("US/Eastern")
+    )
+    assert isinstance(converted_time, datetime)
+
+    # Test for invalid timezone
+    with pytest.raises(pytz.exceptions.UnknownTimeZoneError, match="'Apex'"):
+        utils.convert_link_time(time="01/01/24, 12:00:00 am", zone="Apex")
+    with pytest.raises(ValueError, match="Timezone is not a valid type"):
+        utils.convert_link_time(time="01/01/24, 12:00:00 am", zone=12345)
+
+
+def test_convert_xml():
+    # Test for valid XML
+    source = """
+    <nodes>
+        <node label="name">
+            <interface>int1</interface>
+            <interface>int2</interface>
+        </node>
+        <node label="name2"/>
+    </nodes>"""
     destination = {
         "nodes": {
             "node": [
@@ -93,13 +99,12 @@ def test_convert_xml_valid():
     assert isinstance(conversion, dict)
     assert conversion == destination
 
-
-def test_convert_xml_invalid():
+    # Test for invalid XML
     with pytest.raises(ExpatError):
         assert utils.convert_xml("hello")
 
 
-def test_normailize_dict():
+def test_normalize_dict():
     source = OrderedDict(
         {
             "nodes": {

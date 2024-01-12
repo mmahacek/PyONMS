@@ -9,6 +9,7 @@
 * Added `Enlkind` endpoint and models.
 * Update testing/linting configuration.
 * Add testing for `utils` methods.
+* Add `mypy` for type checking during development.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.2...v0.1.3
 
