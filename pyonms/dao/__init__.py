@@ -1,5 +1,7 @@
 # dao.__init__.py
 
+"DAO module"
+
 from pyonms.dao import (
     alarms,
     business_services,

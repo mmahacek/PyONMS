@@ -1,5 +1,7 @@
 # models.__init__.py
 
+"Models module"
+
 from pyonms.models import (
     alarm,
     business_service,

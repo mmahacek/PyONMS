@@ -2,13 +2,13 @@
 
 """Custom exception model"""
 
-from typing import List
+from typing import List, Optional
 
 
 class StringLengthError(Exception):
     """String length too long error"""
 
-    def __init__(self, length: int, value: str = None):
+    def __init__(self, length: int, value: Optional[str] = None):
         self.max_length = length
         self.value = value
         self.message = f"String length must be under {self.max_length} characters."
@@ -26,7 +26,7 @@ class DuplicateEntityError(Exception):
         if isinstance(self.model, str):
             model_type = self.model
         else:
-            model_type = type(self.model)
+            model_type = str(type(self.model))
         self.message = f"A {model_type} object named {self.name} already exists."
         super().__init__(self.message)
 
@@ -34,7 +34,7 @@ class DuplicateEntityError(Exception):
 class InvalidValueError(Exception):
     """Invalid value error"""
 
-    def __init__(self, name: str, value: str, valid: List[str] = None):
+    def __init__(self, name: str, value: str, valid: Optional[List[str]] = None):
         self.name = name
         self.value = value
         self.valid = valid
