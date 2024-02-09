@@ -6,7 +6,7 @@ import re
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
-from typing import List, Union
+from typing import List, Optional, Union
 
 from pyonms import utils
 
@@ -36,14 +36,14 @@ class Element:
 @dataclass
 class BridgeLinkRemoteNode:
     "Bridge Link Remote Node"
-    bridgeRemote: str = None
-    bridgeRemoteUrl: str = None
-    bridgeRemotePort: str = None
-    bridgeRemotePortUrl: str = None
-    bridgeRemoteNodeId: int = None
-    bridgeRemoteMAC: str = None
-    bridgeRemoteIfIndex: int = None
-    bridgeRemoteIP: str = None
+    bridgeRemote: Optional[str] = None
+    bridgeRemoteUrl: Optional[str] = None
+    bridgeRemotePort: Optional[str] = None
+    bridgeRemotePortUrl: Optional[str] = None
+    bridgeRemoteNodeId: Optional[int] = None
+    bridgeRemoteMAC: Optional[str] = None
+    bridgeRemoteIfIndex: Optional[int] = None
+    bridgeRemoteIP: Optional[str] = None
 
     def __post_init__(self):
         if self.bridgeRemoteUrl:
@@ -62,16 +62,18 @@ class BridgeLinkRemoteNode:
 @dataclass
 class BridgeLink(Link):
     "Bridge Link"
-    bridgeLocalPort: str = None
-    bridgeLocalPortUrl: str = None
-    bridgeInfo: str = None
-    bridgeLinkCreateTime: Union[str, datetime] = None
-    bridgeLinkLastPollTime: Union[str, datetime] = None
-    BridgeLinkRemoteNodes: List[BridgeLinkRemoteNode] = field(default_factory=list)
+    bridgeLocalPort: Optional[str] = None
+    bridgeLocalPortUrl: Optional[str] = None
+    bridgeInfo: Optional[str] = None
+    bridgeLinkCreateTime: Optional[Union[str, datetime]] = None
+    bridgeLinkLastPollTime: Optional[Union[str, datetime]] = None
+    BridgeLinkRemoteNodes: List[Optional[BridgeLinkRemoteNode]] = field(
+        default_factory=list
+    )
     linkType = LinkType.BRIDGE
-    bridgeLocalNodeId: int = None
-    bridgeLocalMAC: str = None
-    bridgeLocalIfIndex: int = None
+    bridgeLocalNodeId: Optional[int] = None
+    bridgeLocalMAC: Optional[str] = None
+    bridgeLocalIfIndex: Optional[int] = None
 
     def __post_init__(self):
         if isinstance(self.bridgeLinkCreateTime, str):
@@ -101,21 +103,21 @@ class BridgeLink(Link):
 @dataclass
 class CdpLink(Link):
     "CDP Link"
-    cdpLocalPort: str = None
-    cdpLocalPortUrl: str = None
-    cdpCacheDevice: str = None
-    cdpCacheDeviceUrl: str = None
-    cdpCacheDevicePort: str = None
-    cdpCacheDevicePortUrl: str = None
-    cdpCachePlatform: str = None
-    cdpCreateTime: Union[str, datetime] = None
-    cdpLastPollTime: Union[str, datetime] = None
+    cdpLocalPort: Optional[str] = None
+    cdpLocalPortUrl: Optional[str] = None
+    cdpCacheDevice: Optional[str] = None
+    cdpCacheDeviceUrl: Optional[str] = None
+    cdpCacheDevicePort: Optional[str] = None
+    cdpCacheDevicePortUrl: Optional[str] = None
+    cdpCachePlatform: Optional[str] = None
+    cdpCreateTime: Optional[Union[str, datetime]] = None
+    cdpLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.CDP
-    cdpLocalNodeId: int = None
-    cdpCacheDeviceNodeId: int = None
-    cdpLocalIfIndex: int = None
-    cdpCacheDeviceIfIndex: int = None
-    cdpCacheDeviceIP: str = None
+    cdpLocalNodeId: Optional[int] = None
+    cdpCacheDeviceNodeId: Optional[int] = None
+    cdpLocalIfIndex: Optional[int] = None
+    cdpCacheDeviceIfIndex: Optional[int] = None
+    cdpCacheDeviceIP: Optional[str] = None
 
     def __post_init__(self):
         if isinstance(self.cdpCreateTime, str):
@@ -141,25 +143,25 @@ class CdpLink(Link):
 @dataclass
 class IsIsLink(Link):
     "IS-IS Link"
-    isisCircIfIndex: int = None
-    isisCircAdminState: str = None
-    isisISAdjNeighSysID: str = None
-    isisISAdjNeighSysType: str = None
-    isisISAdjNeighSysUrl: str = None
-    isisISAdjNeighSNPAAddress: str = None
-    isisISAdjNeighPort: str = None
-    isisISAdjState: str = None
-    isisISAdjNbrExtendedCircID: int = None
-    isisISAdjUrl: str = None
-    isisLinkCreateTime: Union[str, datetime] = None
-    isisLinkLastPollTime: Union[str, datetime] = None
+    isisCircIfIndex: Optional[int] = None
+    isisCircAdminState: Optional[str] = None
+    isisISAdjNeighSysID: Optional[str] = None
+    isisISAdjNeighSysType: Optional[str] = None
+    isisISAdjNeighSysUrl: Optional[str] = None
+    isisISAdjNeighSNPAAddress: Optional[str] = None
+    isisISAdjNeighPort: Optional[str] = None
+    isisISAdjState: Optional[str] = None
+    isisISAdjNbrExtendedCircID: Optional[int] = None
+    isisISAdjUrl: Optional[str] = None
+    isisLinkCreateTime: Optional[Union[str, datetime]] = None
+    isisLinkLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.ISIS
-    isisLocalNodeId: int = None
-    isisRemNodeId: int = None
-    isisLocalMAC: str = None
-    isisRemMAC: str = None
-    isisLocalIfIndex: int = None
-    isisRemIfIndex: int = None
+    isisLocalNodeId: Optional[int] = None
+    isisRemNodeId: Optional[int] = None
+    isisLocalMAC: Optional[str] = None
+    isisRemMAC: Optional[str] = None
+    isisLocalIfIndex: Optional[int] = None
+    isisRemIfIndex: Optional[int] = None
 
     def __post_init__(self):
         if isinstance(self.isisLinkCreateTime, str):
@@ -173,21 +175,21 @@ class IsIsLink(Link):
 @dataclass
 class LldpLink(Link):
     "LLDP Link"
-    lldpLocalPort: str = None
-    lldpLocalPortUrl: str = None
-    lldpRemChassisId: str = None
-    lldpRemChassisIdUrl: str = None
-    lldpRemInfo: str = None
-    ldpRemPort: str = None
-    lldpCreateTime: Union[str, datetime] = None
-    lldpLastPollTime: Union[str, datetime] = None
+    lldpLocalPort: Optional[str] = None
+    lldpLocalPortUrl: Optional[str] = None
+    lldpRemChassisId: Optional[str] = None
+    lldpRemChassisIdUrl: Optional[str] = None
+    lldpRemInfo: Optional[str] = None
+    ldpRemPort: Optional[str] = None
+    lldpCreateTime: Optional[Union[str, datetime]] = None
+    lldpLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.LLDP
-    lldpLocalNodeId: int = None
-    lldpRemNodeId: int = None
-    lldpLocalMAC: str = None
-    lldpRemMAC: str = None
-    lldpLocalIfIndex: int = None
-    lldpRemIfIndex: int = None
+    lldpLocalNodeId: Optional[int] = None
+    lldpRemNodeId: Optional[int] = None
+    lldpLocalMAC: Optional[str] = None
+    lldpRemMAC: Optional[str] = None
+    lldpLocalIfIndex: Optional[int] = None
+    lldpRemIfIndex: Optional[int] = None
 
     def __post_init__(self):
         if isinstance(self.lldpCreateTime, str):
@@ -215,22 +217,22 @@ class LldpLink(Link):
 @dataclass
 class OspfLink(Link):
     "OSPF Link"
-    ospfLocalPort: str = None
-    ospfLocalPortUrl: str = None
-    ospfRemRouterId: str = None
-    ospfRemRouterUrl: str = None
-    ospfRemPort: str = None
-    ospfRemPortUrl: str = None
-    ospfLinkInfo: str = None
-    ospfLinkCreateTime: Union[str, datetime] = None
-    ospfLinkLastPollTime: Union[str, datetime] = None
+    ospfLocalPort: Optional[str] = None
+    ospfLocalPortUrl: Optional[str] = None
+    ospfRemRouterId: Optional[str] = None
+    ospfRemRouterUrl: Optional[str] = None
+    ospfRemPort: Optional[str] = None
+    ospfRemPortUrl: Optional[str] = None
+    ospfLinkInfo: Optional[str] = None
+    ospfLinkCreateTime: Optional[Union[str, datetime]] = None
+    ospfLinkLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.OSPF
-    ospfLocalNodeId: int = None
-    ospfRemNodeId: int = None
-    ospfLocalMAC: str = None
-    ospfRemMAC: str = None
-    ospfLocalIfIndex: int = None
-    ospfRemIfIndex: int = None
+    ospfLocalNodeId: Optional[int] = None
+    ospfRemNodeId: Optional[int] = None
+    ospfLocalMAC: Optional[str] = None
+    ospfRemMAC: Optional[str] = None
+    ospfLocalIfIndex: Optional[int] = None
+    ospfRemIfIndex: Optional[int] = None
 
     def __post_init__(self):
         if isinstance(self.ospfLinkCreateTime, str):
@@ -244,18 +246,18 @@ class OspfLink(Link):
 @dataclass
 class BridgeElement(Element):
     "Bridge Element"
-    baseBridgeAddress: str = None
-    baseNumPorts: int = None
-    baseType: str = None
-    stpProtocolSpecification: str = None
-    stpPriority: str = None
-    stpDesignatedRoot: str = None
-    stpRootCost: int = None
-    stpRootPort: int = None
-    vlan: str = None
-    vlanname: str = None
-    bridgeNodeCreateTime: Union[str, datetime] = None
-    bridgeNodeLastPollTime: Union[str, datetime] = None
+    baseBridgeAddress: Optional[str] = None
+    baseNumPorts: Optional[int] = None
+    baseType: Optional[str] = None
+    stpProtocolSpecification: Optional[str] = None
+    stpPriority: Optional[str] = None
+    stpDesignatedRoot: Optional[str] = None
+    stpRootCost: Optional[int] = None
+    stpRootPort: Optional[int] = None
+    vlan: Optional[str] = None
+    vlanname: Optional[str] = None
+    bridgeNodeCreateTime: Optional[Union[str, datetime]] = None
+    bridgeNodeLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.BRIDGE
 
     def __post_init__(self):
@@ -272,11 +274,11 @@ class BridgeElement(Element):
 @dataclass
 class CdpElement(Element):
     "CDP Element"
-    cdpGlobalRun: str = None
-    cdpGlobalDeviceId: str = None
-    cdpGlobalDeviceIdFormat: str = None
-    cdpCreateTime: Union[str, datetime] = None
-    cdpLastPollTime: Union[str, datetime] = None
+    cdpGlobalRun: Optional[str] = None
+    cdpGlobalDeviceId: Optional[str] = None
+    cdpGlobalDeviceIdFormat: Optional[str] = None
+    cdpCreateTime: Optional[Union[str, datetime]] = None
+    cdpLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.CDP
 
     def __post_init__(self):
@@ -289,10 +291,10 @@ class CdpElement(Element):
 @dataclass
 class IsisElement(Element):
     "IS-IS Element"
-    isisSysID: str = None
-    isisSysAdminState: str = None
-    isisCreateTime: Union[str, datetime] = None
-    isisLastPollTime: Union[str, datetime] = None
+    isisSysID: Optional[str] = None
+    isisSysAdminState: Optional[str] = None
+    isisCreateTime: Optional[Union[str, datetime]] = None
+    isisLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.ISIS
 
     def __post_init__(self):
@@ -305,10 +307,10 @@ class IsisElement(Element):
 @dataclass
 class LldpElement(Element):
     "LLDP Element"
-    lldpChassisId: str = None
-    lldpSysName: str = None
-    lldpCreateTime: Union[str, datetime] = None
-    lldpLastPollTime: Union[str, datetime] = None
+    lldpChassisId: Optional[str] = None
+    lldpSysName: Optional[str] = None
+    lldpCreateTime: Optional[Union[str, datetime]] = None
+    lldpLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.LLDP
 
     def __post_init__(self):
@@ -321,11 +323,11 @@ class LldpElement(Element):
 @dataclass
 class OspfElement(Element):
     "OSPF Element"
-    ospfRouterId: str = None
-    ospfVersionNumber: int = None
-    ospfAdminStat: str = None
-    ospfCreateTime: Union[str, datetime] = None
-    ospfLastPollTime: Union[str, datetime] = None
+    ospfRouterId: Optional[str] = None
+    ospfVersionNumber: Optional[int] = None
+    ospfAdminStat: Optional[str] = None
+    ospfCreateTime: Optional[Union[str, datetime]] = None
+    ospfLastPollTime: Optional[Union[str, datetime]] = None
     linkType = LinkType.OSPF
 
     def __post_init__(self):
@@ -350,29 +352,37 @@ class Topology:
     ospf_elements: List[OspfElement] = field(default_factory=list)
 
 
-def infer_ifindex(text: str) -> int:
+def infer_ifindex(text: str) -> Optional[int]:
     "Infer ifIndex from string"
     ifindex = re.search(r"^.*\(ifindex:(\d+)\).*", text)
     if ifindex:
         return int(ifindex.group(1))
+    else:
+        return None
 
 
-def infer_ip(text: str) -> str:
+def infer_ip(text: str) -> Optional[str]:
     "Infer IP address from string"
     ip = re.search(r"^.*\((((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4})\).*", text)
     if ip:
         return ip.group(1)
+    else:
+        return None
 
 
-def infer_node_from_url(url: str) -> int:
+def infer_node_from_url(url: str) -> Optional[int]:
     "Infer node ID from url querystring"
     node = re.search(r"^.*node=(\d+).*", url)
     if node:
         return int(node.group(1))
+    else:
+        return None
 
 
-def infer_mac(text: str) -> str:
+def infer_mac(text: str) -> Optional[str]:
     "Infer MAC address from string"
     mac = re.search(r"^.*\((mac|macAddress):([0-9A-Fa-f]+)\).*", text)
     if mac:
         return mac.group(2)
+    else:
+        return None

@@ -1,5 +1,6 @@
 # models.udl.py
 
+"User-Defined Links models"
 
 from dataclasses import dataclass
 from typing import Optional, Union
@@ -9,6 +10,7 @@ from pyonms.models.node import Node
 
 @dataclass
 class UserDefinedLink:
+    "UDL class"
     node_id_a: Union[int, Node]
     node_id_z: Union[int, Node]
     component_label_a: str

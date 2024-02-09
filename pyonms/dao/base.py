@@ -45,7 +45,7 @@ class Endpoint:
         batch_size: int = 100,
         params: Optional[dict] = None,
         hide_progress: bool = False,
-    ) -> List[Optional[dict]]:
+    ) -> List[dict]:
         if not params:
             params = {}
         with tqdm(
@@ -54,7 +54,7 @@ class Endpoint:
             desc=f"Pulling {self.name} {endpoint} data",
             disable=hide_progress,
         ) as pbar:
-            result = []
+            result: List[dict] = []
             params["offset"] = 0
             if limit > batch_size:
                 params["limit"] = batch_size
@@ -67,7 +67,7 @@ class Endpoint:
                 headers=self.headers,
             )
             if records.get(endpoint, [None]) in [[None], []]:
-                return [None]
+                return result
             if limit == 0 or records["totalCount"] < limit:
                 target_count = records["totalCount"]
                 pbar.total = target_count

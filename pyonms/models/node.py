@@ -106,7 +106,7 @@ class Metadata:
 class AssetRecord:
     """Asset record"""
 
-    id: int = None
+    id: Optional[int] = None
     slot: Optional[str] = None
     port: Optional[str] = None
     region: Optional[str] = None
@@ -206,19 +206,19 @@ class ServiceType:
 class Service:
     """Monitored Service object"""
 
-    id: int
-    notify: str = None
-    status: Union[ServiceStatus, str] = None
-    qualifier: str = None
-    down: bool = None
-    source: str = None
-    serviceType: ServiceType = None
-    ipInterfaceId: int = None
-    statusLong: str = None
-    lastFail: datetime = None
-    lastGood: datetime = None
-    metadata: List[Optional[Metadata]] = field(default_factory=list)
-    applications: List[Optional[str]] = field(default_factory=list)
+    id: Optional[int] = None
+    notify: Optional[str] = None
+    status: Optional[Union[ServiceStatus, str]] = None
+    qualifier: Optional[str] = None
+    down: Optional[bool] = None
+    source: Optional[str] = None
+    serviceType: Optional[ServiceType] = None
+    ipInterfaceId: Optional[int] = None
+    statusLong: Optional[str] = None
+    lastFail: Optional[datetime] = None
+    lastGood: Optional[datetime] = None
+    metadata: List[Metadata] = field(default_factory=list)
+    applications: List[str] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.serviceType, dict):
@@ -241,28 +241,28 @@ class Service:
 class SnmpInterface:
     """SNMP Interface object"""
 
-    id: int
-    hasFlows: bool = None
-    hasIngressFlows: bool = None
-    hasEgressFlows: bool = None
-    lastIngressFlow: datetime = None
-    lastEgressFlow: datetime = None
-    ifType: int = None
-    lastCapsdPoll: datetime = None
-    ifAlias: str = None
-    ifIndex: int = None
-    ifDescr: str = None
-    ifName: str = None
-    physAddr: str = None
-    ifSpeed: int = None
-    ifAdminStatus: int = None
-    ifOperStatus: int = None
-    lastSnmpPoll: datetime = None
-    collectionUserSpecified: bool = None
-    collectFlag: str = None
-    pollFlag: str = None
-    collect: bool = None
-    poll: bool = None
+    id: Optional[int] = None
+    hasFlows: Optional[bool] = None
+    hasIngressFlows: Optional[bool] = None
+    hasEgressFlows: Optional[bool] = None
+    lastIngressFlow: Optional[datetime] = None
+    lastEgressFlow: Optional[datetime] = None
+    ifType: Optional[int] = None
+    lastCapsdPoll: Optional[datetime] = None
+    ifAlias: Optional[str] = None
+    ifIndex: Optional[int] = None
+    ifDescr: Optional[str] = None
+    ifName: Optional[str] = None
+    physAddr: Optional[str] = None
+    ifSpeed: Optional[int] = None
+    ifAdminStatus: Optional[int] = None
+    ifOperStatus: Optional[int] = None
+    lastSnmpPoll: Optional[datetime] = None
+    collectionUserSpecified: Optional[bool] = None
+    collectFlag: Optional[str] = None
+    pollFlag: Optional[str] = None
+    collect: Optional[bool] = None
+    poll: Optional[bool] = None
     collectionPolicySpecified: Optional[bool] = None
     nodeId: Optional[int] = None
 
@@ -287,21 +287,21 @@ class SnmpInterface:
 class IPInterface:
     """IP Interface Object"""
 
-    id: Union[int, str]
+    id: Optional[Union[int, str]] = None
     hostName: Optional[str] = None
-    isDown: bool = None
-    nodeId: int = None
-    ifIndex: int = None
-    lastEgressFlow: Union[datetime, int] = None
-    lastIngressFlow: Union[datetime, int] = None
-    ipAddress: str = None
-    snmpPrimary: Union[PrimaryType, str] = None
-    isManaged: Union[ManagedIP, str] = None
+    isDown: Optional[bool] = None
+    nodeId: Optional[int] = None
+    ifIndex: Optional[int] = None
+    lastEgressFlow: Optional[Union[datetime, int]] = None
+    lastIngressFlow: Optional[Union[datetime, int]] = None
+    ipAddress: Optional[str] = None
+    snmpPrimary: Optional[Union[PrimaryType, str]] = None
+    isManaged: Optional[Union[ManagedIP, str]] = None
     monitoredServiceCount: Optional[int] = None
     lastCapsdPoll: Optional[Union[datetime, int]] = None
-    snmpInterface: Optional[Union[SnmpInterface, dict]] = field(default_factory=dict)
-    services: List[Optional[Service]] = field(default_factory=list)
-    metadata: List[Optional[Metadata]] = field(default_factory=list)
+    snmpInterface: Union[SnmpInterface, dict] = field(default_factory=dict)
+    services: List[Service] = field(default_factory=list)
+    metadata: List[Metadata] = field(default_factory=list)
 
     def __post_init__(self):
         if isinstance(self.id, str):

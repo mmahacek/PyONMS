@@ -1,35 +1,40 @@
 # models.info.py
 
+"Info endpoint models"
 
 from dataclasses import dataclass, field
 from typing import List, Optional
 
 
 @dataclass
-class Service:
+class ServiceStatus:
+    "Service status"
     name: str
     status: str
 
 
 @dataclass
 class TicketerConfig:
+    "Ticketing configuration"
     enabled: bool
     plugin: Optional[str] = None
 
 
 @dataclass
 class DateFormat:
+    "Date and timezone information"
     zoneId: str
     datetimeformat: str
 
 
 @dataclass(repr=False)
 class Version:
+    "Version response class"
     version_string: str
-    major: int = None
-    minor: int = None
-    patch: int = None
-    dev: bool = None
+    major: Optional[int] = None
+    minor: Optional[int] = None
+    patch: Optional[int] = None
+    dev: Optional[bool] = None
 
     def __post_init__(self):
         version_number = self.version_string.split(".")
@@ -48,13 +53,14 @@ class Version:
 
 @dataclass(repr=False)
 class Info:
-    displayVersion: str = None
-    version: str = None
-    packageName: str = None
-    packageDescription: str = None
-    ticketerConfig: TicketerConfig = None
-    datetimeformatConfig: DateFormat = None
-    services: List[Service] = field(default_factory=list)
+    "Information response class"
+    displayVersion: Optional[str] = None
+    version: Optional[str] = None
+    packageName: Optional[str] = None
+    packageDescription: Optional[str] = None
+    ticketerConfig: Optional[TicketerConfig] = None
+    datetimeformatConfig: Optional[DateFormat] = None
+    services: List[ServiceStatus] = field(default_factory=list)
     enabled_services: List[str] = field(default_factory=list)
 
     def __post_init__(self):
@@ -68,12 +74,15 @@ class Info:
             self.datetimeformatConfig = DateFormat(**self.datetimeformatConfig)
         if isinstance(self.services, dict):
             services = []
-            for service, status in self.services.items():
-                services.append(Service(name=service, status=status))
+            for service, status in self.services:
+                services.append(ServiceStatus(name=service, status=status))
             self.services = services
         self.enabled_services = [service.name.lower() for service in self.services]
 
     def __repr__(self):
+        running_count = len(
+            [service for service in self.services if service.status == "running"]
+        )
         text = f"Info(version={self.displayVersion},"
-        text += f" running_services={len([service for service in self.services if service.status == 'running'])}/{len(self.services)})"
+        text += f" running_services={running_count}/{len(self.services)})"
         return text

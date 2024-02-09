@@ -1,15 +1,17 @@
 # models.foreign_source.py
 
+"Foreign Source Definition models"
+
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
-from pyonms.models import exceptions
 from pyonms.utils import convert_time
 
 
 @dataclass
 class Parameter:
+    "Policy/Detector parameters"
     key: str
     value: str
 
@@ -23,6 +25,7 @@ class Parameter:
 
 @dataclass
 class Detector:
+    "Detector class"
     name: str
     class_type: str
     parameter: List[Optional[Parameter]] = field(default_factory=list)
@@ -42,13 +45,17 @@ class Detector:
         )
 
     def _to_dict(self) -> dict:
-        payload = {"name": self.name, "class": self.class_type}
-        payload["parameter"] = [parameter._to_dict() for parameter in self.parameter]
+        payload: Dict[str, Any] = {"name": self.name, "class": self.class_type}
+        payload["parameter"] = []
+        for parameter in self.parameter:
+            if isinstance(parameter, Parameter):
+                payload["parameter"].append(parameter._to_dict())
         return payload
 
 
 @dataclass(repr=False)
 class Policy:
+    "Policy class"
     name: str
     class_type: str
     parameter: List[Optional[Parameter]] = field(default_factory=list)
@@ -66,16 +73,20 @@ class Policy:
         return f"Policy(name={self.name}, class_type={self.class_type.split('.')[-1]})"
 
     def _to_dict(self) -> dict:
-        payload = {"name": self.name, "class": self.class_type}
-        payload["parameter"] = [parameter._to_dict() for parameter in self.parameter]
+        payload: Dict[str, Any] = {"name": self.name, "class": self.class_type}
+        payload["parameter"] = []
+        for parameter in self.parameter:
+            if isinstance(parameter, Parameter):
+                payload["parameter"].append(parameter._to_dict())
         return payload
 
 
 @dataclass(repr=False)
 class ForeignSource:
+    "Foreign Source definition class"
     name: str
     date_stamp: Optional[datetime] = None
-    scan_interval: str = "1d"
+    scan_interval: Optional[str] = "1d"
     detectors: Dict[str, Detector] = field(default_factory=dict)
     policies: Dict[str, Policy] = field(default_factory=dict)
 
@@ -103,7 +114,10 @@ class ForeignSource:
         return f"ForeignSource(name={self.name})"
 
     def _to_dict(self) -> dict:
-        payload = {"name": self.name, "scan-interval": self.scan_interval}
+        payload: Dict[str, Any] = {
+            "name": self.name,
+            "scan-interval": self.scan_interval,
+        }
         if self.date_stamp:
             payload["date-stamp"] = self.date_stamp
         payload["detectors"] = [
@@ -118,8 +132,10 @@ class ForeignSource:
         """Add a detector to the foreign source
 
         Args:
-            node (`Detector`): Detector to add.
-            merge (bool, optional): Merge non-null attributes with existing detector in requisition. Set to `False` to overwrite entire detector record. Defaults to `True`.
+            detector (`Detector`): Detector to add.
+            merge (bool, optional): Merge non-null attributes with existing detector in requisition.
+                Set to `False` to overwrite entire detector record.
+                Defaults to `True`.
 
         Raises:
             `NotImplementedError`: If `merge` not set to `False`
@@ -130,17 +146,22 @@ class ForeignSource:
             self.detectors[detector.name] = detector
 
     def remove_detector(self, name: str):
-        if name in self.detectors.keys():
+        """Remove a detector from the foreign source
+
+        Args:
+            name (str): Name of the Detector to remove.
+        """  # noqa
+        if name in self.detectors:
             del self.detectors[name]
-        else:
-            raise exceptions.InvalidValueError(name="Detector name", value=name)
 
     def add_policy(self, policy: Policy, merge: bool = True):
         """Add a policy to the foreign source
 
         Args:
-            node (`Policy`): Policy to add.
-            merge (bool, optional): Merge non-null attributes with existing policy in requisition. Set to `False` to overwrite entire policy record. Defaults to `True`.
+            policy (`Policy`): Policy to add.
+            merge (bool, optional): Merge non-null attributes with existing policy in requisition.
+                Set to `False` to overwrite entire policy record.
+                Defaults to `True`.
 
         Raises:
             `NotImplementedError`: If `merge` not set to `False`
@@ -151,7 +172,10 @@ class ForeignSource:
             self.policies[policy.name] = policy
 
     def remove_policy(self, name: str):
-        if name in self.policies.keys():
+        """Remove a policy from the foreign source
+
+        Args:
+            name (str): Name of the Policy to remove.
+        """  # noqa
+        if name in self.policies:
             del self.policies[name]
-        else:
-            raise exceptions.InvalidValueError(name="Policy name", value=name)

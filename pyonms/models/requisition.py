@@ -1,8 +1,10 @@
 # models.requisition.py
 
+"Requisition models"
+from copy import deepcopy
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, List
+from typing import Any, Dict, List, Optional, Union
 
 from pyonms.models import exceptions
 from pyonms.models.node import AssetRecord, Metadata, PrimaryType
@@ -23,6 +25,7 @@ ASSET_FIELDS = [item for item in dir(AssetRecord) if item[0] != "_"]
 
 @dataclass
 class Category:
+    "Surveillance Category"
     name: str
 
     def __hash__(self):
@@ -34,8 +37,9 @@ class Category:
 
 @dataclass
 class AssetField:
+    "Asset field records"
     name: str
-    value: str = None
+    value: Optional[str] = None
 
     def __post_init__(self):
         if self.name not in ASSET_FIELDS:
@@ -52,9 +56,10 @@ class AssetField:
 
 @dataclass
 class Service:
+    "Monitored Services"
     service_name: str
-    category: List[Category] = field(default_factory=list)
-    meta_data: List[Metadata] = field(default_factory=list)
+    category: List[Optional[Category]] = field(default_factory=list)
+    meta_data: List[Optional[Metadata]] = field(default_factory=list)
 
     def __post_init__(self):
         for index, category in enumerate(self.category):
@@ -68,34 +73,41 @@ class Service:
         return hash((self.service_name))
 
     def _to_dict(self) -> dict:
-        payload = {"service-name": self.service_name}
-        payload["category"] = [category._to_dict() for category in self.category]
-        payload["meta-data"] = [
-            data._to_dict() for data in self.meta_data if data.value
-        ]
+        payload: Dict[str, Any] = {"service-name": self.service_name}
+        payload["category"] = []
+        for category in self.category:
+            if isinstance(category, Category):
+                payload["category"].append(category._to_dict())
+        payload["meta-data"] = []
+        for data in self.meta_data:
+            if isinstance(data, Metadata):
+                if data.value:
+                    payload["meta-data"].append(data._to_dict())
 
         return payload
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the service.
-        If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        If a Metadata record for the given key exists, it will be replaced with the new value.
         Set `value` to none to remove the key.
         Context will be "requisition".
         """
         for data in self.meta_data:
-            if data.key == key:
-                data.value = value
-                return
+            if isinstance(data, Metadata):
+                if data.key == key:
+                    data.value = value
+                    return
         self.meta_data.append(Metadata(context="requisition", key=key, value=value))
 
 
 @dataclass
 class Interface:
+    "Requisition Interface"
     ip_addr: str
-    status: int = 1
-    snmp_primary: PrimaryType = None
-    descr: str = None
-    managed: str = None
+    status: Optional[int] = 1
+    snmp_primary: Optional[PrimaryType] = None
+    descr: Optional[str] = None
+    managed: Optional[str] = None
     monitored_service: List[Service] = field(default_factory=list)
     category: List[Category] = field(default_factory=list)
     meta_data: List[Metadata] = field(default_factory=list)
@@ -133,7 +145,7 @@ class Interface:
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the interface.
-        If a Metadata record for the given key exists, it will be replaced with the new value, otherwise a new record will be added.
+        If a Metadata record for the given key exists, it will be replaced with the new value.
         Set `value` to none to remove the key.
         Context will be "requisition".
         """
@@ -148,7 +160,7 @@ class Interface:
             raise exceptions.InvalidValueError(
                 name="ip_addr", value=new_interface.ip_addr, valid=[self.ip_addr]
             )
-        final_interface = Interface(**self._to_dict())
+        final_interface = deepcopy(self)
         if new_interface.status:
             final_interface.status = new_interface.status
         if (
@@ -170,23 +182,24 @@ class Interface:
             final_interface.monitored_service.append(service)
 
         for category in new_interface.category:
-            if category not in [cat.name for cat in self.category]:
-                final_interface.category.append(Category(name=category))
-        for key, value in new_interface.meta_data.items():
-            final_interface.set_metadata(key=key, value=value)
+            if category.name not in [cat.name for cat in self.category]:
+                final_interface.category.append(Category(name=category.name))
+        for meta in new_interface.meta_data:
+            final_interface.set_metadata(key=meta.key, value=meta.value)
         return final_interface
 
 
 @dataclass
 class RequisitionNode:
+    "Requisition Node class"
     foreign_id: str
     node_label: str
-    location: str = None
-    building: str = None
-    city: str = None
-    parent_foreign_source: str = None
-    parent_foreign_id: str = None
-    parent_node_label: str = None
+    location: Optional[str] = None
+    building: Optional[str] = None
+    city: Optional[str] = None
+    parent_foreign_source: Optional[str] = None
+    parent_foreign_id: Optional[str] = None
+    parent_node_label: Optional[str] = None
     asset: List[AssetField] = field(default_factory=list)
     category: List[Category] = field(default_factory=list)
     interface: Dict[str, Interface] = field(default_factory=dict)
@@ -217,7 +230,7 @@ class RequisitionNode:
             self.interface = {new_interface.ip_addr: new_interface}
 
     def _to_dict(self) -> dict:
-        payload = {"foreign-id": self.foreign_id}
+        payload: Dict[str, Any] = {"foreign-id": self.foreign_id}
         for node_field in NODE_ATTRIBUTES:
             if getattr(self, node_field):
                 payload[node_field.replace("_", "-")] = getattr(self, node_field)
@@ -236,13 +249,15 @@ class RequisitionNode:
 
         Args:
             node (`Interface`): IP interface to add.
-            merge (bool, optional): Merge non-null attributes with existing interface in requisition. Set to `False` to overwrite entire node record. Defaults to `True`.
+            merge (bool, optional): Merge non-null attributes with existing interface in requisition.
+                Set to `False` to overwrite entire node record.
+                Defaults to `True`.
 
         Raises:
             `NotImplementedError`: If `merge` not set to `False`
         """  # noqa
         if merge:
-            if interface.ip_addr not in self.interface.keys():
+            if interface.ip_addr not in self.interface:
                 self.interface[interface.ip_addr] = interface
             else:
                 raise NotImplementedError
@@ -260,11 +275,11 @@ class RequisitionNode:
             pyonms.models.exceptions.InvalidValueError: If the `old_ip` does not exist on the node.
             pyonms.models.exceptions.DuplicateEntityError: If the `new_ip` already exists on another IP Interface.
         """  # noqa
-        if old_ip not in self.interface.keys():
+        if old_ip not in self.interface:
             raise exceptions.InvalidValueError(
-                name="old_ip", value=old_ip, valid=self.interface.keys()
+                name="old_ip", value=old_ip, valid=[ip for ip in self.interface]
             )
-        if new_ip not in self.interface.keys():
+        if new_ip not in self.interface:
             self.interface[new_ip] = self.interface[old_ip]
             self.interface[new_ip].ip_addr = new_ip
             del self.interface[old_ip]
@@ -316,9 +331,10 @@ class RequisitionNode:
 
 @dataclass
 class Requisition:
+    "Requisition class"
     foreign_source: str
-    date_stamp: datetime = None
-    last_import: datetime = None
+    date_stamp: Optional[Union[datetime, int]] = None
+    last_import: Optional[Union[datetime, int]] = None
     node: Dict[str, RequisitionNode] = field(default_factory=dict)
 
     def __post_init__(self):
@@ -339,7 +355,7 @@ class Requisition:
             self.node = nodes
 
     def _to_dict(self) -> dict:
-        payload = {"foreign-source": self.foreign_source}
+        payload: Dict[str, Any] = {"foreign-source": self.foreign_source}
         payload["node"] = [node._to_dict() for node in self.node.values()]
         for time_field in ["date_stamp", "last_import"]:
             if getattr(self, time_field):
@@ -353,13 +369,15 @@ class Requisition:
 
         Args:
             node (`RequisitionNode`): Node to add.
-            merge (bool, optional): Merge non-null attributes with existing node in requisition. Set to `False` to overwrite entire node record. Defaults to `True`.
+            merge (bool, optional): Merge non-null attributes with existing node in requisition.
+                Set to `False` to overwrite entire node record.
+                Defaults to `True`.
 
         Raises:
             `NotImplementedError`: If `merge` not set to `False`
         """  # noqa
         if merge:
-            if node.foreign_id not in self.node.keys():
+            if node.foreign_id not in self.node:
                 self.node[node.foreign_id] = node
             else:
                 raise NotImplementedError
@@ -367,7 +385,10 @@ class Requisition:
             self.node[node.foreign_id] = node
 
     def remove_node(self, foreign_id: str):
-        if foreign_id in self.node.keys():
+        """Remove a node from the requisition
+
+        Args:
+            foreign_id (str): Node to remove.
+        """  # noqa
+        if foreign_id in self.node:
             del self.node[foreign_id]
-        else:
-            raise exceptions.InvalidValueError(name="Foreign ID", value=foreign_id)

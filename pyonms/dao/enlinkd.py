@@ -4,7 +4,7 @@
 
 from typing import List, Optional
 
-import pyonms.models.udl
+import pyonms.models.enlinkd
 from pyonms.dao.base import Endpoint
 
 
@@ -15,31 +15,13 @@ class EnlinkdAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v2 + "enlinkd"
 
-    def get_node_links(
-        self, node_id: int
-    ) -> Optional[pyonms.models.udl.UserDefinedLink]:
-        "Get all links for a given node"
+    def get_node_links(self, node_id: int) -> Optional[pyonms.models.enlinkd.Topology]:
+        "Get all links for a given node."
         record = self._get(url=f"{self.url}/{node_id}")
         if record not in [None, {}]:
             return self._process_topology(record)
         else:
             return None
-
-    # def get_links(
-    #     self, limit: int = 100, batch_size: int = 100
-    # ) -> List[Optional[pyonms.models.udl.UserDefinedLink]]:
-    #     links = []
-    #     records = self._get_batch(
-    #         url=self.url,
-    #         endpoint="user_defined_link",
-    #         limit=limit,
-    #         batch_size=batch_size,
-    #     )
-    #     if records == [None]:
-    #         return [None]
-    #     for record in records:
-    #         links.append(self._process_udl(record))
-    #     return links
 
     def _process_topology(self, data: dict) -> pyonms.models.enlinkd.Topology:
         topology = pyonms.models.enlinkd.Topology()
@@ -56,8 +38,8 @@ class EnlinkdAPI(Endpoint):
         if data.get("ospfLinkNodes"):
             topology.ospf_links = self._process_ospf_links(data=data["ospfLinkNodes"])
         if data.get("bridgeElementNodes"):
-            topology.bridge_elements.append(
-                self._process_bridge_elements(data=data["bridgeElementNodes"])
+            topology.bridge_elements = self._process_bridge_elements(
+                data=data["bridgeElementNodes"]
             )
         if data.get("cdpElementNode"):
             topology.cdp_elements.append(

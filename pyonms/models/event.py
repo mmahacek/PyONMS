@@ -58,7 +58,7 @@ class Event:
     createTime: Optional[datetime] = None
     description: Optional[str] = None
     logMessage: Optional[str] = None
-    severity: Optional[Severity] = None
+    severity: Optional[Severity] = Severity.INDETERMINATE
     log: Optional[bool] = None
     display: Optional[bool] = None
     location: Optional[str] = None
@@ -70,9 +70,7 @@ class Event:
     snmp: Optional[str] = None
     snmpHost: Optional[str] = None
     ifIndex: Optional[int] = None
-    parameters: Optional[Dict[str, Optional[EventParameter]]] = field(
-        default_factory=dict
-    )
+    parameters: Dict[str, Union[dict, EventParameter]] = field(default_factory=dict)
     serviceType: Optional[ServiceType] = None
 
     def __post_init__(self):
@@ -111,18 +109,21 @@ class Event:
                 continue
             if value:
                 payload[key.lower()] = value
-        if isinstance(payload.get("severity"), Severity):
+        if self.severity:
             payload["severity"] = self.severity.name
         if self.parameters:
             del payload["parameters"]
             payload["parms"] = []
             for parameter in self.parameters.values():
-                payload["parms"].append(parameter._to_dict())
+                payload["parms"].append(parameter._to_dict())  # type: ignore
         return payload
 
     def set_parameter(
-        self, name: str, value: str, type: str = "string"
-    ) -> None:  # noqa: W0622
+        self,
+        name: str,
+        value: str,
+        type: str = "string",  # pylint: disable=redefined-builtin
+    ) -> None:
         """Set or remove an `EventParameter`.
 
         Args:
@@ -133,5 +134,5 @@ class Event:
         if value:
             self.parameters[name] = EventParameter(name=name, value=value, type=type)
         else:
-            if name in self.parameters.keys():
+            if name in self.parameters:
                 del self.parameters[name]

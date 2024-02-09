@@ -34,7 +34,7 @@ class DuplicateEntityError(Exception):
 class InvalidValueError(Exception):
     """Invalid value error"""
 
-    def __init__(self, name: str, value: str, valid: Optional[List[str]] = None):
+    def __init__(self, name: str, value: str, valid: Optional[List] = None):
         self.name = name
         self.value = value
         self.valid = valid
