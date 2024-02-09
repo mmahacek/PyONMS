@@ -2,6 +2,7 @@
 
 """Helper Utilities"""
 
+import ipaddress
 from collections import OrderedDict
 from datetime import datetime, tzinfo
 from typing import Optional, Union
@@ -81,3 +82,19 @@ def normalize_key(key: str) -> str:
     if key[0] == "@":
         key = key[1:]
     return key.replace("-", "_")
+
+
+def check_ip_address(ip: str, raise_error: bool = False):
+    """Check string for valid IP address"""
+    try:
+        ipaddress.IPv4Address(ip)
+        return True
+    except ipaddress.AddressValueError:
+        try:
+            ipaddress.IPv6Address(ip)
+            return True
+        except ipaddress.AddressValueError:
+            if raise_error:
+                raise ipaddress.AddressValueError
+            else:
+                return False

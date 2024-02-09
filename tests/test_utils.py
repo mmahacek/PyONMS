@@ -2,6 +2,7 @@
 
 # pylint: disable=C0114,C0116,W0621,W0212
 
+import ipaddress
 from collections import OrderedDict
 from datetime import datetime
 from xml.parsers.expat import ExpatError
@@ -137,3 +138,12 @@ def test_normalize_key():
     assert utils.normalize_key(key="@testing") == "testing"
     assert utils.normalize_key(key="@testing@things") == "testing@things"
     assert utils.normalize_key(key="testing") == "testing"
+
+
+def test_check_ip():
+    assert utils.check_ip_address("127.0.0.1") == True
+    assert utils.check_ip_address("500.500.500.500") == False
+    assert utils.check_ip_address("2001:abcd::1") == True
+    assert utils.check_ip_address("invalid") == False
+    with pytest.raises(ipaddress.AddressValueError):
+        assert utils.check_ip_address("invalid", raise_error=True)

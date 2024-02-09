@@ -7,7 +7,7 @@ from datetime import datetime
 from enum import Enum
 from typing import List, Optional, Union
 
-from pyonms.utils import convert_time
+from pyonms.utils import check_ip_address, convert_time
 
 
 class LabelSource(Enum):
@@ -304,6 +304,7 @@ class IPInterface:
     metadata: List[Metadata] = field(default_factory=list)
 
     def __post_init__(self):
+        check_ip_address(self.ipAddress, raise_error=True)
         if isinstance(self.id, str):
             self.id = int(self.id)
         if isinstance(self.lastCapsdPoll, int):

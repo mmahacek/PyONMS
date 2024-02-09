@@ -8,7 +8,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pyonms.models import exceptions
 from pyonms.models.node import AssetRecord, Metadata, PrimaryType
-from pyonms.utils import convert_time
+from pyonms.utils import check_ip_address, convert_time
 
 NODE_ATTRIBUTES = [
     "node_label",
@@ -113,6 +113,7 @@ class Interface:
     meta_data: List[Metadata] = field(default_factory=list)
 
     def __post_init__(self):
+        check_ip_address(self.ip_addr, raise_error=True)
         if isinstance(self.snmp_primary, str):
             self.snmp_primary = PrimaryType(self.snmp_primary)
         for index, category in enumerate(self.category):
