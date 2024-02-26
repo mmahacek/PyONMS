@@ -1,7 +1,7 @@
 # Changelog
 
 
-## [0.1.3] TBD
+## [0.1.3] 2024-02-26
 
 ### What's Changed
 
