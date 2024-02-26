@@ -2,9 +2,10 @@
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from pyonms.models import exceptions
+from pyonms.utils import check_ip_address
 
 
 class Severity(Enum):
@@ -43,7 +44,7 @@ class Attribute:
 @dataclass(repr=False)
 class MapFunction:
     type: str = "Identity"
-    status: Severity = None
+    status: Optional[Severity] = None
     properties: dict = field(default_factory=dict)
 
     def __post_init__(self):
@@ -118,8 +119,11 @@ class IPService:
     service_name: str
     node_label: str
     ip_address: str
-    id: int = None
-    location: str = None
+    id: Optional[int] = None
+    location: Optional[str] = None
+
+    def __post_init__(self):
+        check_ip_address(self.ip_address, raise_error=True)
 
     def __repr__(self):
         return f"IPService(id={self.id}, node={self.node_label}, ip_address={self.ip_address}, service_name={self.service_name})"
@@ -128,7 +132,7 @@ class IPService:
         return hash((self.id))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "service-name": self.service_name,
             "node-label": self.node_label,
             "ip-address": self.ip_address,
@@ -142,7 +146,7 @@ class IPService:
 
 @dataclass(repr=False)
 class ChildEdgeRequest:
-    child_id: int = None
+    child_id: Optional[int] = None
     weight: int = 1
     map_function: MapFunction = field(default_factory=_map_function)
 
@@ -157,7 +161,7 @@ class ChildEdgeRequest:
         return hash((self.child_id))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "map-function": self.map_function.to_dict(),
             "weight": self.weight,
             "child-id": self.child_id,
@@ -170,7 +174,7 @@ class ChildEdge:
     id: int
     location: str
     operational_status: str
-    child_id: int = None
+    child_id: Optional[int] = None
     weight: int = 1
     map_function: MapFunction = field(default_factory=_map_function)
     reduction_keys: list = field(default_factory=list)
@@ -182,13 +186,13 @@ class ChildEdge:
         return hash((self.id))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "id": self.id,
             "location": self.location,
             "operational-status": self.operational_status,
             "map-function": self.map_function,
             "weight": self.weight,
-            "ip-service-id": self.ip_service_id,
+            "ip-service-id": self.child_id,
         }
         return payload
 
@@ -203,8 +207,8 @@ class ChildEdge:
 @dataclass(repr=False)
 class IPServiceEdgeRequest:
     friendly_name: str
-    ip_service_id: int = None
-    weight: int = 1
+    ip_service_id: Optional[int] = None
+    weight: Optional[int] = 1
     map_function: MapFunction = field(default_factory=_map_function)
 
     def __post_init__(self):
@@ -220,7 +224,7 @@ class IPServiceEdgeRequest:
         return hash((self.ip_service_id))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "friendly-name": self.friendly_name,
             "map-function": self.map_function.to_dict(),
             "weight": self.weight,
@@ -235,11 +239,11 @@ class IPServiceEdge:
     location: str
     operational_status: str
     friendly_name: str
-    ip_service_id: int = None
-    weight: int = 1
+    ip_service_id: Optional[int] = None
+    weight: Optional[int] = 1
     map_function: MapFunction = field(default_factory=_map_function)
     reduction_keys: list = field(default_factory=list)
-    ip_service: dict = field(default_factory=dict)
+    ip_service: Union[dict, IPService] = field(default_factory=dict)
 
     def __post_init__(self):
         if self.ip_service:
@@ -261,7 +265,7 @@ class IPServiceEdge:
         return hash((self.id))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "id": self.id,
             "location": self.location,
             "operational-status": self.operational_status,
@@ -294,7 +298,7 @@ class Application:
         return hash((self.id))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "id": self.id,
             "application-name": self.application_name,
         }
@@ -304,6 +308,7 @@ class Application:
 @dataclass(repr=False)
 class ApplicationEdgeRequest:
     id: int
+    application_name: str
     weight: int = 1
     map_function: MapFunction = field(default_factory=_map_function)
 
@@ -312,13 +317,13 @@ class ApplicationEdgeRequest:
             self.map_function = MapFunction(**self.map_function)
 
     def __repr__(self):
-        return f"ApplicationEdgeRequest(application={self.application['application-name']})"
+        return f"ApplicationEdgeRequest(application={self.application_name})"
 
     def __hash__(self):
-        return hash((self.application))
+        return hash((self.application_name))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "application-id": self.id,
             "map-function": self.map_function.to_dict(),
             "weight": self.weight,
@@ -334,7 +339,7 @@ class ApplicationEdge:
     weight: int = 1
     map_function: MapFunction = field(default_factory=_map_function)
     reduction_keys: list = field(default_factory=list)
-    application: Application = field(default_factory=dict)
+    application: Optional[Union[dict, Application]] = field(default_factory=dict)
 
     def __post_init__(self):
         if isinstance(self.map_function, dict):
@@ -354,7 +359,7 @@ class ApplicationEdge:
         return hash((self.id))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "id": self.id,
             "location": self.location,
             "operational-status": self.operational_status,
@@ -367,6 +372,7 @@ class ApplicationEdge:
     def request(self) -> ApplicationEdgeRequest:
         return ApplicationEdgeRequest(
             id=self.application.id,
+            application_name=self.application.application_name,
             weight=self.weight,
             map_function=self.map_function,
         )
@@ -390,7 +396,7 @@ class ReductionKeyEdgeRequest:
         return hash((self.reduction_key))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "reduction-key": self.reduction_key,
             "map-function": self.map_function.to_dict(),
             "weight": self.weight,
@@ -421,7 +427,7 @@ class ReductionKeyEdge:
         return hash((self.id))
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "id": self.id,
             "location": self.location,
             "operational-status": self.operational_status,
@@ -460,7 +466,7 @@ class BusinessServiceRequest:
         return f"BusinessServiceRequest(name={self.name})"
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "name": self.name,
             "attributes": {"attribute": []},
             "reduce-function": self.reduce_function.to_dict(),
@@ -495,10 +501,10 @@ class BusinessServiceRequest:
 
     def update_edge(  # noqa C901
         self,
-        ip_edge: IPServiceEdgeRequest = None,
-        child_edge: ChildEdgeRequest = None,
-        application_edge: ApplicationEdgeRequest = None,
-        reduction_key_edge: ReductionKeyEdgeRequest = None,
+        ip_edge: Optional[IPServiceEdgeRequest] = None,
+        child_edge: Optional[ChildEdgeRequest] = None,
+        application_edge: Optional[ApplicationEdgeRequest] = None,
+        reduction_key_edge: Optional[ReductionKeyEdgeRequest] = None,
     ) -> None:
         if isinstance(ip_edge, IPServiceEdgeRequest):
             if ip_edge.ip_service_id in [
@@ -653,7 +659,7 @@ class BusinessService:
         return f"BusinessService(id={self.id}, name={self.name})"
 
     def to_dict(self) -> dict:
-        payload = {
+        payload: Dict[str, Any] = {
             "name": self.name,
             "id": self.id,
             "location": self.location,

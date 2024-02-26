@@ -1,5 +1,7 @@
 # models.alarm.py
 
+"Alarm models"
+
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import List, Optional
@@ -11,44 +13,45 @@ from pyonms.utils import convert_time
 
 @dataclass(repr=False)
 class Alarm:
+    "Alarm model"
     id: int
     reductionKey: str
     type: int
     severity: Severity
     description: str
     logMessage: str
-    uei: str = None
-    location: str = None
-    suppressedUntil: datetime = None
-    suppressedTime: datetime = None
-    x733ProbableCause: int = None
-    affectedNodeCount: int = None
-    count: int = None
-    firstEventTime: datetime = None
-    lastEventTime: datetime = None
-    nodeId: int = None
-    nodeLabel: str = None
-    ipAddress: str = None
-    ifIndex: int = None
-    clearKey: str = None
-    ackUser: str = None
-    ackTime: int = None
-    stickyMemo: str = None
-    reductionKeyMemo: str = None
-    troubleTicket: str = None
-    troubleTicketLink: str = None
-    troubleTicketState: int = None
-    qosAlarmState: str = None
-    managedObjectInstance: str = None
-    managedObjectType: str = None
-    label: str = None
-    firstAutomationTime: datetime = None
-    lastAutomationTime: datetime = None
+    uei: Optional[str] = None
+    location: Optional[str] = None
+    suppressedUntil: Optional[datetime] = None
+    suppressedTime: Optional[datetime] = None
+    x733ProbableCause: Optional[int] = None
+    affectedNodeCount: Optional[int] = None
+    count: Optional[int] = None
+    firstEventTime: Optional[datetime] = None
+    lastEventTime: Optional[datetime] = None
+    nodeId: Optional[int] = None
+    nodeLabel: Optional[str] = None
+    ipAddress: Optional[str] = None
+    ifIndex: Optional[int] = None
+    clearKey: Optional[str] = None
+    ackUser: Optional[str] = None
+    ackTime: Optional[int] = None
+    stickyMemo: Optional[str] = None
+    reductionKeyMemo: Optional[str] = None
+    troubleTicket: Optional[str] = None
+    troubleTicketLink: Optional[str] = None
+    troubleTicketState: Optional[int] = None
+    qosAlarmState: Optional[str] = None
+    managedObjectInstance: Optional[str] = None
+    managedObjectType: Optional[str] = None
+    label: Optional[str] = None
+    firstAutomationTime: Optional[datetime] = None
+    lastAutomationTime: Optional[datetime] = None
     firstEvent: Optional[Event] = None
     lastEvent: Optional[Event] = None
     parameters: List[Optional[EventParameter]] = field(default_factory=list)
-    relatedAlarms: Optional[List["Alarm"]] = field(default_factory=list)
-    serviceType: ServiceType = None
+    relatedAlarms: List[Optional["Alarm"]] = field(default_factory=list)
+    serviceType: Optional[ServiceType] = None
 
     def __post_init__(self):
         self.suppressedUntil = convert_time(self.suppressedUntil)

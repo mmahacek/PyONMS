@@ -1,11 +1,28 @@
 # Changelog
 
 
+## [0.1.3] TBD
+
+### What's Changed
+
+* Revert nodes get functions to default components to `NodeComponents.NONE` instead of `ALL`.
+* Added `Enlkind` endpoint and models.
+* Update local testing/linting configuration.
+* Add testing for `utils` methods.
+* Add `mypy` for type checking during development.
+* Add `pyonms.utils.check_ip_address()` to validate IP addresses.
+* Fix type hint for `models.Info`'s `version` and `datetimeformatConfig` attributes.
+* Rename all `_to_dict()` methods to `to_dict()`.  Added stub method reference to keep backward compatibility.
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.2...v0.1.3
+
 ## [0.1.2] 2023-12-21
 
 ### Breaking Change
 
 * Updated `ApiPayloadError` exception to trigger when API returns HTTP 400+.
+
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.1...v0.1.2
 
 ## [0.1.1] 2023-12-21
 
@@ -26,7 +43,7 @@
 * Fix type hint on `Endpoint_post.data` attribute.
 * Add Node/IP/Service metadata modification to the `Nodes` endpoint.
 
-**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.0.14
+**Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.0.13...v0.1.1
 
 
 ## [0.0.13] 2023-12-1

@@ -38,9 +38,12 @@ class EventParameter:
     value: Union[int, str]
     type: str = "string"
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload = {"parmName": self.name, "value": self.value}
         return payload
+
+    _to_dict = to_dict
 
     def __hash__(self):
         return hash((self.name))
@@ -58,7 +61,7 @@ class Event:
     createTime: Optional[datetime] = None
     description: Optional[str] = None
     logMessage: Optional[str] = None
-    severity: Optional[Severity] = None
+    severity: Optional[Severity] = Severity.INDETERMINATE
     log: Optional[bool] = None
     display: Optional[bool] = None
     location: Optional[str] = None
@@ -70,9 +73,7 @@ class Event:
     snmp: Optional[str] = None
     snmpHost: Optional[str] = None
     ifIndex: Optional[int] = None
-    parameters: Optional[Dict[str, Optional[EventParameter]]] = field(
-        default_factory=dict
-    )
+    parameters: Dict[str, Union[dict, EventParameter]] = field(default_factory=dict)
     serviceType: Optional[ServiceType] = None
 
     def __post_init__(self):
@@ -98,7 +99,8 @@ class Event:
     def __repr__(self) -> str:
         return f"Event(id={self.id}, uei={self.uei})"
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload = {}
         for key, value in vars(self).items():
             if key == "description":
@@ -111,18 +113,23 @@ class Event:
                 continue
             if value:
                 payload[key.lower()] = value
-        if isinstance(payload.get("severity"), Severity):
+        if self.severity:
             payload["severity"] = self.severity.name
         if self.parameters:
             del payload["parameters"]
             payload["parms"] = []
             for parameter in self.parameters.values():
-                payload["parms"].append(parameter._to_dict())
+                payload["parms"].append(parameter.to_dict())  # type: ignore
         return payload
 
+    _to_dict = to_dict
+
     def set_parameter(
-        self, name: str, value: str, type: str = "string"
-    ) -> None:  # noqa: W0622
+        self,
+        name: str,
+        value: str,
+        type: str = "string",  # pylint: disable=redefined-builtin
+    ) -> None:
         """Set or remove an `EventParameter`.
 
         Args:
@@ -133,5 +140,5 @@ class Event:
         if value:
             self.parameters[name] = EventParameter(name=name, value=value, type=type)
         else:
-            if name in self.parameters.keys():
+            if name in self.parameters:
                 del self.parameters[name]

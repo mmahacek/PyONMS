@@ -2,20 +2,16 @@
 
 """Base classes for DAO objects"""
 
-from typing import List
+from typing import List, Optional, Union
 
 import requests
 from requests.auth import HTTPBasicAuth
-from requests.packages import urllib3
+from requests.packages import urllib3  # type: ignore
 from tqdm import tqdm
 from urllib3.exceptions import InsecureRequestWarning
 
 import pyonms.utils
-from pyonms.models.exceptions import (
-    ApiPayloadError,
-    AuthenticationError,
-    InvalidValueError,
-)
+from pyonms.models.exceptions import ApiPayloadError, AuthenticationError
 
 urllib3.disable_warnings(category=InsecureRequestWarning)
 
@@ -47,7 +43,7 @@ class Endpoint:
         endpoint: str,
         limit: int = 0,
         batch_size: int = 100,
-        params: dict = None,
+        params: Optional[dict] = None,
         hide_progress: bool = False,
     ) -> List[dict]:
         if not params:
@@ -58,7 +54,7 @@ class Endpoint:
             desc=f"Pulling {self.name} {endpoint} data",
             disable=hide_progress,
         ) as pbar:
-            result = []
+            result: List[dict] = []
             params["offset"] = 0
             if limit > batch_size:
                 params["limit"] = batch_size
@@ -71,7 +67,7 @@ class Endpoint:
                 headers=self.headers,
             )
             if records.get(endpoint, [None]) in [[None], []]:
-                return [None]
+                return result
             if limit == 0 or records["totalCount"] < limit:
                 target_count = records["totalCount"]
                 pbar.total = target_count
@@ -88,7 +84,11 @@ class Endpoint:
             return result
 
     def _get(
-        self, url: str, headers: dict = None, params: dict = None, endpoint: str = None
+        self,
+        url: str,
+        headers: Optional[dict] = None,
+        params: Optional[dict] = None,
+        endpoint: Optional[str] = None,
     ):
         # if self.base_v1 in url:
         #    return self._get_v1(
@@ -110,7 +110,7 @@ class Endpoint:
             timeout=self.timeout,
         )
         if response.status_code == 200:
-            if response.encoding in ("ISO-8859-1") or url[-5:] in ["probe"]:
+            if response.encoding in ["ISO-8859-1"] or url[-5:] in ["probe"]:
                 return response.text
             elif "was not found" not in response.text:
                 return response.json()
@@ -121,8 +121,12 @@ class Endpoint:
         return {}
 
     def _get_v1(
-        self, url: str, endpoint: str, headers: dict = None, params: dict = None
-    ) -> dict:
+        self,
+        url: str,
+        endpoint: str,
+        headers: Optional[dict] = None,
+        params: Optional[dict] = None,
+    ) -> Union[dict, str]:
         if not headers:
             headers = {}
         if not params:
@@ -142,8 +146,8 @@ class Endpoint:
                 if endpoint == "raw":
                     return response.text
                 else:
-                    xml_data = pyonms.utils.convert_xml(response.text)
-                    return self._convert_v1_to_v2(endpoint, xml_data)
+                    xml_data = pyonms.utils.convert_xml(data=response.text)
+                    return self._convert_v1_to_v2(endpoint=endpoint, data=xml_data)
         elif response.status_code >= 400:
             raise ApiPayloadError(message=response.text)
         return {}
@@ -151,10 +155,10 @@ class Endpoint:
     def _post(
         self,
         url: str,
-        headers: dict = None,
-        data: str = None,
-        json: dict = None,
-        params: dict = None,
+        headers: Optional[dict] = None,
+        data: Optional[str] = None,
+        json: Optional[dict] = None,
+        params: Optional[dict] = None,
     ) -> requests.Response:
         if not headers:
             headers = {}
@@ -195,10 +199,10 @@ class Endpoint:
     def _put(
         self,
         url: str,
-        data: dict = None,
-        json: dict = None,
-        headers: dict = None,
-        params: dict = None,
+        data: Optional[dict] = None,
+        json: Optional[dict] = None,
+        headers: Optional[dict] = None,
+        params: Optional[dict] = None,
     ) -> requests.Response:
         if not headers:
             headers = {}
@@ -254,7 +258,9 @@ class Endpoint:
                     v2_data[key] = [value["model_import"]]
         return v2_data
 
-    def _delete(self, url: str, headers: dict = None, params: dict = None) -> dict:
+    def _delete(
+        self, url: str, headers: Optional[dict] = None, params: Optional[dict] = None
+    ) -> dict:
         if not headers:
             headers = {}
         if not params:

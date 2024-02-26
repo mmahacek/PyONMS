@@ -33,6 +33,15 @@ path = "pyonms/__init__.py"
 [tool.coverage.run]
 command_line = '-m pytest'
 branch = true
+omit = [
+    "./venv*",
+    "./tests/*",
+    "./examples/*",
+    "./dist/*",
+    "./html/*",
+    "./public/*",
+]
+
 
 [tool.coverage.report]
 # Regexes for lines to exclude from consideration
@@ -54,6 +63,7 @@ exclude_also = [
 ]
 
 ignore_errors = true
+
 
 [tool.coverage.json]
 output = './coverage.json'
@@ -77,3 +87,6 @@ deps =
 commands =
     pytest {posargs:tests}
 """
+
+[tool.pylint.MASTER]
+ignore-paths = '^venv.*$'

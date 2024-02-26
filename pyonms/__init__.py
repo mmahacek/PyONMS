@@ -7,9 +7,10 @@
 .. include:: ../README.md
 """
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 from multiprocessing import current_process
+from typing import Optional
 from urllib.parse import urlsplit
 
 from pyonms import dao, models
@@ -23,9 +24,9 @@ class PyONMS:
         hostname: str,
         username: str,
         password: str,
-        name: str = None,
-        verify_ssl: bool = True,
-        timeout: int = 30,
+        name: Optional[str] = None,
+        verify_ssl: Optional[bool] = True,
+        timeout: Optional[int] = 30,
     ):
         """Attributes:
             hostname (str): OpenNMS URL
@@ -67,6 +68,8 @@ class PyONMS:
         """`pyonms.dao.alarms.AlarmAPI` endpoint"""
         self.bsm = dao.business_services.BSMAPI(args)
         """`pyonms.dao.business_services.BSMAPI` endpoint"""
+        self.enlinkd = dao.enlinkd.EnlinkdAPI(args)
+        """`pyonms.dao.enlinkd.EnlinkdAPI` endpoint"""
         self.events = dao.events.EventAPI(args)
         """`pyonms.dao.events.EventAPI` endpoint"""
         self.fs = dao.foreign_sources.ForeignSourceAPI(args)
@@ -83,7 +86,7 @@ class PyONMS:
     def __repr__(self):
         return self.hostname
 
-    def reload_daemon(self, name: str):
+    def reload_daemon(self, name: str) -> bool:
         """Send event to reload a given daemon
         Attributes:
             name (str): Daemon name
@@ -99,5 +102,9 @@ class PyONMS:
             uei="uei.opennms.org/internal/reloadDaemonConfig", source="pyonms"
         )
         reload_event.set_parameter(name="daemonName", value=name, type="string")
-        self.events.send_event(reload_event)
-        print(f"Sending event to trigger reload of the {name} daemon.")
+        success = self.events.send_event(reload_event)
+        if success:
+            print(f"Sending event to trigger reload of the {name} daemon.")
+        else:
+            print(f"Sending event to trigger reload of the {name} daemon failed.")
+        return success

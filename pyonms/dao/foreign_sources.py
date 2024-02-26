@@ -1,5 +1,7 @@
 # dao.foreign_sources.py
 
+"Foreign Sources data access"
+
 from typing import List, Optional
 
 from requests import Response
@@ -9,6 +11,8 @@ from pyonms.dao.base import Endpoint
 
 
 class ForeignSourceAPI(Endpoint):
+    "Foreign Sources API endpoint"
+
     def __init__(self, kwargs):
         super().__init__(**kwargs)
         self.url = self.base_v1 + "foreignSources"
@@ -16,6 +20,7 @@ class ForeignSourceAPI(Endpoint):
     def get_foreign_source(
         self, name: str
     ) -> Optional[pyonms.models.foreign_source.ForeignSource]:
+        """Get foreign source definition."""
         record = self._get(url=f"{self.url}/{name}", endpoint="foreignSources")
         if record is not None:
             return self._process_foreign_source(record)
@@ -24,16 +29,16 @@ class ForeignSourceAPI(Endpoint):
 
     def get_foreign_sources(
         self,
-    ) -> List[Optional[pyonms.models.foreign_source.ForeignSource]]:
-        foreign_sources = []
+    ) -> List[pyonms.models.foreign_source.ForeignSource]:
+        """Get all foreign source definitions"""
         records = self._get(
             url=self.url,
             endpoint="foreignSources",
         )
-        if records == [None]:
-            return [None]
+        foreign_sources = []
         for record in records["foreignSources"]:
-            foreign_sources.append(self._process_foreign_source(record))
+            if record:
+                foreign_sources.append(self._process_foreign_source(record))
         return foreign_sources
 
     def _process_foreign_source(
@@ -58,7 +63,8 @@ class ForeignSourceAPI(Endpoint):
     def update_foreign_source(
         self, foreign_source: pyonms.models.foreign_source.ForeignSource
     ) -> Response:
+        """Update foreign source definition on server."""
         response = self._post(
-            url=self.url, headers=self.headers, json=foreign_source._to_dict()
+            url=self.url, headers=self.headers, json=foreign_source.to_dict()
         )
         return response
