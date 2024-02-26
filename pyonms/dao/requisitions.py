@@ -92,7 +92,7 @@ class RequisitionsAPI(Endpoint):
     ) -> Response:
         """Post an entire requisition to create or overwrite."""
         response = self._post(
-            url=self.url, headers=self.headers, json=requisition._to_dict()
+            url=self.url, headers=self.headers, json=requisition.to_dict()
         )
         return response
 
@@ -107,6 +107,6 @@ class RequisitionsAPI(Endpoint):
         response = self._post(
             url=f"{self.url}/{requisition}/nodes",
             headers=self.headers,
-            json=node._to_dict(),
+            json=node.to_dict(),
         )
         return response

@@ -77,7 +77,7 @@ class UDLAPI(Endpoint):
         Returns:
             bool: _description_
         """
-        x = self._post(url=self.url, json=link._to_dict())
+        x = self._post(url=self.url, json=link.to_dict())
         if x.status_code == 201:
             return True
         else:

@@ -31,8 +31,11 @@ class Category:
     def __hash__(self):
         return hash((self.name))
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         return {"name": self.name}
+
+    _to_dict = to_dict
 
 
 @dataclass
@@ -50,8 +53,11 @@ class AssetField:
     def __hash__(self):
         return hash((self.name, self.value))
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         return {"name": self.name, "value": self.value}
+
+    _to_dict = to_dict
 
 
 @dataclass
@@ -72,19 +78,22 @@ class Service:
     def __hash__(self):
         return hash((self.service_name))
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {"service-name": self.service_name}
         payload["category"] = []
         for category in self.category:
             if isinstance(category, Category):
-                payload["category"].append(category._to_dict())
+                payload["category"].append(category.to_dict())
         payload["meta-data"] = []
         for data in self.meta_data:
             if isinstance(data, Metadata):
                 if data.value:
-                    payload["meta-data"].append(data._to_dict())
+                    payload["meta-data"].append(data.to_dict())
 
         return payload
+
+    _to_dict = to_dict
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the service.
@@ -104,8 +113,8 @@ class Service:
 class Interface:
     "Requisition Interface"
     ip_addr: str
-    status: Optional[int] = 1
-    snmp_primary: Optional[PrimaryType] = None
+    snmp_primary: PrimaryType = PrimaryType.NOT_ELIGIBLE
+    status: int = 1
     descr: Optional[str] = None
     managed: Optional[str] = None
     monitored_service: List[Service] = field(default_factory=list)
@@ -129,7 +138,8 @@ class Interface:
     def __hash__(self):
         return hash((self.ip_addr))
 
-    def _to_dict(self):
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload = {
             "ip-addr": self.ip_addr,
             "status": self.status,
@@ -138,11 +148,13 @@ class Interface:
         if self.descr:
             payload["descr"] = self.descr
         payload["monitored-service"] = [
-            service._to_dict() for service in self.monitored_service
+            service.to_dict() for service in self.monitored_service
         ]
-        payload["category"] = [category._to_dict() for category in self.category]
+        payload["category"] = [category.to_dict() for category in self.category]
         payload["meta-data"] = [data.to_dict() for data in self.meta_data if data.value]
         return payload
+
+    _to_dict = to_dict
 
     def set_metadata(self, key: str, value: str):
         """Add or update metadata for the interface.
@@ -230,20 +242,21 @@ class RequisitionNode:
             new_interface = Interface(**self.interface)
             self.interface = {new_interface.ip_addr: new_interface}
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {"foreign-id": self.foreign_id}
         for node_field in NODE_ATTRIBUTES:
             if getattr(self, node_field):
                 payload[node_field.replace("_", "-")] = getattr(self, node_field)
-        payload["asset"] = [asset._to_dict() for asset in self.asset if asset.value]
-        payload["category"] = [category._to_dict() for category in self.category]
+        payload["asset"] = [asset.to_dict() for asset in self.asset if asset.value]
+        payload["category"] = [category.to_dict() for category in self.category]
         payload["interface"] = [
-            interface._to_dict() for interface in self.interface.values()
+            interface.to_dict() for interface in self.interface.values()
         ]
-        payload["meta-data"] = [
-            data._to_dict() for data in self.meta_data if data.value
-        ]
+        payload["meta-data"] = [data.to_dict() for data in self.meta_data if data.value]
         return payload
+
+    _to_dict = to_dict
 
     def add_interface(self, interface: Interface, merge: bool = True):
         """Add an IP interface to the node
@@ -355,15 +368,18 @@ class Requisition:
                     nodes[node.foreign_id] = node
             self.node = nodes
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {"foreign-source": self.foreign_source}
-        payload["node"] = [node._to_dict() for node in self.node.values()]
+        payload["node"] = [node.to_dict() for node in self.node.values()]
         for time_field in ["date_stamp", "last_import"]:
             if getattr(self, time_field):
                 payload[time_field.replace("_", "-")] = int(
                     datetime.timestamp(getattr(self, time_field)) * 1000
                 )
         return payload
+
+    _to_dict = to_dict
 
     def add_node(self, node: RequisitionNode, merge: bool = True):
         """Add a node to the requisition

@@ -49,7 +49,7 @@ class EventAPI(Endpoint):
 
     def send_event(self, event: pyonms.models.event.Event) -> bool:
         """Send Event object."""
-        result = self._post(url=self.url, json=event._to_dict())
+        result = self._post(url=self.url, json=event.to_dict())
         if result.status_code == 204:
             return True
         else:

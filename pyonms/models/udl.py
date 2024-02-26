@@ -27,7 +27,8 @@ class UserDefinedLink:
         if not self.link_id:
             self.link_id = f"n{self.node_id_a}:{self.component_label_a}->n{self.node_id_z}:{self.component_label_z}"
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload = {
             "owner": self.owner,
             "node-id-a": self.node_id_a,
@@ -38,3 +39,5 @@ class UserDefinedLink:
             "db-id": self.db_id,
         }
         return payload
+
+    _to_dict = to_dict

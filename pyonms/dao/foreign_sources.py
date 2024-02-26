@@ -65,6 +65,6 @@ class ForeignSourceAPI(Endpoint):
     ) -> Response:
         """Update foreign source definition on server."""
         response = self._post(
-            url=self.url, headers=self.headers, json=foreign_source._to_dict()
+            url=self.url, headers=self.headers, json=foreign_source.to_dict()
         )
         return response

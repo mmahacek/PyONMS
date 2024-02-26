@@ -246,7 +246,7 @@ class NodeAPI(Endpoint):
             node_id = node.id
         else:
             raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
-        self._post(url=f"{self.url}/{node_id}/metadata", json=metadata._to_dict())
+        self._post(url=f"{self.url}/{node_id}/metadata", json=metadata.to_dict())
 
     def remove_node_metadata(
         self, node: Union[int, pyonms.models.node.Node], context: str, key: str
@@ -275,7 +275,7 @@ class NodeAPI(Endpoint):
             raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
         self._post(
             url=f"{self.url}/{node_id}/ipinterfaces/{ip}/metadata",
-            json=metadata._to_dict(),
+            json=metadata.to_dict(),
         )
 
     def remove_ip_metadata(
@@ -308,7 +308,7 @@ class NodeAPI(Endpoint):
             raise pyonms.models.exceptions.InvalidValueError(name="node", value=node)
         self._post(
             url=f"{self.url}/{node_id}/ipinterfaces/{ip}/services/{service}/metadata",
-            json=metadata._to_dict(),
+            json=metadata.to_dict(),
         )
 
     def remove_service_metadata(

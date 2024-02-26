@@ -19,8 +19,11 @@ class Parameter:
         self.key = str(self.key)
         self.value = str(self.value)
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         return {"key": self.key, "value": self.value}
+
+    _to_dict = to_dict
 
 
 @dataclass
@@ -44,13 +47,16 @@ class Detector:
             f"Detector(name={self.name}, class_type={self.class_type.split('.')[-1]})"
         )
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {"name": self.name, "class": self.class_type}
         payload["parameter"] = []
         for parameter in self.parameter:
             if isinstance(parameter, Parameter):
-                payload["parameter"].append(parameter._to_dict())
+                payload["parameter"].append(parameter.to_dict())
         return payload
+
+    _to_dict = to_dict
 
 
 @dataclass(repr=False)
@@ -72,13 +78,16 @@ class Policy:
     def __repr__(self):
         return f"Policy(name={self.name}, class_type={self.class_type.split('.')[-1]})"
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {"name": self.name, "class": self.class_type}
         payload["parameter"] = []
         for parameter in self.parameter:
             if isinstance(parameter, Parameter):
-                payload["parameter"].append(parameter._to_dict())
+                payload["parameter"].append(parameter.to_dict())
         return payload
+
+    _to_dict = to_dict
 
 
 @dataclass(repr=False)
@@ -113,7 +122,8 @@ class ForeignSource:
     def __repr__(self):
         return f"ForeignSource(name={self.name})"
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "name": self.name,
             "scan-interval": self.scan_interval,
@@ -121,12 +131,14 @@ class ForeignSource:
         if self.date_stamp:
             payload["date-stamp"] = self.date_stamp
         payload["detectors"] = [
-            detector._to_dict() for detector in self.detectors.values()
+            detector.to_dict() for detector in self.detectors.values()
         ]
         payload["policies"] = [
-            policies._to_dict() for policies in self.policies.values()
+            policies.to_dict() for policies in self.policies.values()
         ]
         return payload
+
+    _to_dict = to_dict
 
     def add_detector(self, detector: Detector, merge: bool = True):
         """Add a detector to the foreign source

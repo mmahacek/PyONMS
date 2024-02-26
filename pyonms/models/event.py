@@ -38,9 +38,12 @@ class EventParameter:
     value: Union[int, str]
     type: str = "string"
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload = {"parmName": self.name, "value": self.value}
         return payload
+
+    _to_dict = to_dict
 
     def __hash__(self):
         return hash((self.name))
@@ -96,7 +99,8 @@ class Event:
     def __repr__(self) -> str:
         return f"Event(id={self.id}, uei={self.uei})"
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload = {}
         for key, value in vars(self).items():
             if key == "description":
@@ -115,8 +119,10 @@ class Event:
             del payload["parameters"]
             payload["parms"] = []
             for parameter in self.parameters.values():
-                payload["parms"].append(parameter._to_dict())  # type: ignore
+                payload["parms"].append(parameter.to_dict())  # type: ignore
         return payload
+
+    _to_dict = to_dict
 
     def set_parameter(
         self,

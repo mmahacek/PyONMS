@@ -97,9 +97,12 @@ class Metadata:
     def __hash__(self):
         return hash((self.context, self.key, self.value))
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload = {"context": self.context, "key": self.key, "value": self.value}
         return payload
+
+    _to_dict = to_dict
 
 
 @dataclass(repr=False)
@@ -183,12 +186,15 @@ class AssetRecord:
     def __hash__(self):
         return hash((self.id))
 
-    def _to_dict(self) -> dict:
+    def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload = {}
         for item in dir(self):
             if item[0] != "_" and getattr(self, item):
                 payload[item] = getattr(self, item)
         return payload
+
+    _to_dict = to_dict
 
 
 @dataclass
