@@ -3,7 +3,7 @@
 "Info endpoint models"
 
 from dataclasses import dataclass, field
-from typing import List, Optional
+from typing import List, Optional, Union
 
 
 @dataclass
@@ -55,11 +55,11 @@ class Version:
 class Info:
     "Information response class"
     displayVersion: Optional[str] = None
-    version: Optional[str] = None
+    version: Optional[Union[str, Version]] = None
     packageName: Optional[str] = None
     packageDescription: Optional[str] = None
     ticketerConfig: Optional[TicketerConfig] = None
-    datetimeformatConfig: Optional[DateFormat] = None
+    datetimeformatConfig: Optional[Union[str, DateFormat]] = None
     services: List[ServiceStatus] = field(default_factory=list)
     enabled_services: List[str] = field(default_factory=list)
 

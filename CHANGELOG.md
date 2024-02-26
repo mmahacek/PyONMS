@@ -11,6 +11,7 @@
 * Add testing for `utils` methods.
 * Add `mypy` for type checking during development.
 * Add `pyonms.utils.check_ip_address()` to validate IP addresses.
+* Fix type hint for `models.Info`'s `version` and `datetimeformatConfig` attributes.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.2...v0.1.3
 
