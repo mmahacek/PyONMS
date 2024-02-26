@@ -7,7 +7,7 @@
 
 * Revert nodes get functions to default components to `NodeComponents.NONE` instead of `ALL`.
 * Added `Enlkind` endpoint and models.
-* Update testing/linting configuration.
+* Update local testing/linting configuration.
 * Add testing for `utils` methods.
 * Add `mypy` for type checking during development.
 * Add `pyonms.utils.check_ip_address()` to validate IP addresses.
