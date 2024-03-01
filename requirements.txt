@@ -1,11 +1,4 @@
 requests
-python-dotenv
 pytz
-pytest
-pytest-cov
-pytest-vcr
 xmltodict
 tqdm
-pdoc
-tox
-coverage
