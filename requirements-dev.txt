@@ -9,3 +9,6 @@ tqdm
 pdoc
 tox
 coverage
+mypy
+black
+pylint
