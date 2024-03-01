@@ -25,7 +25,8 @@ class UserDefinedLink:
         if isinstance(self.node_id_z, Node):
             self.node_id_z = self.node_id_z.id
         if not self.link_id:
-            self.link_id = f"n{self.node_id_a}:{self.component_label_a}->n{self.node_id_z}:{self.component_label_z}"
+            self.link_id = f"n{self.node_id_a}:{self.component_label_a}->"
+            self.link_id += f"n{self.node_id_z}:{self.component_label_z}"
 
     def to_dict(self) -> dict:
         "Convert object to a `dict`"

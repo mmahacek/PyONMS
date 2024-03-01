@@ -17,7 +17,9 @@ class UDLAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v2 + "userdefinedlinks"
 
-    def get_link(self, id: int) -> Optional[pyonms.models.udl.UserDefinedLink]:
+    def get_link(
+        self, id: int  # pylint: disable=W0622
+    ) -> Optional[pyonms.models.udl.UserDefinedLink]:
         """Get UserDefinedLink by ID number.
 
         Args:
@@ -60,7 +62,7 @@ class UDLAPI(Endpoint):
         clean_data["db_id"] = data["db-id"]
         return pyonms.models.udl.UserDefinedLink(**clean_data)
 
-    def delete_link(self, id: int):
+    def delete_link(self, id: int):  # pylint: disable=W0622
         """Delete UserDefinedLink object.
 
         Args:

@@ -34,7 +34,9 @@ class NodeAPI(Endpoint):
         self.url = self.base_v2 + "nodes"
 
     def get_node(
-        self, id: int, components: Optional[List[NodeComponents]] = None
+        self,
+        id: int,  # pylint: disable=W0622
+        components: Optional[List[NodeComponents]] = None,
     ) -> Optional[pyonms.models.node.Node]:
         """Get node by database ID number."""
         if not components:

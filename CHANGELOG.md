@@ -5,6 +5,7 @@
 * Split `requirements.txt` to just the necessary packages for operation and created `requirements-dev.txt` for development.
 * Fix processing of `Info` endpoint services.
 * Update pytest to use environment variables for server credentials.
+* Address pylint and mypy findings.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.3...v0.1.4
 
@@ -13,7 +14,7 @@
 ### What's Changed
 
 * Revert nodes get functions to default components to `NodeComponents.NONE` instead of `ALL`.
-* Added `Enlkind` endpoint and models.
+* Added `Enlinkd` endpoint and models.
 * Update local testing/linting configuration.
 * Add testing for `utils` methods.
 * Add `mypy` for type checking during development.
