@@ -25,7 +25,7 @@ def vcr_config():
 @pytest.fixture
 def test_instance() -> PyONMS:
     return PyONMS(
-        hostname="http://localhost:8980/opennms",
-        username="admin",
-        password="admin",
+        hostname=os.getenv("onms_host", "http://localhost:8980/opennms"),
+        username=os.getenv("onms_user", "admin"),
+        password=os.getenv("onms_pass", "admin"),
     )

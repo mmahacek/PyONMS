@@ -74,7 +74,7 @@ class Info:
             self.datetimeformatConfig = DateFormat(**self.datetimeformatConfig)
         if isinstance(self.services, dict):
             services = []
-            for service, status in self.services:
+            for service, status in self.services.items():
                 services.append(ServiceStatus(name=service, status=status))
             self.services = services
         self.enabled_services = [service.name.lower() for service in self.services]

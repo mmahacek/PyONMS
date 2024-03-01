@@ -3,6 +3,8 @@
 ## [0.1.4] TBD
 
 * Split `requirements.txt` to just the necessary packages for operation and created `requirements-dev.txt` for development.
+* Fix processing of `Info` endpoint services.
+* Update pytest to use environment variables for server credentials.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.3...v0.1.4
 
