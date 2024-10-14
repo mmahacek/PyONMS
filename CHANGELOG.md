@@ -6,6 +6,7 @@
 * Fix processing of `Info` endpoint services.
 * Update pytest to use environment variables for server credentials.
 * Address pylint and mypy findings.
+* [Development Tool] Docker Compose file for creating test Horizon instance.
 
 **Full Changelog**: https://github.com/mmahacek/PyONMS/compare/v0.1.3...v0.1.4
 

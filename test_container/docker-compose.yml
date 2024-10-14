@@ -1,0 +1,77 @@
+---
+volumes:
+  data-postgres: {}
+  data-opennms: {}
+  data-config: {}
+
+
+services:
+  database:
+    image: postgres:15
+    container_name: database
+    environment:
+      TZ: 'America/New_York'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'my-postgres-password'
+    volumes:
+      - 'data-postgres:/var/lib/postgresql/data'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+    networks:
+      monitor_net:
+        ipv4_address: 172.20.0.5
+
+  horizon:
+    image: opennms/horizon:33.0.9
+    container_name: horizon
+    environment:
+      TZ: 'America/New_York'
+      POSTGRES_HOST: 'database'
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'my-postgres-password'
+      OPENNMS_DBNAME: 'opennms-core-db'
+      OPENNMS_DBUSER: 'opennms'
+      OPENNMS_DBPASS: 'my-opennms-db-password'
+    volumes:
+      - data-opennms:/opennms-data
+      - data-config:/opt/opennms/etc
+      - ./opennms-etc-overlay:/opt/opennms-etc-overlay
+    command: ["-s"]
+    ports:
+      - '8980:8980/tcp'
+    healthcheck:
+      test: [ 'CMD', 'curl', '-f', '-I', 'http://localhost:8980/opennms/login.jsp' ]
+      interval: 1m
+      timeout: 5s
+      retries: 3
+    networks:
+      monitor_net:
+        ipv4_address: 172.20.0.6
+
+  node1:
+    image: polinux/snmpd:alpine
+    container_name: node1
+    volumes:
+      - ./snmpd.conf:/etc/snmp/snmpd.conf
+    networks:
+      monitor_net:
+        ipv4_address: 172.20.0.10
+
+  node2:
+    image: polinux/snmpd:alpine
+    container_name: node2
+    volumes:
+      - ./snmpd.conf:/etc/snmp/snmpd.conf
+    networks:
+      monitor_net:
+        ipv4_address: 172.20.0.11
+
+networks:
+  monitor_net:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
