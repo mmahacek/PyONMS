@@ -2,8 +2,8 @@
 
 "Info endpoint models"
 
-from dataclasses import dataclass, field
-from typing import List, Optional, Union
+from dataclasses import dataclass
+from typing import Dict, List, Optional, Union
 
 
 @dataclass
@@ -60,8 +60,8 @@ class Info:
     packageDescription: Optional[str] = None
     ticketerConfig: Optional[TicketerConfig] = None
     datetimeformatConfig: Optional[Union[str, DateFormat]] = None
-    services: List[ServiceStatus] = field(default_factory=list)
-    enabled_services: List[str] = field(default_factory=list)
+    services: Optional[Union[List[ServiceStatus], Dict[str, str]]] = None
+    enabled_services: Optional[List[str]] = None
 
     def __post_init__(self):
         if isinstance(self.version, str):
@@ -74,7 +74,7 @@ class Info:
             self.datetimeformatConfig = DateFormat(**self.datetimeformatConfig)
         if isinstance(self.services, dict):
             services = []
-            for service, status in self.services:
+            for service, status in self.services.items():
                 services.append(ServiceStatus(name=service, status=status))
             self.services = services
         self.enabled_services = [service.name.lower() for service in self.services]

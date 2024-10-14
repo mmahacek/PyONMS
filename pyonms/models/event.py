@@ -12,7 +12,7 @@ from pyonms.utils import convert_time
 
 
 class Severity(Enum):
-    """Severity Levels"""
+    """Severity Levels by Number"""
 
     INDETERMINATE = 1
     "Indeterminate"
@@ -27,6 +27,23 @@ class Severity(Enum):
     MAJOR = 6
     "Major"
     CRITICAL = 7
+    "Critical"
+
+
+class SeverityName(Enum):
+    """Severity Levels by Name"""
+
+    INDETERMINATE = "Indeterminate"
+    "Indeterminate"
+    NORMAL = "Normal"
+    "Normal"
+    WARNING = "Warning"
+    "Warning"
+    MINOR = "Minor"
+    "Minor"
+    MAJOR = "Major"
+    "Major"
+    CRITICAL = "Critical"
     "Critical"
 
 

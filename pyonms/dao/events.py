@@ -16,7 +16,9 @@ class EventAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v2 + "events"
 
-    def get_event(self, id: int) -> Optional[pyonms.models.event.Event]:
+    def get_event(
+        self, id: int  # pylint: disable=W0622
+    ) -> Optional[pyonms.models.event.Event]:
         """Get event by ID number."""
         record = self._get(url=f"{self.url}/{id}")
         if record is not None:

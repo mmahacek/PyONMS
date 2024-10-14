@@ -90,3 +90,4 @@ commands =
 
 [tool.pylint.MASTER]
 ignore-paths = '^venv.*$'
+max-line-length = 120

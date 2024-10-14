@@ -7,10 +7,10 @@
 .. include:: ../README.md
 """
 
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 
 from multiprocessing import current_process
-from typing import Optional
+from typing import Any, Optional, Union
 from urllib.parse import urlsplit
 
 from pyonms import dao, models
@@ -39,7 +39,7 @@ class PyONMS:
             `PyONMS` object
         """
         self.hostname = hostname
-        args = {
+        args: dict[str, Any] = {
             "hostname": hostname,
             "username": username,
             "password": password,
@@ -62,7 +62,8 @@ class PyONMS:
             self.health_status = self.health.get_health()
 
         self.server_status = self.info.get_info()
-        args["version"] = self.server_status.version
+        if self.server_status:
+            args["version"] = self.server_status.version
 
         self.alarms = dao.alarms.AlarmAPI(args)
         """`pyonms.dao.alarms.AlarmAPI` endpoint"""
@@ -91,13 +92,14 @@ class PyONMS:
         Attributes:
             name (str): Daemon name
         """
-        if (
-            self.server_status.enabled_services
-            and name.lower() not in self.server_status.enabled_services
-        ):
-            raise models.exceptions.InvalidValueError(
-                name="name", value=name, valid=self.server_status.enabled_services
-            )
+        if self.server_status:
+            if (
+                self.server_status.enabled_services
+                and name.lower() not in self.server_status.enabled_services
+            ):
+                raise models.exceptions.InvalidValueError(
+                    name="name", value=name, valid=self.server_status.enabled_services
+                )
         reload_event = models.event.Event(
             uei="uei.opennms.org/internal/reloadDaemonConfig", source="pyonms"
         )

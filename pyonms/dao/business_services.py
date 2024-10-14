@@ -26,7 +26,7 @@ class BSMAPI(Endpoint):
         self.cache_name = {}
 
     def get_bsm(
-        self, id: int
+        self, id: int  # pylint: disable=W0622
     ) -> Optional[pyonms.models.business_service.BusinessService]:
         """Get BusinessService object by ID number."""
         record = self._get(url=f"{self.url}/{id}")
@@ -126,7 +126,9 @@ class BSMAPI(Endpoint):
             raise pyonms.models.exceptions.DuplicateEntityError(bsm.name, bsm)
 
     def update_bsm(
-        self, id: int, bsm: pyonms.models.business_service.BusinessServiceRequest
+        self,
+        id: int,  # pylint: disable=W0622
+        bsm: pyonms.models.business_service.BusinessServiceRequest,
     ):
         """Update existing BusinessService object."""
         self._put(url=f"{self.url}/{id}", json=bsm.to_dict())  # noqa: W0612

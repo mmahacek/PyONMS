@@ -89,12 +89,12 @@ def check_ip_address(ip: str, raise_error: bool = False):
     try:
         ipaddress.IPv4Address(ip)
         return True
-    except ipaddress.AddressValueError:
+    except ipaddress.AddressValueError as e:
         try:
             ipaddress.IPv6Address(ip)
             return True
         except ipaddress.AddressValueError:
             if raise_error:
-                raise ipaddress.AddressValueError
+                raise ipaddress.AddressValueError from e
             else:
                 return False

@@ -1,0 +1,42 @@
+<model-import xmlns="http://xmlns.opennms.org/xsd/config/model-import" date-stamp="2024-03-07T23:41:42.159-05:00" foreign-source="main">
+   <node foreign-id="n2" node-label="Node 2">
+      <interface ip-addr="172.20.0.11" status="1" snmp-primary="P"/>
+      <category name="Test"/>
+   </node>
+   <node foreign-id="n3" node-label="Node 3">
+      <interface ip-addr="172.20.0.10" status="1" snmp-primary="P"/>
+      <category name="Servers"/>
+      <meta-data context="requisition" key="key" value="value"/>
+   </node>
+   <node foreign-id="n4" node-label="Node 4">
+      <interface ip-addr="172.20.0.11" status="1" snmp-primary="P"/>
+      <category name="Test"/>
+   </node>
+   <node foreign-id="n5" node-label="Node 5">
+      <interface ip-addr="172.20.0.10" status="1" snmp-primary="P"/>
+      <category name="Servers"/>
+      <meta-data context="requisition" key="key" value="value"/>
+   </node>
+   <node foreign-id="n6" node-label="Node 6">
+      <interface ip-addr="172.20.0.11" status="1" snmp-primary="P"/>
+      <category name="Test"/>
+   </node>
+   <node foreign-id="n7" node-label="Node 7">
+      <interface ip-addr="172.20.0.10" status="1" snmp-primary="P"/>
+      <category name="Servers"/>
+      <meta-data context="requisition" key="key" value="value"/>
+   </node>
+   <node foreign-id="n8" node-label="Node 8">
+      <interface ip-addr="172.20.0.11" status="1" snmp-primary="P"/>
+      <category name="Test"/>
+   </node>
+   <node foreign-id="n9" node-label="Node 9">
+      <interface ip-addr="172.20.0.10" status="1" snmp-primary="P"/>
+      <category name="Servers"/>
+      <meta-data context="requisition" key="key" value="value"/>
+   </node>
+   <node foreign-id="n10" node-label="Node 10">
+      <interface ip-addr="172.20.0.11" status="1" snmp-primary="P"/>
+      <category name="Test"/>
+   </node>
+</model-import>

@@ -1,27 +1,16 @@
 # models.business_service.py
 
+# mypy: disable-error-code="union-attr"
+# pylint: disable=E1134
+
+"Business Service Models"
+
 from dataclasses import dataclass, field
-from enum import Enum
 from typing import Any, Dict, List, Optional, Union
 
 from pyonms.models import exceptions
+from pyonms.models.event import SeverityName as Severity
 from pyonms.utils import check_ip_address
-
-
-class Severity(Enum):
-    INDETERMINATE = "Indeterminate"
-    "Indeterminate"
-    NORMAL = "Normal"
-    "Normal"
-    WARNING = "Warning"
-    "Warning"
-    MINOR = "Minor"
-    "Minor"
-    MAJOR = "Major"
-    "Major"
-    CRITICAL = "Critical"
-    "Critical"
-
 
 MAP_FUNCTIONS = ["Identity", "Increase", "Decrease", "Ignore", "SetTo"]
 REDUCE_FUNCTIONS = [
@@ -32,17 +21,32 @@ REDUCE_FUNCTIONS = [
 ]
 
 
+def _base_attributes():
+    return {"attribute": []}
+
+
+def _reduce_function():
+    return ReduceFunction(type="HighestSeverity")
+
+
+def _map_function():
+    return MapFunction(type="Identity")
+
+
 @dataclass
 class Attribute:
+    "Business Service Attribute"
     key: str
     value: str
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         return {"key": self.key, "value": self.value}
 
 
 @dataclass(repr=False)
 class MapFunction:
+    "Business Service severity map function"
     type: str = "Identity"
     status: Optional[Severity] = None
     properties: dict = field(default_factory=dict)
@@ -64,11 +68,13 @@ class MapFunction:
             return f"MapFunction(type={self.type})"
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         return {"type": self.type, "properties": self.properties}
 
 
 @dataclass(repr=False)
 class ReduceFunction:
+    "Business Service severity reduce function"
     type: str = "HighestSeverity"
     threshold: float = 0.5
     above: Severity = Severity.INDETERMINATE
@@ -99,23 +105,13 @@ class ReduceFunction:
             return f"ReduceFunction(type={self.type}, properties={self.properties})"
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         return {"type": self.type, "properties": self.properties}
-
-
-def _base_attributes():
-    return {"attribute": []}
-
-
-def _reduce_function():
-    return ReduceFunction(type="HighestSeverity")
-
-
-def _map_function():
-    return MapFunction(type="Identity")
 
 
 @dataclass(repr=False)
 class IPService:
+    "IP Service"
     service_name: str
     node_label: str
     ip_address: str
@@ -126,12 +122,15 @@ class IPService:
         check_ip_address(self.ip_address, raise_error=True)
 
     def __repr__(self):
-        return f"IPService(id={self.id}, node={self.node_label}, ip_address={self.ip_address}, service_name={self.service_name})"
+        text = f"IPService(id={self.id}, node={self.node_label}, ip_address={self.ip_address},"
+        text += f" service_name={self.service_name})"
+        return text
 
     def __hash__(self):
         return hash((self.id))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "service-name": self.service_name,
             "node-label": self.node_label,
@@ -146,6 +145,7 @@ class IPService:
 
 @dataclass(repr=False)
 class ChildEdgeRequest:
+    "Child Edge Request"
     child_id: Optional[int] = None
     weight: int = 1
     map_function: MapFunction = field(default_factory=_map_function)
@@ -161,6 +161,7 @@ class ChildEdgeRequest:
         return hash((self.child_id))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "map-function": self.map_function.to_dict(),
             "weight": self.weight,
@@ -171,6 +172,7 @@ class ChildEdgeRequest:
 
 @dataclass(repr=False)
 class ChildEdge:
+    "Child Edge Response"
     id: int
     location: str
     operational_status: str
@@ -186,6 +188,7 @@ class ChildEdge:
         return hash((self.id))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "id": self.id,
             "location": self.location,
@@ -197,6 +200,7 @@ class ChildEdge:
         return payload
 
     def request(self) -> ChildEdgeRequest:
+        "Generate a Request object to use for updating the current object"
         return ChildEdgeRequest(
             child_id=self.child_id,
             weight=self.weight,
@@ -206,6 +210,7 @@ class ChildEdge:
 
 @dataclass(repr=False)
 class IPServiceEdgeRequest:
+    "IP Service Edge Request"
     friendly_name: str
     ip_service_id: Optional[int] = None
     weight: Optional[int] = 1
@@ -224,6 +229,7 @@ class IPServiceEdgeRequest:
         return hash((self.ip_service_id))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "friendly-name": self.friendly_name,
             "map-function": self.map_function.to_dict(),
@@ -235,6 +241,7 @@ class IPServiceEdgeRequest:
 
 @dataclass(repr=False)
 class IPServiceEdge:
+    "IP Service Edge Response"
     id: int
     location: str
     operational_status: str
@@ -265,6 +272,7 @@ class IPServiceEdge:
         return hash((self.id))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "id": self.id,
             "location": self.location,
@@ -277,6 +285,7 @@ class IPServiceEdge:
         return payload
 
     def request(self) -> IPServiceEdgeRequest:
+        "Generate a Request object to use for updating the current object"
         return IPServiceEdgeRequest(
             friendly_name=self.friendly_name,
             ip_service_id=self.ip_service_id,
@@ -287,6 +296,7 @@ class IPServiceEdge:
 
 @dataclass(repr=False)
 class Application:
+    "Application"
     id: int
     application_name: str
     location: Optional[str] = None
@@ -298,6 +308,7 @@ class Application:
         return hash((self.id))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "id": self.id,
             "application-name": self.application_name,
@@ -307,6 +318,7 @@ class Application:
 
 @dataclass(repr=False)
 class ApplicationEdgeRequest:
+    "Application Edge Request"
     id: int
     application_name: str
     weight: int = 1
@@ -323,6 +335,7 @@ class ApplicationEdgeRequest:
         return hash((self.application_name))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "application-id": self.id,
             "map-function": self.map_function.to_dict(),
@@ -333,6 +346,7 @@ class ApplicationEdgeRequest:
 
 @dataclass(repr=False)
 class ApplicationEdge:
+    "Application Edge Response"
     id: int
     location: str
     operational_status: str
@@ -359,6 +373,7 @@ class ApplicationEdge:
         return hash((self.id))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "id": self.id,
             "location": self.location,
@@ -370,6 +385,7 @@ class ApplicationEdge:
         return payload
 
     def request(self) -> ApplicationEdgeRequest:
+        "Generate a Request object to use for updating the current object"
         return ApplicationEdgeRequest(
             id=self.application.id,
             application_name=self.application.application_name,
@@ -380,6 +396,7 @@ class ApplicationEdge:
 
 @dataclass(repr=False)
 class ReductionKeyEdgeRequest:
+    "Reduction Key Edge Request"
     reduction_key: str
     friendly_name: str
     weight: int = 1
@@ -396,6 +413,7 @@ class ReductionKeyEdgeRequest:
         return hash((self.reduction_key))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "reduction-key": self.reduction_key,
             "map-function": self.map_function.to_dict(),
@@ -406,6 +424,7 @@ class ReductionKeyEdgeRequest:
 
 @dataclass(repr=False)
 class ReductionKeyEdge:
+    "Reduction Key Edge Response"
     id: int
     location: str
     friendly_name: str
@@ -427,6 +446,7 @@ class ReductionKeyEdge:
         return hash((self.id))
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "id": self.id,
             "location": self.location,
@@ -439,6 +459,7 @@ class ReductionKeyEdge:
         return payload
 
     def request(self) -> ReductionKeyEdgeRequest:
+        "Generate a Request object to use for updating the current object"
         return ReductionKeyEdgeRequest(
             reduction_key=self.reduction_keys[0],
             friendly_name=self.friendly_name,
@@ -449,8 +470,9 @@ class ReductionKeyEdge:
 
 @dataclass(repr=False)
 class BusinessServiceRequest:
+    "Business Service Request"
     name: str
-    attributes: List[Optional[Attribute]] = field(default_factory=list)
+    attributes: Optional[Union[List[Optional[Attribute]], Dict]] = None
     reduce_function: ReduceFunction = field(default_factory=_reduce_function)
     ip_service_edges: List[Optional[IPServiceEdgeRequest]] = field(default_factory=list)
     reduction_key_edges: List[Optional[ReductionKeyEdgeRequest]] = field(
@@ -466,6 +488,7 @@ class BusinessServiceRequest:
         return f"BusinessServiceRequest(name={self.name})"
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "name": self.name,
             "attributes": {"attribute": []},
@@ -493,6 +516,7 @@ class BusinessServiceRequest:
         return payload
 
     def add_attribute(self, attribute: Attribute) -> None:
+        "Add an attribute to the request"
         if attribute.key in [param.key for param in self.attributes]:
             self.attributes.remove(
                 [param for param in self.attributes if param.key == attribute.key][0]
@@ -506,6 +530,7 @@ class BusinessServiceRequest:
         application_edge: Optional[ApplicationEdgeRequest] = None,
         reduction_key_edge: Optional[ReductionKeyEdgeRequest] = None,
     ) -> None:
+        "Add/Change/Remove an edge from the request"
         if isinstance(ip_edge, IPServiceEdgeRequest):
             if ip_edge.ip_service_id in [
                 edge.ip_service_id for edge in self.ip_service_edges
@@ -577,11 +602,12 @@ class BusinessServiceRequest:
 
 @dataclass(repr=False)
 class BusinessService:
+    "Business Service Response"
     id: int
     location: str
     operational_status: str
     name: str
-    attributes: List[Optional[Attribute]] = field(default_factory=list)
+    attributes: Optional[Union[List[Optional[Attribute]], Dict]] = None
     reduce_function: ReduceFunction = field(default_factory=_reduce_function)
     ip_services_edges: List[Optional[IPServiceEdge]] = field(default_factory=list)
     reduction_key_edges: List[Optional[ReductionKeyEdge]] = field(default_factory=list)
@@ -659,6 +685,7 @@ class BusinessService:
         return f"BusinessService(id={self.id}, name={self.name})"
 
     def to_dict(self) -> dict:
+        "Convert object to a `dict`"
         payload: Dict[str, Any] = {
             "name": self.name,
             "id": self.id,
@@ -688,6 +715,7 @@ class BusinessService:
         return payload
 
     def request(self) -> BusinessServiceRequest:
+        "Generate a Request object to use for updating the current object"
         request = BusinessServiceRequest(
             name=self.name,
             attributes=self.attributes,

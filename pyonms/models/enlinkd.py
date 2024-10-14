@@ -1,5 +1,7 @@
 # models.enlinkd.py
 
+# cSpell:ignore SNPA
+
 "Enlinkd Models"
 
 import re
@@ -24,13 +26,13 @@ class LinkType(Enum):
 @dataclass
 class Link:
     "Link base class"
-    pass
+    link: bool = True
 
 
 @dataclass
 class Element:
     "Element base class"
-    pass
+    element: bool = True
 
 
 @dataclass

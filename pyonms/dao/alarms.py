@@ -16,7 +16,9 @@ class AlarmAPI(Endpoint):
         super().__init__(**kwargs)
         self.url = self.base_v2 + "alarms"
 
-    def get_alarm(self, id: int) -> Optional[pyonms.models.alarm.Alarm]:
+    def get_alarm(
+        self, id: int  # pylint: disable=W0622
+    ) -> Optional[pyonms.models.alarm.Alarm]:
         """Get alarm by ID number."""
         record = self._get(url=f"{self.url}/{id}")
         if record is not None:
@@ -50,7 +52,7 @@ class AlarmAPI(Endpoint):
     def _process_alarm(self, data: dict) -> pyonms.models.alarm.Alarm:
         return pyonms.models.alarm.Alarm(**data)
 
-    def ack_alarm(self, id: int, ack: bool):
+    def ack_alarm(self, id: int, ack: bool):  # pylint: disable=W0622
         """Acknowledge alarm by ID number."""
         if not isinstance(ack, bool):
             raise exceptions.InvalidValueError(
@@ -60,13 +62,13 @@ class AlarmAPI(Endpoint):
         self._put(url=f"{self.url}/{id}", params=params, data=params)
         return
 
-    def clear_alarm(self, id: int):
+    def clear_alarm(self, id: int):  # pylint: disable=W0622
         """Clear alarm by ID number."""
         params = {"clear": True}
         self._put(url=f"{self.url}/{id}", params=params, data=params)
         return
 
-    def escalate_alarm(self, id: int):
+    def escalate_alarm(self, id: int):  # pylint: disable=W0622
         """Escalate alarm severity by ID number."""
         params = {"escalate": True}
         self._put(url=f"{self.url}/{id}", params=params, data=params)
