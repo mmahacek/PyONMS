@@ -1,8 +1,9 @@
 # Changelog
 
-## [0.1.4] TBD
+## [0.1.4] 2026-05-12
 
 * Split `requirements.txt` to just the necessary packages for operation and created `requirements-dev.txt` for development.
+* Update pyproject to use `requirements.txt` for dependencies.
 * Fix processing of `Info` endpoint services.
 * Update pytest to use environment variables for server credentials.
 * Address pylint and mypy findings.

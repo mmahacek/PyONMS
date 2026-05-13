@@ -1,14 +1,14 @@
-requests
+-r requirements.txt
 python-dotenv
-pytz
 pytest
 pytest-cov
 pytest-vcr
-xmltodict
-tqdm
 pdoc
 tox
 coverage
 mypy
 black
 pylint
+types-xmltodict
+types-requests
+types-pytz
